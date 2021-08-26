@@ -64,12 +64,32 @@ class Transactions extends Component {
         label: "Category",
         name: "category",
       },
+      {
+        label: "Category",
+        name: "category",
+      },
+      {
+        label: "Category",
+        name: "category",
+      },
+      {
+        label: "Category",
+        name: "category",
+      },
+      {
+        label: "Category",
+        name: "category",
+      },
+      {
+        label: "Category",
+        name: "category",
+      },
     ];
 
     const options = {
       filter: true,
       filterType: "dropdown",
-      responsive: "stacked",
+      responsive: "standard",
       selectableRows: "none",
       expandableRows: true,
       expandableRowsHeader: false,
@@ -80,22 +100,11 @@ class Transactions extends Component {
         return (
           <TableRow>
             <TableCell colSpan={colSpan}>
-              <MUIDataTable
-                title={"Data"}
-                data={transactions}
-                columns={transactionsColumns}
-                options={{
-                  elevation: 0,
-                  print: false,
-                  filter: false,
-                  viewColumns: false,
-                  search: false,
-                  display: false,
-                  download: false,
-                  selectableRows: "none",
-                  pagination: false,
-                }}
-              />
+              <Container></Container>
+              <Row>
+                <Col>hi</Col>
+                <Col>hi</Col>
+              </Row>
             </TableCell>
           </TableRow>
         );
