@@ -15,7 +15,7 @@ export default function yahooReducer(state = initialState, action) {
     case GET_TICKER_DATA:
       return {
         ...state,
-        tickerData: action.payload,
+        tickerData: [action.payload, ...state.tickerData],
         tickerDataLoading: false,
       };
     default:
