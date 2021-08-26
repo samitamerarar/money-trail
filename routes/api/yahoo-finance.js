@@ -29,7 +29,6 @@ router.get(
           "fiftyTwoWeekHigh",
           "fiftyTwoWeekLowChange",
           "fiftyTwoWeekHighChange",
-          "regularMarketDayRange",
           "sharesOutstanding",
           "fiftyTwoWeekLowChangePercent",
           "fiftyTwoWeekHighChangePercent",
