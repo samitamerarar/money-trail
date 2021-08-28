@@ -34,6 +34,7 @@ router.get(
           "fiftyTwoWeekHighChangePercent",
           "bookValue",
           "dividendDate",
+          "trailingAnnualDividendRate",
           "trailingAnnualDividendYield",
           "forwardPE",
           "priceToBook",

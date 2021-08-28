@@ -15,7 +15,7 @@ class PortfolioDashboard extends Component {
   }
 
   componentDidMount() {
-    let symbols = [{ symbol: "TSLA" }, { symbol: "AAPL" }];
+    let symbols = [{ symbol: "ACN" }, { symbol: "AAPL" }];
 
     symbols.forEach((e) =>
       this.props.yahooFinance.tickerData.some((s) => {
@@ -30,6 +30,47 @@ class PortfolioDashboard extends Component {
     const { yahooFinance } = this.props;
     console.log(yahooFinance);
 
+    const data = JSON.parse(JSON.stringify(yahooFinance.tickerData));
+
+    yahooFinance.tickerData.forEach((e, i) => {
+      if (e.dividendDate) {
+        let date = new Date(e.dividendDate);
+        data[i].dividendDate =
+          date.getDate() +
+          " " +
+          date.toLocaleString("en-us", { month: "short" }) +
+          " " +
+          date.getFullYear().toString().substring(2);
+      }
+
+      Object.keys(e).forEach(function (key, j) {
+        if (
+          key &&
+          key !== "symbol" &&
+          key !== "displayName" &&
+          key !== "dividendDate" &&
+          key !== "trailingAnnualDividendYield" &&
+          key !== "fiftyTwoWeekLowChangePercent" &&
+          key !== "fiftyTwoWeekHighChangePercent"
+        ) {
+          data[i][key] = e[key].toLocaleString("en-US", {
+            maximumFractionDigits: 2,
+          });
+        }
+        switch (key) {
+          case "trailingAnnualDividendYield":
+          case "fiftyTwoWeekLowChangePercent":
+          case "fiftyTwoWeekHighChangePercent":
+            data[i][key] = (e[key] * 100).toLocaleString("en-US", {
+              maximumFractionDigits: 2,
+            });
+            break;
+          default:
+          // code block
+        }
+      });
+    });
+
     // Setting up data table
     const transactionsColumns = [
       {
@@ -37,121 +78,246 @@ class PortfolioDashboard extends Component {
         name: "symbol",
       },
       {
-        label: "Size of the company",
-        name: "name",
+        label: "Name",
+        name: "displayName",
       },
       {
-        label: "Last Price",
-        name: "name",
-      },
-      {
-        label: "% Change",
-        name: "name",
-      },
-      {
-        label: "$ Change",
-        name: "name",
-      },
-      {
-        label: "Highest today",
-        name: "name",
-      },
-      {
-        label: "Lowest today",
-        name: "name",
-      },
-      {
-        label: "First price",
-        name: "name",
-      },
-      {
-        label: "Closed price",
-        name: "name",
-      },
-      {
-        label: "Number of shares traded today",
-        name: "name",
-      },
-      {
-        label: "Average of shares traded (3 months)",
-        name: "name",
-      },
-      {
-        label: "52 weeks lowest",
-        name: "name",
-      },
-      {
-        label: "52 weeks highest",
-        name: "name",
-      },
-      {
-        label: "52 weeks high $ change",
-        name: "name",
-      },
-      {
-        label: "52 weeks low $ change",
-        name: "name",
-      },
-      {
-        label: "Low and High today",
-        name: "name",
-      },
-      {
-        label: "Outstanding shares",
-        name: "name",
-      },
-      {
-        label: "52 weeks high % change",
-        name: "name",
-      },
-      {
-        label: "52 weeks low 5 change",
-        name: "name",
-      },
-      {
-        label: "Book Value",
-        name: "name",
-      },
-      {
-        label: "Dividend paid date",
-        name: "name",
-        type: "date",
+        label: "Market Capitalization ($)",
+        name: "marketCap",
         options: {
-          filter: true,
-          sort: true,
+          setCellProps: () => ({
+            align: "right",
+          }),
         },
       },
       {
-        label: "Dividend return %",
-        name: "name",
+        label: "Price ($)",
+        name: "ask",
+        options: {
+          setCellProps: () => ({
+            align: "right",
+          }),
+        },
       },
       {
-        label: "Dividend return $",
-        name: "name",
+        label: "Price Change (%)",
+        name: "regularMarketChangePercent",
+        options: {
+          setCellProps: () => ({
+            align: "right",
+          }),
+        },
+      },
+      {
+        label: "Price Change ($)",
+        name: "regularMarketChange",
+        options: {
+          setCellProps: () => ({
+            align: "right",
+          }),
+        },
+      },
+      {
+        label: "Day's High ($)",
+        name: "regularMarketDayHigh",
+        options: {
+          setCellProps: () => ({
+            align: "right",
+          }),
+        },
+      },
+      {
+        label: "Day's Low ($)",
+        name: "regularMarketDayLow",
+        options: {
+          setCellProps: () => ({
+            align: "right",
+          }),
+        },
+      },
+      {
+        label: "Open Price ($)",
+        name: "regularMarketOpen",
+        options: {
+          setCellProps: () => ({
+            align: "right",
+          }),
+        },
+      },
+      {
+        label: "Previous Close ($)",
+        name: "regularMarketPreviousClose",
+        options: {
+          setCellProps: () => ({
+            align: "right",
+          }),
+        },
+      },
+      {
+        label: "Volume",
+        name: "regularMarketVolume",
+        options: {
+          setCellProps: () => ({
+            align: "right",
+          }),
+        },
+      },
+      {
+        label: "Average Daily Volume",
+        name: "averageDailyVolume3Month",
+        options: {
+          setCellProps: () => ({
+            align: "right",
+          }),
+        },
+      },
+      {
+        label: "52-week Low ($)",
+        name: "fiftyTwoWeekLow",
+        options: {
+          setCellProps: () => ({
+            align: "right",
+          }),
+        },
+      },
+      {
+        label: "52-week High ($)",
+        name: "fiftyTwoWeekHigh",
+        options: {
+          setCellProps: () => ({
+            align: "right",
+          }),
+        },
+      },
+      {
+        label: "52-week Low Change ($)",
+        name: "fiftyTwoWeekLowChange",
+        options: {
+          setCellProps: () => ({
+            align: "right",
+          }),
+        },
+      },
+      {
+        label: "52-week High Change ($)",
+        name: "fiftyTwoWeekHighChange",
+        options: {
+          setCellProps: () => ({
+            align: "right",
+          }),
+        },
+      },
+      {
+        label: "Outstanding shares",
+        name: "sharesOutstanding",
+        options: {
+          setCellProps: () => ({
+            align: "right",
+          }),
+        },
+      },
+      {
+        label: "52-week Low Change (%)",
+        name: "fiftyTwoWeekLowChangePercent",
+        options: {
+          setCellProps: () => ({
+            align: "right",
+          }),
+        },
+      },
+      {
+        label: "52-week High Change (%)",
+        name: "fiftyTwoWeekHighChangePercent",
+        options: {
+          setCellProps: () => ({
+            align: "right",
+          }),
+        },
+      },
+      {
+        label: "Book Value ($)",
+        name: "bookValue",
+        options: {
+          setCellProps: () => ({
+            align: "right",
+          }),
+        },
+      },
+      {
+        label: "Dividend Pay Date",
+        name: "dividendDate",
+      },
+      {
+        label: "Dividend Yield (%)",
+        name: "trailingAnnualDividendYield",
+        options: {
+          setCellProps: () => ({
+            align: "right",
+          }),
+        },
+      },
+      {
+        label: "Dividend/Share ($)",
+        name: "trailingAnnualDividendRate",
+        options: {
+          setCellProps: () => ({
+            align: "right",
+          }),
+        },
       },
       {
         label: "Forward P/E Ratio",
-        name: "name",
+        name: "forwardPE",
+        options: {
+          setCellProps: () => ({
+            align: "right",
+          }),
+        },
       },
       {
         label: "PEG Ratio",
         name: "name",
+        options: {
+          setCellProps: () => ({
+            align: "right",
+          }),
+        },
       },
       {
         label: "Price/Book",
-        name: "name",
+        name: "priceToBook",
+        options: {
+          setCellProps: () => ({
+            align: "right",
+          }),
+        },
       },
       {
         label: "Trailing P/E Ratio",
-        name: "name",
+        name: "trailingPE",
+        options: {
+          setCellProps: () => ({
+            align: "right",
+          }),
+        },
       },
       {
         label: "Price/Sales",
         name: "name",
+        options: {
+          setCellProps: () => ({
+            align: "right",
+          }),
+        },
       },
       {
         label: "Beta",
         name: "name",
+        options: {
+          setCellProps: () => ({
+            align: "right",
+          }),
+        },
       },
     ];
 
@@ -220,7 +386,7 @@ class PortfolioDashboard extends Component {
                   <MuiThemeProvider theme={theme}>
                     <MUIDataTable
                       title={"List"}
-                      data={yahooFinance.tickerData}
+                      data={data}
                       columns={transactionsColumns}
                       options={options}
                       components={components}
