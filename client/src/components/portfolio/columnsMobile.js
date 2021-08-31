@@ -1,4 +1,4 @@
-export const columnsResponsive = [
+export const columnsMobile = [
   {
     label: "Symbol",
     name: "symbol",
@@ -417,7 +417,7 @@ export const columnsResponsive = [
   },
 ];
 
-export const columnsResponsiveExpandRow = [
+export const columnsMobileExpandRow = [
   {
     label: "Symbol",
     name: "symbol",

@@ -1,4 +1,4 @@
-export const columns = [
+export const columnsDesktop = [
   {
     label: "Symbol",
     name: "symbol",
@@ -382,7 +382,7 @@ export const columns = [
 ];
 
 /*
-export const columnsExpandRow = [
+export const columnsDesktopExpandRow = [
   {
     label: "Symbol",
     name: "symbol",

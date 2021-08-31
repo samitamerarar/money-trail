@@ -10,11 +10,32 @@ import TableCell from "@material-ui/core/TableCell";
 import { MuiThemeProvider } from "@material-ui/core/styles";
 import { createTheme } from "@material-ui/core/styles";
 import PortfolioTable from "./PortfolioTable";
+import AddStockModal from "./AddStockModal";
 
 class PortfolioDashboard extends Component {
   constructor(props) {
     super(props);
+
+    this.state = { isOpenModal: false };
   }
+
+  openModal = () => this.setState({ isOpenModal: true });
+  closeModal = () => this.setState({ isOpenModal: false });
+
+  handleSubmit = (data) => {
+    // if (data) {
+    //   const filteredData = data
+    //     .split(/\r?\n/)
+    //     .map((e) => e.trim())
+    //     .filter((e) => e);
+    //   if (filteredData.length) {
+    //     this.props.addShop({
+    //       shops: filteredData,
+    //       category: this.props.category,
+    //     });
+    //   }
+    // }
+  };
 
   componentDidMount() {
     let symbols = [{ symbol: "ACN" }, { symbol: "AAPL" }];
@@ -89,7 +110,9 @@ class PortfolioDashboard extends Component {
                   </p>
                 </Col>
                 <Col className="d-flex justify-content-end">
-                  <Button variant="primary">Primary</Button>
+                  <Button variant="primary" onClick={(e) => this.openModal()}>
+                    Add Asset
+                  </Button>
                 </Col>
               </Row>
             </Container>
@@ -99,6 +122,11 @@ class PortfolioDashboard extends Component {
             </Container>
           </Col>
         </Row>
+        <AddStockModal
+          show={this.state.isOpenModal}
+          onHide={() => this.closeModal()}
+          handleSubmit={(e) => this.handleSubmit(e)}
+        />
       </Container>
     );
   }
