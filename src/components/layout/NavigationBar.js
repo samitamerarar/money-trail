@@ -17,7 +17,7 @@ class NavigationBar extends Component {
 
     return (
       <Navbar bg="dark" variant="dark" expand="lg">
-        <Container>
+        <Container style={{ padding: "0px" }}>
           <Navbar.Brand as={Link} to="/">
             Money Trail
           </Navbar.Brand>
