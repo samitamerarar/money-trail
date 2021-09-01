@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Container, Row, Col, Form, Button, Modal } from "react-bootstrap";
+import AddStockForm from "./AddStockForm";
 
 class AddStockModal extends Component {
   constructor() {
@@ -37,24 +38,11 @@ class AddStockModal extends Component {
                   centered>
                   <Modal.Header closeButton>
                     <Modal.Title id="contained-modal-title-vcenter">
-                      Add Shops
+                      Add Asset
                     </Modal.Title>
                   </Modal.Header>
                   <Modal.Body>
-                    <Form>
-                      <Form.Group
-                        className="mb-3"
-                        controlId="exampleForm.ControlTextarea1">
-                        <Form.Label>
-                          Input shops names (one per line)
-                        </Form.Label>
-                        <Form.Control
-                          as="textarea"
-                          rows={5}
-                          onChange={this.handleInputChange}
-                        />
-                      </Form.Group>
-                    </Form>
+                    <AddStockForm />
                   </Modal.Body>
                   <Modal.Footer>
                     <Button
