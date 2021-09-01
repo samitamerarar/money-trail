@@ -118,19 +118,6 @@ export const columnsMobile = [
       setCellProps: () => ({
         align: "right",
       }),
-      hint:
-        "Sector Name:	Sector Drivers \n" +
-        "Consumer Discretionary	Healthy GDP Growth\n" +
-        "Consumer Staples	N/A (Defensive Sector)\n" +
-        "Energy	Rising Oil Prices\n" +
-        "Financials	Low Unemployment\n" +
-        "Health Care	Favorable Government Policy\n" +
-        "Industrials	Healthy GDP Growth\n" +
-        "Information Technology	Product Cycle\n" +
-        "Materials	Rising Commodity Prices\n" +
-        "Real Estate	Low Interest Rates\n" +
-        "Telecommunications Services	Healthy GDP Growth\n" +
-        "Utilities	N/A (Defensive Sector)",
     },
   },
   {
@@ -515,6 +502,7 @@ export const columnsMobileExpandRow = [
     label: "Sector Exposure (%)",
     name: "name",
     options: {
+      display: false,
       setCellProps: () => ({
         align: "right",
       }),
@@ -524,22 +512,10 @@ export const columnsMobileExpandRow = [
     label: "Sector Driver",
     name: "name",
     options: {
+      display: false,
       setCellProps: () => ({
         align: "right",
       }),
-      hint:
-        "Sector Name:	Sector Drivers \n" +
-        "Consumer Discretionary	Healthy GDP Growth\n" +
-        "Consumer Staples	N/A (Defensive Sector)\n" +
-        "Energy	Rising Oil Prices\n" +
-        "Financials	Low Unemployment\n" +
-        "Health Care	Favorable Government Policy\n" +
-        "Industrials	Healthy GDP Growth\n" +
-        "Information Technology	Product Cycle\n" +
-        "Materials	Rising Commodity Prices\n" +
-        "Real Estate	Low Interest Rates\n" +
-        "Telecommunications Services	Healthy GDP Growth\n" +
-        "Utilities	N/A (Defensive Sector)",
     },
   },
   {
