@@ -5,21 +5,25 @@ import AddStockForm from "./AddStockForm";
 class AddStockModal extends Component {
   constructor() {
     super();
-    this.state = { stockSymbol: null };
-    this.handleInputChange = this.handleInputChange.bind(this);
+    this.state = { investment: null };
   }
 
   componentDidMount() {}
 
-  handleInputChange(e) {
-    e.preventDefault();
-    this.setState({ stockSymbol: e.target.value });
-  }
+  receiveFormData = (data) => {
+    this.setState(
+      {
+        investment: data,
+      },
+      () => {
+        this.submit();
+      }
+    );
+  };
 
-  onSubmit = (e) => {
-    e.preventDefault();
-    if (this.state.stockSymbol) {
-      this.props.handleSubmit(this.state.stockSymbol);
+  submit = () => {
+    if (this.state.investment) {
+      this.props.handleSubmit(this.state.investment);
     }
     this.props.onHide();
   };
@@ -42,19 +46,10 @@ class AddStockModal extends Component {
                     </Modal.Title>
                   </Modal.Header>
                   <Modal.Body>
-                    <AddStockForm />
+                    <AddStockForm
+                      sendFormData={(e) => this.receiveFormData(e)}
+                    />
                   </Modal.Body>
-                  <Modal.Footer>
-                    <Button
-                      variant="primary"
-                      type="submit"
-                      onClick={this.onSubmit}>
-                      Submit
-                    </Button>
-                    <Button variant="secondary" onClick={this.props.onHide}>
-                      Close
-                    </Button>
-                  </Modal.Footer>
                 </Modal>
               </Col>
             </Row>

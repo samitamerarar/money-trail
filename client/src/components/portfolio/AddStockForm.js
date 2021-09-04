@@ -9,8 +9,9 @@ import {
   Tooltip,
   OverlayTrigger,
 } from "react-bootstrap";
+import SearchTicker from "./SearchTicker";
 
-const AddStockForm = () => {
+const AddStockForm = (props) => {
   // Form
   const [form, setForm] = useState({});
   const [errors, setErrors] = useState({});
@@ -21,7 +22,7 @@ const AddStockForm = () => {
   const [showRisk, setShowRisk] = useState(false);
   const targetRisk = useRef(null);
 
-  const setField = (field, value) => {
+  const setField = async (field, value) => {
     setForm({
       ...form,
       [field]: value,
@@ -36,37 +37,24 @@ const AddStockForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // get our new errors
     const newErrors = findFormErrors();
-    // Conditional logic:
     if (Object.keys(newErrors).length > 0) {
-      // We got errors!
+      // Errors!
       setErrors(newErrors);
     } else {
-      // No errors! Put any logic here for the form submission!
-      alert("Thank you for your feedback!");
+      // No Errors
+      props.sendFormData(form);
     }
   };
 
   const findFormErrors = () => {
-    const {
-      name,
-      sector,
-      price,
-      shares,
-      date,
-      comment,
-      checkbox1,
-      checkbox2,
-      checkbox3,
-      checkbox4,
-      checkbox5,
-      risk,
-    } = form;
+    const { symbolNameObj, sector, price, shares, date, comments, risk } = form;
     const newErrors = {};
-    // name errors
-    if (!name || name === "") newErrors.name = "cannot be blank!";
-    else if (name.length > 30) newErrors.name = "name is too long!";
+    // symbol object errors
+    if (!symbolNameObj || !symbolNameObj.symbol)
+      newErrors.symbolNameObj = "cannot be blank!";
+    else if (!symbolNameObj || !symbolNameObj.shortname)
+      newErrors.symbolNameObj = "please choose a valid symbol!";
     // price errors
     if (!price || price > 999999 || price <= 0)
       newErrors.price = "must be a valid number!";
@@ -77,21 +65,26 @@ const AddStockForm = () => {
     if (!date) newErrors.date = "must have a date!";
     // sector errors
     if (!sector || sector === "") newErrors.sector = "select a sector!";
-    // checkboxes errors
-    if (checkbox1 !== null) newErrors.checkbox1 = "Please tick the checkbox!";
-    if (checkbox2 !== null) newErrors.checkbox2 = "Please tick the checkbox!";
-    if (checkbox3 !== null) newErrors.checkbox3 = "Please tick the checkbox!";
-    if (checkbox4 !== null) newErrors.checkbox4 = "Please tick the checkbox!";
-    if (checkbox5 !== null) newErrors.checkbox5 = "Please tick the checkbox!";
     // risk errors
     if (!risk || risk === "") newErrors.risk = "select a risk!";
 
-    // comment errors
-    //if (!comment || comment === "") newErrors.comment = "cannot be blank!";
-    if (comment && comment.length > 200)
-      newErrors.comment = "comment is too long! (200 characters max)";
+    // comments errors
+    //if (!comments || comments === "") newErrors.comments = "cannot be blank!";
+    if (comments && comments.length > 200)
+      newErrors.comments = "comments are too long! (200 characters max)";
 
     return newErrors;
+  };
+
+  const setSelectedSymbol = (selectedSymbol) => {
+    if (
+      selectedSymbol &&
+      selectedSymbol[0] &&
+      selectedSymbol[0].shortname &&
+      selectedSymbol[0].symbol
+    ) {
+      setField("symbolNameObj", selectedSymbol[0]);
+    }
   };
 
   return (
@@ -99,420 +92,402 @@ const AddStockForm = () => {
       <Form>
         <Form.Group>
           <Form.Label>Search</Form.Label>
-          <Form.Control
-            type="text"
-            onChange={(e) => setField("name", e.target.value)}
-            isInvalid={!!errors.name}
+
+          <SearchTicker
+            getSelected={(e) => setSelectedSymbol(e)}
+            isInvalid={!!errors.symbolNameObj}
+            disabled={form.symbolNameObj}
           />
           <Form.Control.Feedback type="invalid">
-            {errors.name}
+            {errors.symbolNameObj}
           </Form.Control.Feedback>
         </Form.Group>
 
-        <Row>
-          <Col>
+        {form.symbolNameObj && (
+          <>
+            <Row>
+              <Col>
+                <Form.Group>
+                  <Form.Label>Share(s) bought</Form.Label>
+                  <Form.Control
+                    type="number"
+                    placeholder="# Share(s)"
+                    onChange={(e) => setField("shares", e.target.value)}
+                    isInvalid={!!errors.shares}
+                  />
+                  <Form.Control.Feedback type="invalid">
+                    {errors.shares}
+                  </Form.Control.Feedback>
+                </Form.Group>
+              </Col>
+              <Col>
+                <Form.Group>
+                  <Form.Label>Share price</Form.Label>
+                  <Form.Control
+                    type="number"
+                    placeholder="Price"
+                    onChange={(e) => setField("price", e.target.value)}
+                    isInvalid={!!errors.price}
+                  />
+                  <Form.Control.Feedback type="invalid">
+                    {errors.price}
+                  </Form.Control.Feedback>
+                </Form.Group>
+              </Col>
+            </Row>
+
             <Form.Group>
-              <Form.Label>Share(s) bought</Form.Label>
+              <Form.Label>Date of purchase</Form.Label>
               <Form.Control
-                type="number"
-                placeholder="# Share(s)"
-                onChange={(e) => setField("shares", e.target.value)}
-                isInvalid={!!errors.shares}
+                type="date"
+                name="date"
+                isInvalid={!!errors.date}
+                onChange={(e) => setField("date", e.target.value)}
               />
               <Form.Control.Feedback type="invalid">
-                {errors.shares}
+                {errors.date}
               </Form.Control.Feedback>
             </Form.Group>
-          </Col>
-          <Col>
+
             <Form.Group>
-              <Form.Label>Share price</Form.Label>
+              <Row>
+                <Col>
+                  <Form.Label>Sector</Form.Label>
+                </Col>
+                <Col className="d-flex justify-content-end">
+                  <Button
+                    className="mb-1"
+                    variant="info"
+                    ref={targetSectorsDrivers}
+                    onClick={() => setShowSectorsDrivers(!showSectorsDrivers)}
+                    size="sm">
+                    <small>Toggle Sec. Drivers</small>
+                  </Button>
+                  <Overlay
+                    target={targetSectorsDrivers.current}
+                    show={showSectorsDrivers}
+                    placement="left">
+                    {(props) => (
+                      <Tooltip {...props}>
+                        <p>
+                          <b>Name</b> - <b>Sector Driver</b>
+                        </p>
+                        <p>CD - Healthy GDP growth</p>
+                        <p>CS - N/A (Defensive Sector)</p>
+                        <p>Energy - Rising Oil Prices</p>
+                        <p>Fin. - Low Unemployment</p>
+                        <p>Health - Favorable Gov Policy</p>
+                        <p>Ind. - Healthy GDP Growth</p>
+                        <p>IT - Product Cycle</p>
+                        <p>M. - Rising Commodity Prices</p>
+                        <p>RE - Low Interest Rates</p>
+                        <p>Tel. - Healthy GDP Growth</p>
+                        <p>Util. - N/A (Defensive Sector)</p>
+                      </Tooltip>
+                    )}
+                  </Overlay>
+                </Col>
+              </Row>
+
               <Form.Control
-                type="number"
-                placeholder="Price"
-                onChange={(e) => setField("price", e.target.value)}
-                isInvalid={!!errors.price}
+                as="select"
+                onChange={(e) => setField("sector", e.target.value)}
+                isInvalid={!!errors.sector}>
+                <option value="">Select a sector...</option>
+                <option value="Consumer Discretionary">
+                  Consumer Discretionary
+                </option>
+                <option value="Consumer Staples">Consumer Staples</option>
+                <option value="Financials">Financials</option>
+                <option value="Health Care">Health Care</option>
+                <option value="Industrials">Industrials</option>
+                <option value="Information Technology">
+                  Information Technology
+                </option>
+                <option value="Materials">Materials</option>
+                <option value="Real Estate">Real Estate</option>
+                <option value="Telecommunications Services">
+                  Telecommunications Services
+                </option>
+                <option value="Utilities">Utilities</option>
+              </Form.Control>
+              <Form.Control.Feedback type="invalid">
+                {errors.sector}
+              </Form.Control.Feedback>
+            </Form.Group>
+
+            <Form.Label className="mb-3">Helpful Questions</Form.Label>
+            <Form.Group>
+              <Row>
+                <Col sm={8}>
+                  <Form.Check
+                    disabled
+                    checked
+                    required
+                    name="checkbox1"
+                    type="checkbox"
+                    label="If this is an ETF, did you get a reasonably low fee? (hidden fees?)"
+                    isInvalid={!!errors.checkbox1}
+                    feedback={errors.checkbox1}
+                  />
+                </Col>
+                <Col className="d-flex justify-content-end" sm={4}>
+                  <OverlayTrigger
+                    placement="left"
+                    overlay={
+                      <Tooltip id="button-tooltip-2">
+                        If you don't know what the fees are, either read the ETF
+                        investment prospectus (if applicable) or call the
+                        company that issued the ETF or other fund type as you
+                        have the right to know how they are charging you.
+                      </Tooltip>
+                    }>
+                    {({ ref, ...triggerHandler }) => (
+                      <Button
+                        variant="warning"
+                        ref={ref}
+                        {...triggerHandler}
+                        className="d-inline-flex align-items-center"
+                        size="sm">
+                        Info
+                      </Button>
+                    )}
+                  </OverlayTrigger>
+                </Col>
+              </Row>
+            </Form.Group>
+            <Form.Group>
+              <Row>
+                <Col sm={8}>
+                  <Form.Check
+                    disabled
+                    checked
+                    required
+                    name="checkbox2"
+                    type="checkbox"
+                    label="If this is a stock, did you try the product or service?"
+                    isInvalid={!!errors.checkbox2}
+                    feedback={errors.checkbox2}
+                  />
+                </Col>
+                <Col className="d-flex justify-content-end" sm={4}>
+                  <OverlayTrigger
+                    placement="left"
+                    overlay={
+                      <Tooltip id="button-tooltip-2">
+                        Invest in what you understand as it will really help you
+                        with your investment research.
+                      </Tooltip>
+                    }>
+                    {({ ref, ...triggerHandler }) => (
+                      <Button
+                        variant="warning"
+                        ref={ref}
+                        {...triggerHandler}
+                        className="d-inline-flex align-items-center"
+                        size="sm">
+                        Info
+                      </Button>
+                    )}
+                  </OverlayTrigger>
+                </Col>
+              </Row>
+            </Form.Group>
+            <Form.Group>
+              <Row>
+                <Col sm={8}>
+                  <Form.Check
+                    disabled
+                    checked
+                    required
+                    name="checkbox3"
+                    type="checkbox"
+                    label="If this is a stock, are you comfortable with the valuation?"
+                    isInvalid={!!errors.checkbox3}
+                    feedback={errors.checkbox3}
+                  />
+                </Col>
+                <Col className="d-flex justify-content-end" sm={4}>
+                  <OverlayTrigger
+                    placement="left"
+                    overlay={
+                      <Tooltip id="button-tooltip-2">
+                        Is the P/E too high? If so, is it because the company is
+                        growing quickly? We all have different investment
+                        philosophies. Some of us buy cheap stocks with a low
+                        Price to Book ratio (like "Value Investors" like Warren
+                        Buffett) and others like expensive stocks like Amazon as
+                        they are growing quickly ("Growth Investors"). We are
+                        all different. Just know what style you prefer.
+                      </Tooltip>
+                    }>
+                    {({ ref, ...triggerHandler }) => (
+                      <Button
+                        variant="warning"
+                        ref={ref}
+                        {...triggerHandler}
+                        className="d-inline-flex align-items-center"
+                        size="sm">
+                        Info
+                      </Button>
+                    )}
+                  </OverlayTrigger>
+                </Col>
+              </Row>
+            </Form.Group>
+            <Form.Group>
+              <Row>
+                <Col sm={8}>
+                  <Form.Check
+                    disabled
+                    checked
+                    required
+                    name="checkbox4"
+                    type="checkbox"
+                    label="Did you read the prospectus (ETF) or the annual report (stock)?"
+                    isInvalid={!!errors.checkbox4}
+                    feedback={errors.checkbox4}
+                  />
+                </Col>
+                <Col className="d-flex justify-content-end" sm={4}>
+                  <OverlayTrigger
+                    placement="left"
+                    overlay={
+                      <Tooltip id="button-tooltip-2">
+                        You can access the prospectus by calling the company
+                        that you bought the investment from or by going to the
+                        website of the ETF company (i.e., Vanguard.com). If you
+                        want access to the annual report for a stock, go to that
+                        company's website and search for "Annual Report".
+                      </Tooltip>
+                    }>
+                    {({ ref, ...triggerHandler }) => (
+                      <Button
+                        variant="warning"
+                        ref={ref}
+                        {...triggerHandler}
+                        className="d-inline-flex align-items-center"
+                        size="sm">
+                        Info
+                      </Button>
+                    )}
+                  </OverlayTrigger>
+                </Col>
+              </Row>
+            </Form.Group>
+            <Form.Group>
+              <Row>
+                <Col sm={8}>
+                  <Form.Check
+                    disabled
+                    checked
+                    required
+                    name="checkbox5"
+                    type="checkbox"
+                    label="Aware of benefits if investment is in a retirement account?"
+                    isInvalid={!!errors.checkbox5}
+                    feedback={errors.checkbox5}
+                  />
+                  {errors.checkboxes}
+                </Col>
+                <Col className="d-flex justify-content-end" sm={4}>
+                  <OverlayTrigger
+                    placement="left"
+                    overlay={
+                      <Tooltip id="button-tooltip-2">
+                        Make sure that this investment is in your retirement
+                        account if you have room in your retirement account and
+                        if your country has retirement savings account benefits
+                        (for tax savings purposes).
+                      </Tooltip>
+                    }>
+                    {({ ref, ...triggerHandler }) => (
+                      <Button
+                        variant="warning"
+                        ref={ref}
+                        {...triggerHandler}
+                        className="d-inline-flex align-items-center"
+                        size="sm">
+                        Info
+                      </Button>
+                    )}
+                  </OverlayTrigger>
+                </Col>
+              </Row>
+            </Form.Group>
+
+            <Form.Group className="mt-4">
+              <Row>
+                <Col>
+                  <Form.Label>Investment Risk</Form.Label>
+                </Col>
+                <Col className="d-flex justify-content-end">
+                  <Button
+                    className="mb-1"
+                    variant="info"
+                    ref={targetRisk}
+                    onClick={() => setShowRisk(!showRisk)}
+                    size="sm">
+                    <small>Toggle Risk Info</small>
+                  </Button>
+                  <Overlay
+                    target={targetRisk.current}
+                    show={showRisk}
+                    placement="left">
+                    {(props) => (
+                      <Tooltip {...props}>
+                        There are 2 standard types of investment risk classes. 1
+                        risk class is simply called more-risky and the other
+                        investment class is called less-risky. The less risky
+                        class consists of investments that are more likely going
+                        to hold their value like government bonds or corporate
+                        bonds with a rating of A or above as well as money in
+                        your bank account or large cap stock funds or value
+                        stock funds – meaning funds stocks that are not
+                        expensive. Less risky means funds only and not
+                        individual stocks or corporate bonds. Everything else is
+                        more-risky, including individual stocks and individual
+                        corporate bonds and any bond fund with a rating below A.
+                        Commodities and reits are also classified as more-risky.
+                      </Tooltip>
+                    )}
+                  </Overlay>
+                </Col>
+              </Row>
+
+              <Form.Control
+                as="select"
+                onChange={(e) => setField("risk", e.target.value)}
+                isInvalid={!!errors.risk}>
+                <option value="">Select the risk...</option>
+                <option value="More-Risky">More-Risky</option>
+                <option value="Less-Risky">Less-Risky</option>
+              </Form.Control>
+              <Form.Control.Feedback type="invalid">
+                {errors.risk}
+              </Form.Control.Feedback>
+            </Form.Group>
+
+            <Form.Group>
+              <Form.Label>
+                Comments <small>(Why is it a good investment?)</small>
+              </Form.Label>
+              <Form.Control
+                as="textarea"
+                onChange={(e) => setField("comments", e.target.value)}
+                isInvalid={!!errors.comments}
               />
               <Form.Control.Feedback type="invalid">
-                {errors.price}
+                {errors.comments}
               </Form.Control.Feedback>
             </Form.Group>
-          </Col>
-        </Row>
-
-        <Form.Group>
-          <Form.Label>Date of purchase</Form.Label>
-          <Form.Control
-            type="date"
-            name="date"
-            isInvalid={!!errors.date}
-            onChange={(e) => setField("date", e.target.value)}
-          />
-          <Form.Control.Feedback type="invalid">
-            {errors.date}
-          </Form.Control.Feedback>
-        </Form.Group>
-
-        <Form.Group>
-          <Row>
-            <Col>
-              <Form.Label>Sector</Form.Label>
-            </Col>
-            <Col className="d-flex justify-content-end">
-              <Button
-                className="mb-1"
-                variant="info"
-                ref={targetSectorsDrivers}
-                onClick={() => setShowSectorsDrivers(!showSectorsDrivers)}
-                size="sm">
-                <small>Toggle Sec. Drivers</small>
+            <Col className="d-flex justify-content-end p-0">
+              <Button type="submit" onClick={handleSubmit}>
+                Add Investment
               </Button>
-              <Overlay
-                target={targetSectorsDrivers.current}
-                show={showSectorsDrivers}
-                placement="left">
-                {(props) => (
-                  <Tooltip {...props}>
-                    <p>
-                      <b>Name</b> - <b>Sector Driver</b>
-                    </p>
-                    <p>CD - Healthy GDP growth</p>
-                    <p>CS - N/A (Defensive Sector)</p>
-                    <p>Energy - Rising Oil Prices</p>
-                    <p>Fin. - Low Unemployment</p>
-                    <p>Health - Favorable Gov Policy</p>
-                    <p>Ind. - Healthy GDP Growth</p>
-                    <p>IT - Product Cycle</p>
-                    <p>M. - Rising Commodity Prices</p>
-                    <p>RE - Low Interest Rates</p>
-                    <p>Tel. - Healthy GDP Growth</p>
-                    <p>Util. - N/A (Defensive Sector)</p>
-                  </Tooltip>
-                )}
-              </Overlay>
             </Col>
-          </Row>
-
-          <Form.Control
-            as="select"
-            onChange={(e) => setField("sector", e.target.value)}
-            isInvalid={!!errors.sector}>
-            <option value="">Select a sector...</option>
-            <option value="Consumer Discretionary">
-              Consumer Discretionary
-            </option>
-            <option value="Consumer Staples">Consumer Staples</option>
-            <option value="Financials">Financials</option>
-            <option value="Health Care">Health Care</option>
-            <option value="Industrials">Industrials</option>
-            <option value="Information Technology">
-              Information Technology
-            </option>
-            <option value="Materials">Materials</option>
-            <option value="Real Estate">Real Estate</option>
-            <option value="Telecommunications Services">
-              Telecommunications Services
-            </option>
-            <option value="Utilities">Utilities</option>
-          </Form.Control>
-          <Form.Control.Feedback type="invalid">
-            {errors.sector}
-          </Form.Control.Feedback>
-        </Form.Group>
-
-        <Form.Label className="mb-3">Helpful Questions</Form.Label>
-        <Form.Group>
-          <Row>
-            <Col sm={8}>
-              <Form.Check
-                required
-                name="checkbox1"
-                type="checkbox"
-                label="If this is an ETF, did you get a reasonably low fee? (hidden fees?)"
-                isInvalid={!!errors.checkbox1}
-                feedback={errors.checkbox1}
-                onChange={(e) => {
-                  if (errors["checkbox1"] && errors["checkbox1"] !== null) {
-                    setField("checkbox1", null);
-                  } else {
-                    setField("checkbox1", e.target.value);
-                  }
-                }}
-              />
-            </Col>
-            <Col className="d-flex justify-content-end" sm={4}>
-              <OverlayTrigger
-                placement="left"
-                overlay={
-                  <Tooltip id="button-tooltip-2">
-                    If you don't know what the fees are, either read the ETF
-                    investment prospectus (if applicable) or call the company
-                    that issued the ETF or other fund type as you have the right
-                    to know how they are charging you.
-                  </Tooltip>
-                }>
-                {({ ref, ...triggerHandler }) => (
-                  <Button
-                    variant="warning"
-                    ref={ref}
-                    {...triggerHandler}
-                    className="d-inline-flex align-items-center"
-                    size="sm">
-                    Info
-                  </Button>
-                )}
-              </OverlayTrigger>
-            </Col>
-          </Row>
-        </Form.Group>
-        <Form.Group>
-          <Row>
-            <Col sm={8}>
-              <Form.Check
-                required
-                name="checkbox2"
-                type="checkbox"
-                label="If this is a stock, did you try the product or service?"
-                isInvalid={!!errors.checkbox2}
-                feedback={errors.checkbox2}
-                onChange={(e) => {
-                  if (errors["checkbox2"] && errors["checkbox2"] !== null) {
-                    setField("checkbox2", null);
-                  } else {
-                    setField("checkbox2", e.target.value);
-                  }
-                }}
-              />
-            </Col>
-            <Col className="d-flex justify-content-end" sm={4}>
-              <OverlayTrigger
-                placement="left"
-                overlay={
-                  <Tooltip id="button-tooltip-2">
-                    Invest in what you understand as it will really help you
-                    with your investment research.
-                  </Tooltip>
-                }>
-                {({ ref, ...triggerHandler }) => (
-                  <Button
-                    variant="warning"
-                    ref={ref}
-                    {...triggerHandler}
-                    className="d-inline-flex align-items-center"
-                    size="sm">
-                    Info
-                  </Button>
-                )}
-              </OverlayTrigger>
-            </Col>
-          </Row>
-        </Form.Group>
-        <Form.Group>
-          <Row>
-            <Col sm={8}>
-              <Form.Check
-                required
-                name="checkbox3"
-                type="checkbox"
-                label="If this is a stock, are you comfortable with the valuation?"
-                isInvalid={!!errors.checkbox3}
-                feedback={errors.checkbox3}
-                onChange={(e) => {
-                  if (errors["checkbox3"] && errors["checkbox3"] !== null) {
-                    setField("checkbox3", null);
-                  } else {
-                    setField("checkbox3", e.target.value);
-                  }
-                }}
-              />
-            </Col>
-            <Col className="d-flex justify-content-end" sm={4}>
-              <OverlayTrigger
-                placement="left"
-                overlay={
-                  <Tooltip id="button-tooltip-2">
-                    Is the P/E too high? If so, is it because the company is
-                    growing quickly? We all have different investment
-                    philosophies. Some of us buy cheap stocks with a low Price
-                    to Book ratio (like "Value Investors" like Warren Buffett)
-                    and others like expensive stocks like Amazon as they are
-                    growing quickly ("Growth Investors"). We are all different.
-                    Just know what style you prefer.
-                  </Tooltip>
-                }>
-                {({ ref, ...triggerHandler }) => (
-                  <Button
-                    variant="warning"
-                    ref={ref}
-                    {...triggerHandler}
-                    className="d-inline-flex align-items-center"
-                    size="sm">
-                    Info
-                  </Button>
-                )}
-              </OverlayTrigger>
-            </Col>
-          </Row>
-        </Form.Group>
-        <Form.Group>
-          <Row>
-            <Col sm={8}>
-              <Form.Check
-                required
-                name="checkbox4"
-                type="checkbox"
-                label="Did you read the prospectus (ETF) or the annual report (stock)?"
-                isInvalid={!!errors.checkbox4}
-                feedback={errors.checkbox4}
-                onChange={(e) => {
-                  if (errors["checkbox4"] && errors["checkbox4"] !== null) {
-                    setField("checkbox4", null);
-                  } else {
-                    setField("checkbox4", e.target.value);
-                  }
-                }}
-              />
-            </Col>
-            <Col className="d-flex justify-content-end" sm={4}>
-              <OverlayTrigger
-                placement="left"
-                overlay={
-                  <Tooltip id="button-tooltip-2">
-                    You can access the prospectus by calling the company that
-                    you bought the investment from or by going to the website of
-                    the ETF company (i.e., Vanguard.com). If you want access to
-                    the annual report for a stock, go to that company's website
-                    and search for "Annual Report".
-                  </Tooltip>
-                }>
-                {({ ref, ...triggerHandler }) => (
-                  <Button
-                    variant="warning"
-                    ref={ref}
-                    {...triggerHandler}
-                    className="d-inline-flex align-items-center"
-                    size="sm">
-                    Info
-                  </Button>
-                )}
-              </OverlayTrigger>
-            </Col>
-          </Row>
-        </Form.Group>
-        <Form.Group>
-          <Row>
-            <Col sm={8}>
-              <Form.Check
-                required
-                name="checkbox5"
-                type="checkbox"
-                label="Investment is in your retirement account?"
-                isInvalid={!!errors.checkbox5}
-                feedback={errors.checkbox5}
-                onChange={(e) => {
-                  if (errors["checkbox5"] && errors["checkbox5"] !== null) {
-                    setField("checkbox5", null);
-                  } else {
-                    setField("checkbox5", e.target.value);
-                  }
-                }}
-              />
-              {errors.checkboxes}
-            </Col>
-            <Col className="d-flex justify-content-end" sm={4}>
-              <OverlayTrigger
-                placement="left"
-                overlay={
-                  <Tooltip id="button-tooltip-2">
-                    Make sure that this investment is in your retirement account
-                    if you have room in your retirement account and if your
-                    country has retirement savings account benefits (for tax
-                    savings purposes).
-                  </Tooltip>
-                }>
-                {({ ref, ...triggerHandler }) => (
-                  <Button
-                    variant="warning"
-                    ref={ref}
-                    {...triggerHandler}
-                    className="d-inline-flex align-items-center"
-                    size="sm">
-                    Info
-                  </Button>
-                )}
-              </OverlayTrigger>
-            </Col>
-          </Row>
-        </Form.Group>
-
-        <Form.Group className="mt-4">
-          <Row>
-            <Col>
-              <Form.Label>Investment Risk</Form.Label>
-            </Col>
-            <Col className="d-flex justify-content-end">
-              <Button
-                className="mb-1"
-                variant="info"
-                ref={targetRisk}
-                onClick={() => setShowRisk(!showRisk)}
-                size="sm">
-                <small>Toggle Risk Info</small>
-              </Button>
-              <Overlay
-                target={targetRisk.current}
-                show={showRisk}
-                placement="left">
-                {(props) => (
-                  <Tooltip {...props}>
-                    There are 2 standard types of investment risk classes. 1
-                    risk class is simply called more-risky and the other
-                    investment class is called less-risky. The less risky class
-                    consists of investments that are more likely going to hold
-                    their value like government bonds or corporate bonds with a
-                    rating of A or above as well as money in your bank account
-                    or large cap stock funds or value stock funds – meaning
-                    funds stocks that are not expensive. Less risky means funds
-                    only and not individual stocks or corporate bonds.
-                    Everything else is more-risky, including individual stocks
-                    and individual corporate bonds and any bond fund with a
-                    rating below A. Commodities and reits are also classified as
-                    more-risky.
-                  </Tooltip>
-                )}
-              </Overlay>
-            </Col>
-          </Row>
-
-          <Form.Control
-            as="select"
-            onChange={(e) => setField("risk", e.target.value)}
-            isInvalid={!!errors.risk}>
-            <option value="">Select the risk...</option>
-            <option value="More-Risky">More-Risky</option>
-            <option value="Less-Risky">Less-Risky</option>
-          </Form.Control>
-          <Form.Control.Feedback type="invalid">
-            {errors.risk}
-          </Form.Control.Feedback>
-        </Form.Group>
-
-        <Form.Group>
-          <Form.Label>
-            Comments <small>(Why is it a good investment?)</small>
-          </Form.Label>
-          <Form.Control
-            as="textarea"
-            onChange={(e) => setField("comment", e.target.value)}
-            isInvalid={!!errors.comment}
-          />
-          <Form.Control.Feedback type="invalid">
-            {errors.comment}
-          </Form.Control.Feedback>
-        </Form.Group>
-        <Button type="submit" onClick={handleSubmit}>
-          Submit Review
-        </Button>
+          </>
+        )}
       </Form>
     </Container>
   );

@@ -46,4 +46,18 @@ router.get(
   }
 );
 
+// @route GET api/yahoo-finance/search
+// @desc Get a ticker symbol data
+// @access Private
+router.get(
+  "/search",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    yahooFinance
+      .search(req.query.symbol)
+      .then((tickerData) => res.json(tickerData))
+      .catch((err) => console.log(err));
+  }
+);
+
 module.exports = router;
