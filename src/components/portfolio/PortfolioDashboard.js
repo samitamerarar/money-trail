@@ -1,14 +1,10 @@
 import React, { Component } from "react";
-import { Row, Col, Card, Container, Button } from "react-bootstrap";
+import { Row, Col, Container, Button } from "react-bootstrap";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { getTickerData } from "../../actions/yahooActions";
+import { getInvestments, addInvestment } from "../../actions/investmentAction";
+import { getTickerData, searchStock } from "../../actions/yahooActions";
 
-import MUIDataTable, { ExpandButton } from "mui-datatables";
-import TableRow from "@material-ui/core/TableRow";
-import TableCell from "@material-ui/core/TableCell";
-import { MuiThemeProvider } from "@material-ui/core/styles";
-import { createTheme } from "@material-ui/core/styles";
 import PortfolioTable from "./PortfolioTable";
 import AddStockModal from "./AddStockModal";
 
@@ -22,19 +18,12 @@ class PortfolioDashboard extends Component {
   openModal = () => this.setState({ isOpenModal: true });
   closeModal = () => this.setState({ isOpenModal: false });
 
+  // add investment to database
   handleSubmit = (data) => {
-    // if (data) {
-    //   const filteredData = data
-    //     .split(/\r?\n/)
-    //     .map((e) => e.trim())
-    //     .filter((e) => e);
-    //   if (filteredData.length) {
-    //     this.props.addShop({
-    //       shops: filteredData,
-    //       category: this.props.category,
-    //     });
-    //   }
-    // }
+    if (data) {
+      console.log(data);
+      this.props.addInvestment(data);
+    }
   };
 
   componentDidMount() {
@@ -51,7 +40,6 @@ class PortfolioDashboard extends Component {
 
   render() {
     const { yahooFinance } = this.props;
-    console.log(yahooFinance);
 
     // Copy array to another array
     const data = JSON.parse(JSON.stringify(yahooFinance.tickerData));
@@ -134,13 +122,23 @@ class PortfolioDashboard extends Component {
 
 PortfolioDashboard.propTypes = {
   auth: PropTypes.object.isRequired,
+  investments: PropTypes.object.isRequired,
   yahooFinance: PropTypes.object.isRequired,
   getTickerData: PropTypes.func.isRequired,
+  searchStock: PropTypes.func.isRequired,
+  addInvestment: PropTypes.func.isRequired,
+  getInvestments: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   auth: state.auth,
+  investments: state.investments,
   yahooFinance: state.yahooFinance,
 });
 
-export default connect(mapStateToProps, { getTickerData })(PortfolioDashboard);
+export default connect(mapStateToProps, {
+  getTickerData,
+  searchStock,
+  getInvestments,
+  addInvestment,
+})(PortfolioDashboard);
