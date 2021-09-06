@@ -10,7 +10,7 @@ export const columnsMobile = [
   },
   {
     label: "Name",
-    name: "displayName",
+    name: "name",
     options: {
       display: false,
       setCellProps: () => ({
@@ -20,7 +20,7 @@ export const columnsMobile = [
   },
   {
     label: "Purchase Price ($)",
-    name: "name",
+    name: "priceOfShare",
     options: {
       display: false,
       setCellProps: () => ({
@@ -40,7 +40,7 @@ export const columnsMobile = [
   },
   {
     label: "Purchase Date",
-    name: "name",
+    name: "purchaseDate",
     options: {
       display: false,
       setCellProps: () => ({
@@ -50,7 +50,7 @@ export const columnsMobile = [
   },
   {
     label: "Shares Owned",
-    name: "name",
+    name: "numberOfShares",
     options: {
       display: false,
       setCellProps: () => ({
@@ -92,7 +92,7 @@ export const columnsMobile = [
   },
   {
     label: "Stock Market Sector",
-    name: "name",
+    name: "sector",
     options: {
       display: false,
       setCellProps: () => ({
@@ -417,7 +417,7 @@ export const columnsMobileExpandRow = [
   },
   {
     label: "Name",
-    name: "displayName",
+    name: "name",
     options: {
       setCellProps: () => ({
         align: "right",
@@ -426,7 +426,7 @@ export const columnsMobileExpandRow = [
   },
   {
     label: "Purchase Price ($)",
-    name: "name",
+    name: "priceOfShare",
     options: {
       setCellProps: () => ({
         align: "right",
@@ -444,7 +444,7 @@ export const columnsMobileExpandRow = [
   },
   {
     label: "Purchase Date",
-    name: "name",
+    name: "purchaseDate",
     options: {
       setCellProps: () => ({
         align: "right",
@@ -453,7 +453,7 @@ export const columnsMobileExpandRow = [
   },
   {
     label: "Shares Owned",
-    name: "name",
+    name: "numberOfShares",
     options: {
       setCellProps: () => ({
         align: "right",
@@ -491,7 +491,7 @@ export const columnsMobileExpandRow = [
   },
   {
     label: "Stock Market Sector",
-    name: "name",
+    name: "sector",
     options: {
       setCellProps: () => ({
         align: "right",
