@@ -10,7 +10,7 @@ export const columnsDesktop = [
   },
   {
     label: "Name",
-    name: "displayName",
+    name: "name",
     options: {
       setCellProps: () => ({
         align: "right",
@@ -19,7 +19,7 @@ export const columnsDesktop = [
   },
   {
     label: "Purchase Price ($)",
-    name: "name",
+    name: "priceOfShare",
     options: {
       setCellProps: () => ({
         align: "right",
@@ -28,7 +28,7 @@ export const columnsDesktop = [
   },
   {
     label: "Change from Purchase Price (%)",
-    name: "name",
+    name: "changeFromPurchasePercent",
     options: {
       setCellProps: () => ({
         align: "right",
@@ -37,7 +37,7 @@ export const columnsDesktop = [
   },
   {
     label: "Purchase Date",
-    name: "name",
+    name: "purchaseDate",
     options: {
       setCellProps: () => ({
         align: "right",
@@ -46,7 +46,7 @@ export const columnsDesktop = [
   },
   {
     label: "Shares Owned",
-    name: "name",
+    name: "numberOfShares",
     options: {
       setCellProps: () => ({
         align: "right",
@@ -84,7 +84,7 @@ export const columnsDesktop = [
   },
   {
     label: "Stock Market Sector",
-    name: "name",
+    name: "sector",
     options: {
       setCellProps: () => ({
         align: "right",

@@ -19,13 +19,13 @@ export default function yahooReducer(state = initialState, action) {
         ...state,
         tickerDataLoading: true,
       };
-    case GET_TICKER_DATA:
+    case GET_TICKER_DATA: {
       return {
         ...state,
         tickerData: [action.payload, ...state.tickerData],
         tickerDataLoading: false,
       };
-
+    }
     case SEARCH_DATA_LOADING:
       return {
         ...state,

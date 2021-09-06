@@ -3,10 +3,11 @@ import {
   GET_INVESTMENTS,
   INVESTMENTS_LOADING,
   DELETE_INVESTMENT,
+  MERGE_WITH_YAHOO,
 } from "../actions/types";
 
 const initialState = {
-  investments: [],
+  investmentsList: [],
   investmentsLoading: false,
 };
 
@@ -20,13 +21,18 @@ export default function shopReducer(state = initialState, action) {
     case ADD_INVESTMENT:
       return {
         ...state,
-        investments: action.payload,
-        investmentsLoading: false,
+        investmentsList: [action.payload, ...state.investmentsList],
       };
     case GET_INVESTMENTS:
       return {
         ...state,
-        investments: [...action.payload, ...state.investments],
+        investmentsList: [...action.payload],
+        investmentsLoading: false,
+      };
+    case MERGE_WITH_YAHOO:
+      return {
+        ...state,
+        investmentsList: [...action.payload],
       };
     default:
       return state;
