@@ -18,18 +18,409 @@ export const columnsDesktop = [
     },
   },
   {
-    label: "Purchase Price ($)",
-    name: "priceOfShare",
+    label: "Price⠀($)",
+    name: "ask",
     options: {
+      sort: false,
       setCellProps: () => ({
         align: "right",
       }),
     },
   },
   {
-    label: "Change from Purchase Price (%)",
+    label: "Price Change⠀(%)",
+    name: "regularMarketChangePercent",
+    options: {
+      sort: false,
+      setCellProps: () => ({
+        align: "right",
+      }),
+      customBodyRender: (value, tableMeta, updateValue) => {
+        if (value && parseFloat(value.replaceAll("value", "")) >= 0) {
+          return (
+            <div
+              value={value}
+              style={{
+                /*backgroundColor: "rgba(55, 180, 0, 0.32)"*/ color: "green",
+              }}>
+              {value}
+            </div>
+          );
+        } else {
+          return (
+            <div
+              value={value}
+              style={{
+                /*backgroundColor: "rgba(243, 23, 0, 0.32)"*/ color: "darkred",
+              }}>
+              {value}
+            </div>
+          );
+        }
+      },
+    },
+  },
+  {
+    label: "Price Change⠀($)",
+    name: "regularMarketChange",
+    options: {
+      sort: false,
+      setCellProps: () => ({
+        align: "right",
+      }),
+      customBodyRender: (value, tableMeta, updateValue) => {
+        if (value && parseFloat(value.replaceAll("value", "")) >= 0) {
+          return (
+            <div
+              value={value}
+              style={{
+                /*backgroundColor: "rgba(55, 180, 0, 0.32)"*/ color: "green",
+              }}>
+              {value}
+            </div>
+          );
+        } else {
+          return (
+            <div
+              value={value}
+              style={{
+                /*backgroundColor: "rgba(243, 23, 0, 0.32)"*/ color: "darkred",
+              }}>
+              {value}
+            </div>
+          );
+        }
+      },
+    },
+  },
+  {
+    label: "Purchase Price⠀Change",
     name: "changeFromPurchasePercent",
     options: {
+      sort: false,
+      setCellProps: () => ({
+        align: "right",
+      }),
+      customBodyRender: (value, tableMeta, updateValue) => {
+        if (value && parseFloat(value.replaceAll("%", "")) >= 0) {
+          return (
+            <div
+              value={value}
+              style={{
+                /*backgroundColor: "rgba(55, 180, 0, 0.32)"*/ color: "green",
+              }}>
+              {value}
+            </div>
+          );
+        } else {
+          return (
+            <div
+              value={value}
+              style={{
+                /*backgroundColor: "rgba(243, 23, 0, 0.32)"*/ color: "darkred",
+              }}>
+              {value}
+            </div>
+          );
+        }
+      },
+    },
+  },
+  {
+    label: "Day's High ($)",
+    name: "regularMarketDayHigh",
+    options: {
+      sort: false,
+      setCellProps: () => ({
+        align: "right",
+      }),
+    },
+  },
+  {
+    label: "Day's Low ($)",
+    name: "regularMarketDayLow",
+    options: {
+      sort: false,
+      setCellProps: () => ({
+        align: "right",
+      }),
+    },
+  },
+  {
+    label: "Open Price ($)",
+    name: "regularMarketOpen",
+    options: {
+      sort: false,
+      setCellProps: () => ({
+        align: "right",
+      }),
+    },
+  },
+  {
+    label: "Previous Close ($)",
+    name: "regularMarketPreviousClose",
+    options: {
+      sort: false,
+      setCellProps: () => ({
+        align: "right",
+      }),
+    },
+  },
+  {
+    label: "Volume",
+    name: "regularMarketVolume",
+    options: {
+      sort: false,
+      setCellProps: () => ({
+        align: "right",
+      }),
+      hint: "The number of shares that have traded today or yesterday if the market is closed.",
+    },
+  },
+  {
+    label: "Average⠀Daily Volume",
+    name: "averageDailyVolume3Month",
+    options: {
+      sort: false,
+      setCellProps: () => ({
+        align: "right",
+      }),
+      hint: "Don't buy if it's too low or you become a \"stuckholder\" and can't sell it easily.",
+    },
+  },
+  {
+    label: "Market Capitalization⠀($)",
+    name: "marketCap",
+    options: {
+      sort: false,
+      setCellProps: () => ({
+        align: "right",
+      }),
+      hint: "The size of the company = Outstanding Shares * Price.",
+    },
+  },
+  {
+    label: "52⠀week Low⠀($)",
+    name: "fiftyTwoWeekLow",
+    options: {
+      sort: false,
+      setCellProps: () => ({
+        align: "right",
+      }),
+    },
+  },
+  {
+    label: "52⠀week High⠀($)",
+    name: "fiftyTwoWeekHigh",
+    options: {
+      sort: false,
+      setCellProps: () => ({
+        align: "right",
+      }),
+    },
+  },
+  {
+    label: "52⠀week Low⠀Change⠀($)",
+    name: "fiftyTwoWeekLowChange",
+    options: {
+      display: false,
+      setCellProps: () => ({
+        align: "right",
+      }),
+    },
+  },
+  {
+    label: "52⠀week High⠀Change⠀($)",
+    name: "fiftyTwoWeekHighChange",
+    options: {
+      display: false,
+      sort: false,
+      setCellProps: () => ({
+        align: "right",
+      }),
+    },
+  },
+  {
+    label: "Float Shares",
+    name: "sharesOutstanding",
+    options: {
+      sort: false,
+      setCellProps: () => ({
+        align: "right",
+      }),
+      hint: "The number of shares that are outstanding and available to trade.",
+    },
+  },
+  {
+    label: "52⠀week Low⠀Change⠀(%)",
+    name: "fiftyTwoWeekLowChangePercent",
+    options: {
+      display: false,
+      sort: false,
+      setCellProps: () => ({
+        align: "right",
+      }),
+    },
+  },
+  {
+    label: "52⠀week High⠀Change⠀(%)",
+    name: "fiftyTwoWeekHighChangePercent",
+    options: {
+      display: false,
+      sort: false,
+      setCellProps: () => ({
+        align: "right",
+      }),
+    },
+  },
+  {
+    label: "Book Value⠀($)",
+    name: "bookValue",
+    options: {
+      sort: false,
+      setCellProps: () => ({
+        align: "right",
+      }),
+      hint: "The book value describes what the company is worth if all of its ownings are sold like their buildings, machines etc MINUS all debt paid back.",
+    },
+  },
+  {
+    label: "Dividend-Pay Date",
+    name: "dividendDate",
+    options: {
+      sort: false,
+      setCellProps: () => ({
+        align: "right",
+      }),
+      hint: "Sometimes if a company issues a very large dividend, then the stock drops immediately after the dividend has been paid.",
+      customBodyRender: (value, tableMeta, updateValue) => {
+        if (value) {
+          return <div value={value}>{value}</div>;
+        } else {
+          return (
+            <div value={value} style={{ color: "#C3C3C3" }}>
+              no divid.
+            </div>
+          );
+        }
+      },
+    },
+  },
+  {
+    label: "Dividend Yield (%)",
+    name: "trailingAnnualDividendYield",
+    options: {
+      sort: false,
+      setCellProps: () => ({
+        align: "right",
+      }),
+      hint: "This is the percent return on a divided and it is calculated as the dividend / stock price.",
+      customBodyRender: (value, tableMeta, updateValue) => {
+        if (value) {
+          return <div value={value}>{value}</div>;
+        } else {
+          return (
+            <div value={value} style={{ color: "#C3C3C3" }}>
+              no divid.
+            </div>
+          );
+        }
+      },
+    },
+  },
+  {
+    label: "Dividend/Share ($)",
+    name: "trailingAnnualDividendRate",
+    options: {
+      sort: false,
+      setCellProps: () => ({
+        align: "right",
+      }),
+      hint: "This is the value of the divided in dollar terms per share.",
+      customBodyRender: (value, tableMeta, updateValue) => {
+        if (value) {
+          return <div value={value}>{value}</div>;
+        } else {
+          return (
+            <div value={value} style={{ color: "#C3C3C3" }}>
+              no divid.
+            </div>
+          );
+        }
+      },
+    },
+  },
+  {
+    label: "Forward⠀P/E Ratio",
+    name: "forwardPE",
+    options: {
+      sort: false,
+      setCellProps: () => ({
+        align: "right",
+      }),
+      hint: "This is the Price Earnings Ratio based on what investors are expecting in earnings next year. Lower = better.",
+    },
+  },
+  {
+    label: "Trailing⠀P/E Ratio",
+    name: "trailingPE",
+    options: {
+      sort: false,
+      setCellProps: () => ({
+        align: "right",
+      }),
+      hint: "This is the Price Earnings ratio based on the most recent year's historical earnings.",
+    },
+  },
+  {
+    label: "PEG Ratio",
+    name: "pegRatio",
+    options: {
+      sort: false,
+      setCellProps: () => ({
+        align: "right",
+      }),
+      hint: "This is the P/E ratio divided by the earnings growth rate. Well under 2 is preferred by most investors.",
+    },
+  },
+  {
+    label: "Price/Book",
+    name: "priceToBook",
+    options: {
+      sort: false,
+      setCellProps: () => ({
+        align: "right",
+      }),
+      hint: "This is how much more expensive the company is versus it's book value. Value investors like Buffett love when this is under 1x or closer to 1x.",
+    },
+  },
+  {
+    label: "Price/Sales",
+    name: "priceToSalesTrailing12Months",
+    options: {
+      sort: false,
+      setCellProps: () => ({
+        align: "right",
+      }),
+      hint: "If a company doesn't have earnings, then investors look at Price / Sales instead of Price / Earnings. Note that Sales and Revenue is the same thing.",
+    },
+  },
+  {
+    label: "Beta",
+    name: "beta",
+    options: {
+      sort: false,
+      setCellProps: () => ({
+        align: "right",
+      }),
+      hint: "Beta measures how volatile a stock is relative to the index it is on. A value of 1 means not volatile.",
+    },
+  },
+  {
+    label: "Stock Market Sector",
+    name: "sector",
+    options: {
+      sort: false,
       setCellProps: () => ({
         align: "right",
       }),
@@ -39,6 +430,17 @@ export const columnsDesktop = [
     label: "Purchase Date",
     name: "purchaseDate",
     options: {
+      sort: false,
+      setCellProps: () => ({
+        align: "right",
+      }),
+    },
+  },
+  {
+    label: "Purchase Price ($)",
+    name: "priceOfShare",
+    options: {
+      sort: false,
       setCellProps: () => ({
         align: "right",
       }),
@@ -48,15 +450,17 @@ export const columnsDesktop = [
     label: "Shares Owned",
     name: "numberOfShares",
     options: {
+      sort: false,
       setCellProps: () => ({
         align: "right",
       }),
     },
   },
   {
-    label: "Size of Position ($)",
-    name: "name",
+    label: "Position Size⠀($)",
+    name: "sizeOfPosition",
     options: {
+      sort: false,
       setCellProps: () => ({
         align: "right",
       }),
@@ -64,37 +468,21 @@ export const columnsDesktop = [
     },
   },
   {
-    label: "Position Profit or Loss ($)",
-    name: "name",
+    label: "Position Exposure⠀(%)",
+    name: "positionExposure",
     options: {
+      sort: false,
       setCellProps: () => ({
         align: "right",
       }),
-    },
-  },
-  {
-    label: "Position Exposure (%)",
-    name: "name",
-    options: {
-      setCellProps: () => ({
-        align: "right",
-      }),
-      hint: "We often don't want too much exposure to 1 investment (risky). This is why we diversify by owning multiple investments.",
-    },
-  },
-  {
-    label: "Stock Market Sector",
-    name: "sector",
-    options: {
-      setCellProps: () => ({
-        align: "right",
-      }),
+      hint: "We often don't want too much exposure to 100 investment (risky). This is why we diversify by owning multiple investments.",
     },
   },
   {
     label: "Sector Exposure (%)",
-    name: "name",
+    name: "null",
     options: {
+      sort: false,
       display: false,
       setCellProps: () => ({
         align: "right",
@@ -103,8 +491,9 @@ export const columnsDesktop = [
   },
   {
     label: "Sector Driver",
-    name: "name",
+    name: "null",
     options: {
+      sort: false,
       display: false,
       setCellProps: () => ({
         align: "right",
@@ -112,650 +501,36 @@ export const columnsDesktop = [
     },
   },
   {
-    label: "Market Capitalization ($)",
-    name: "marketCap",
+    label: "Position Profit⠀or⠀Loss⠀($)",
+    name: "positionProfitOrLoss",
     options: {
+      sort: false,
       setCellProps: () => ({
         align: "right",
       }),
-      hint: "The size of the company = Outstanding Shares * Price.",
-    },
-  },
-  {
-    label: "Price ($)",
-    name: "ask",
-    options: {
-      setCellProps: () => ({
-        align: "right",
-      }),
-    },
-  },
-  {
-    label: "Price Change (%)",
-    name: "regularMarketChangePercent",
-    options: {
-      setCellProps: () => ({
-        align: "right",
-      }),
-    },
-  },
-  {
-    label: "Price Change ($)",
-    name: "regularMarketChange",
-    options: {
-      setCellProps: () => ({
-        align: "right",
-      }),
-    },
-  },
-  {
-    label: "Day's High ($)",
-    name: "regularMarketDayHigh",
-    options: {
-      setCellProps: () => ({
-        align: "right",
-      }),
-    },
-  },
-  {
-    label: "Day's Low ($)",
-    name: "regularMarketDayLow",
-    options: {
-      setCellProps: () => ({
-        align: "right",
-      }),
-    },
-  },
-  {
-    label: "Open Price ($)",
-    name: "regularMarketOpen",
-    options: {
-      setCellProps: () => ({
-        align: "right",
-      }),
-    },
-  },
-  {
-    label: "Previous Close ($)",
-    name: "regularMarketPreviousClose",
-    options: {
-      setCellProps: () => ({
-        align: "right",
-      }),
-    },
-  },
-  {
-    label: "Volume",
-    name: "regularMarketVolume",
-    options: {
-      setCellProps: () => ({
-        align: "right",
-      }),
-      hint: "The number of shares that have traded today or yesterday if the market is closed.",
-    },
-  },
-  {
-    label: "Average Daily Volume",
-    name: "averageDailyVolume3Month",
-    options: {
-      setCellProps: () => ({
-        align: "right",
-      }),
-      hint: "Don't buy if it's too low or you become a \"stuckholder\" and can't sell it easily.",
-    },
-  },
-  {
-    label: "52-week Low ($)",
-    name: "fiftyTwoWeekLow",
-    options: {
-      setCellProps: () => ({
-        align: "right",
-      }),
-    },
-  },
-  {
-    label: "52-week High ($)",
-    name: "fiftyTwoWeekHigh",
-    options: {
-      setCellProps: () => ({
-        align: "right",
-      }),
-    },
-  },
-  {
-    label: "52-week Low Change ($)",
-    name: "fiftyTwoWeekLowChange",
-    options: {
-      setCellProps: () => ({
-        align: "right",
-      }),
-    },
-  },
-  {
-    label: "52-week High Change ($)",
-    name: "fiftyTwoWeekHighChange",
-    options: {
-      setCellProps: () => ({
-        align: "right",
-      }),
-    },
-  },
-  {
-    label: "Float Shares",
-    name: "sharesOutstanding",
-    options: {
-      setCellProps: () => ({
-        align: "right",
-      }),
-      hint: "The number of shares that are outstanding and available to trade.",
-    },
-  },
-  {
-    label: "52-week Low Change (%)",
-    name: "fiftyTwoWeekLowChangePercent",
-    options: {
-      setCellProps: () => ({
-        align: "right",
-      }),
-    },
-  },
-  {
-    label: "52-week High Change (%)",
-    name: "fiftyTwoWeekHighChangePercent",
-    options: {
-      setCellProps: () => ({
-        align: "right",
-      }),
-    },
-  },
-  {
-    label: "Book Value ($)",
-    name: "bookValue",
-    options: {
-      setCellProps: () => ({
-        align: "right",
-      }),
-      hint: "The book value describes what the company is worth if all of its ownings are sold like their buildings, machines etc MINUS all debt paid back.",
-    },
-  },
-  {
-    label: "Dividend Pay Date",
-    name: "dividendDate",
-    options: {
-      setCellProps: () => ({
-        align: "right",
-      }),
-      hint: "Sometimes if a company issues a very large dividend, then the stock drops immediately after the dividend has been paid.",
-    },
-  },
-  {
-    label: "Dividend Yield (%)",
-    name: "trailingAnnualDividendYield",
-    options: {
-      setCellProps: () => ({
-        align: "right",
-      }),
-      hint: "This is the percent return on a divided and it is calculated as the dividend / stock price.",
-    },
-  },
-  {
-    label: "Dividend/Share ($)",
-    name: "trailingAnnualDividendRate",
-    options: {
-      setCellProps: () => ({
-        align: "right",
-      }),
-      hint: "This is the value of the divided in dollar terms per share.",
-    },
-  },
-  {
-    label: "Forward P/E Ratio",
-    name: "forwardPE",
-    options: {
-      setCellProps: () => ({
-        align: "right",
-      }),
-      hint: "This is the Price Earnings Ratio based on what investors are expecting in earnings next year. Lower = better.",
-    },
-  },
-  {
-    label: "PEG Ratio",
-    name: "name",
-    options: {
-      setCellProps: () => ({
-        align: "right",
-      }),
-      hint: "This is the P/E ratio divided by the earnings growth rate. Well under 2 is preferred by most investors.",
-    },
-  },
-  {
-    label: "Price/Book",
-    name: "priceToBook",
-    options: {
-      setCellProps: () => ({
-        align: "right",
-      }),
-      hint: "This is how much more expensive the company is versus it's book value. Value investors like Buffett love when this is under 1x or closer to 1x.",
-    },
-  },
-  {
-    label: "Trailing P/E Ratio",
-    name: "trailingPE",
-    options: {
-      setCellProps: () => ({
-        align: "right",
-      }),
-      hint: "This is the Price Earnings ratio based on the most recent year's historical earnings.",
-    },
-  },
-  {
-    label: "Price/Sales",
-    name: "name",
-    options: {
-      setCellProps: () => ({
-        align: "right",
-      }),
-      hint: "If a company doesn't have earnings, then investors look at Price / Sales instead of Price / Earnings. Note that Sales and Revenue is the same thing.",
-    },
-  },
-  {
-    label: "Beta",
-    name: "name",
-    options: {
-      setCellProps: () => ({
-        align: "right",
-      }),
-      hint: "Beta measures how volatile a stock is relative to the index it is on. A value of 1 means not volatile.",
+      customBodyRender: (value, tableMeta, updateValue) => {
+        if (value && parseFloat(value.replaceAll("$", "")) >= 0) {
+          return (
+            <div
+              value={value}
+              style={{
+                /*backgroundColor: "rgba(55, 180, 0, 0.32)"*/ color: "green",
+              }}>
+              {value}
+            </div>
+          );
+        } else {
+          return (
+            <div
+              value={value}
+              style={{
+                /*backgroundColor: "rgba(243, 23, 0, 0.32)"*/ color: "darkred",
+              }}>
+              {value}
+            </div>
+          );
+        }
+      },
     },
   },
 ];
-
-/*
-export const columnsDesktopExpandRow = [
-  {
-    label: "Symbol",
-    name: "symbol",
-    options: {
-      display: false,
-      setCellProps: () => ({
-        align: "right",
-      }),
-    },
-  },
-  {
-    label: "Name",
-    name: "displayName",
-    options: {
-      setCellProps: () => ({
-        align: "right",
-      }),
-    },
-  },
-  {
-    label: "Purchase Price ($)",
-    name: "name",
-    options: {
-      setCellProps: () => ({
-        align: "right",
-      }),
-    },
-  },
-  {
-    label: "Change from Purchase Price (%)",
-    name: "name",
-    options: {
-      setCellProps: () => ({
-        align: "right",
-      }),
-    },
-  },
-  {
-    label: "Purchase Date",
-    name: "name",
-    options: {
-      setCellProps: () => ({
-        align: "right",
-      }),
-    },
-  },
-  {
-    label: "Shares Owned",
-    name: "name",
-    options: {
-      setCellProps: () => ({
-        align: "right",
-      }),
-    },
-  },
-  {
-    label: "Size of Position ($)",
-    name: "name",
-    options: {
-      setCellProps: () => ({
-        align: "right",
-      }),
-      hint: "Last price * shares owned.",
-    },
-  },
-  {
-    label: "Position Profit or Loss ($)",
-    name: "name",
-    options: {
-      setCellProps: () => ({
-        align: "right",
-      }),
-    },
-  },
-  {
-    label: "Position Exposure (%)",
-    name: "name",
-    options: {
-      setCellProps: () => ({
-        align: "right",
-      }),
-      hint: "We often don't want too much exposure to 1 investment (risky). This is why we diversify by owning multiple investments.",
-    },
-  },
-  {
-    label: "Stock Market Sector",
-    name: "name",
-    options: {
-      setCellProps: () => ({
-        align: "right",
-      }),
-    },
-  },
-  {
-    label: "Sector Exposure (%)",
-    name: "name",
-    options: {
-      display: false,
-      setCellProps: () => ({
-        align: "right",
-      }),
-    },
-  },
-  {
-    label: "Sector Driver",
-    name: "name",
-    options: {
-      display: false,
-      setCellProps: () => ({
-        align: "right",
-      }),
-      hint:
-        "Sector Name:	Sector Drivers \n" +
-        "Consumer Discretionary	Healthy GDP Growth\n" +
-        "Consumer Staples	N/A (Defensive Sector)\n" +
-        "Energy	Rising Oil Prices\n" +
-        "Financials	Low Unemployment\n" +
-        "Health Care	Favorable Government Policy\n" +
-        "Industrials	Healthy GDP Growth\n" +
-        "Information Technology	Product Cycle\n" +
-        "Materials	Rising Commodity Prices\n" +
-        "Real Estate	Low Interest Rates\n" +
-        "Telecommunications Services	Healthy GDP Growth\n" +
-        "Utilities	N/A (Defensive Sector)",
-    },
-  },
-  {
-    label: "Market Capitalization ($)",
-    name: "marketCap",
-    options: {
-      setCellProps: () => ({
-        align: "right",
-      }),
-      hint: "The size of the company = Outstanding Shares * Price.",
-    },
-  },
-  {
-    label: "Price ($)",
-    name: "ask",
-    options: {
-      display: false,
-      setCellProps: () => ({
-        align: "right",
-      }),
-    },
-  },
-  {
-    label: "Price Change (%)",
-    name: "regularMarketChangePercent",
-    options: {
-      display: false,
-      setCellProps: () => ({
-        align: "right",
-      }),
-    },
-  },
-  {
-    label: "Price Change ($)",
-    name: "regularMarketChange",
-    options: {
-      setCellProps: () => ({
-        align: "right",
-      }),
-    },
-  },
-  {
-    label: "Day's High ($)",
-    name: "regularMarketDayHigh",
-    options: {
-      setCellProps: () => ({
-        align: "right",
-      }),
-    },
-  },
-  {
-    label: "Day's Low ($)",
-    name: "regularMarketDayLow",
-    options: {
-      setCellProps: () => ({
-        align: "right",
-      }),
-    },
-  },
-  {
-    label: "Open Price ($)",
-    name: "regularMarketOpen",
-    options: {
-      setCellProps: () => ({
-        align: "right",
-      }),
-    },
-  },
-  {
-    label: "Previous Close ($)",
-    name: "regularMarketPreviousClose",
-    options: {
-      setCellProps: () => ({
-        align: "right",
-      }),
-    },
-  },
-  {
-    label: "Volume",
-    name: "regularMarketVolume",
-    options: {
-      setCellProps: () => ({
-        align: "right",
-      }),
-      hint: "The number of shares that have traded today or yesterday if the market is closed.",
-    },
-  },
-  {
-    label: "Average Daily Volume",
-    name: "averageDailyVolume3Month",
-    options: {
-      setCellProps: () => ({
-        align: "right",
-      }),
-      hint: "Don't buy if it's too low or you become a \"stuckholder\" and can't sell it easily.",
-    },
-  },
-  {
-    label: "52-week Low ($)",
-    name: "fiftyTwoWeekLow",
-    options: {
-      setCellProps: () => ({
-        align: "right",
-      }),
-    },
-  },
-  {
-    label: "52-week High ($)",
-    name: "fiftyTwoWeekHigh",
-    options: {
-      setCellProps: () => ({
-        align: "right",
-      }),
-    },
-  },
-  {
-    label: "52-week Low Change ($)",
-    name: "fiftyTwoWeekLowChange",
-    options: {
-      setCellProps: () => ({
-        align: "right",
-      }),
-    },
-  },
-  {
-    label: "52-week High Change ($)",
-    name: "fiftyTwoWeekHighChange",
-    options: {
-      setCellProps: () => ({
-        align: "right",
-      }),
-    },
-  },
-  {
-    label: "Float Shares",
-    name: "sharesOutstanding",
-    options: {
-      setCellProps: () => ({
-        align: "right",
-      }),
-      hint: "The number of shares that are outstanding and available to trade.",
-    },
-  },
-  {
-    label: "52-week Low Change (%)",
-    name: "fiftyTwoWeekLowChangePercent",
-    options: {
-      setCellProps: () => ({
-        align: "right",
-      }),
-    },
-  },
-  {
-    label: "52-week High Change (%)",
-    name: "fiftyTwoWeekHighChangePercent",
-    options: {
-      setCellProps: () => ({
-        align: "right",
-      }),
-    },
-  },
-  {
-    label: "Book Value ($)",
-    name: "bookValue",
-    options: {
-      setCellProps: () => ({
-        align: "right",
-      }),
-      hint: "The book value describes what the company is worth if all of its ownings are sold like their buildings, machines etc MINUS all debt paid back.",
-    },
-  },
-  {
-    label: "Dividend Pay Date",
-    name: "dividendDate",
-    options: {
-      setCellProps: () => ({
-        align: "right",
-      }),
-      hint: "Sometimes if a company issues a very large dividend, then the stock drops immediately after the dividend has been paid.",
-    },
-  },
-  {
-    label: "Dividend Yield (%)",
-    name: "trailingAnnualDividendYield",
-    options: {
-      setCellProps: () => ({
-        align: "right",
-      }),
-      hint: "This is the percent return on a divided and it is calculated as the dividend / stock price.",
-    },
-  },
-  {
-    label: "Dividend/Share ($)",
-    name: "trailingAnnualDividendRate",
-    options: {
-      setCellProps: () => ({
-        align: "right",
-      }),
-      hint: "This is the value of the divided in dollar terms per share.",
-    },
-  },
-  {
-    label: "Forward P/E Ratio",
-    name: "forwardPE",
-    options: {
-      setCellProps: () => ({
-        align: "right",
-      }),
-      hint: "This is the Price Earnings Ratio based on what investors are expecting in earnings next year. Lower = better.",
-    },
-  },
-  {
-    label: "PEG Ratio",
-    name: "name",
-    options: {
-      setCellProps: () => ({
-        align: "right",
-      }),
-      hint: "This is the P/E ratio divided by the earnings growth rate. Well under 2 is preferred by most investors.",
-    },
-  },
-  {
-    label: "Price/Book",
-    name: "priceToBook",
-    options: {
-      setCellProps: () => ({
-        align: "right",
-      }),
-      hint: "This is how much more expensive the company is versus it's book value. Value investors like Buffett love when this is under 1x or closer to 1x.",
-    },
-  },
-  {
-    label: "Trailing P/E Ratio",
-    name: "trailingPE",
-    options: {
-      setCellProps: () => ({
-        align: "right",
-      }),
-      hint: "This is the Price Earnings ratio based on the most recent year's historical earnings.",
-    },
-  },
-  {
-    label: "Price/Sales",
-    name: "name",
-    options: {
-      setCellProps: () => ({
-        align: "right",
-      }),
-      hint: "If a company doesn't have earnings, then investors look at Price / Sales instead of Price / Earnings. Note that Sales and Revenue is the same thing.",
-    },
-  },
-  {
-    label: "Beta",
-    name: "name",
-    options: {
-      setCellProps: () => ({
-        align: "right",
-      }),
-      hint: "Beta measures how volatile a stock is relative to the index it is on. A value of 1 means not volatile.",
-    },
-  },
-];
-*/

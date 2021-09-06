@@ -29,8 +29,8 @@ export const columnsMobile = [
     },
   },
   {
-    label: "Change from Purchase Price (%)",
-    name: "name",
+    label: "Purchase Price Change",
+    name: "changeFromPurchasePercent",
     options: {
       display: false,
       setCellProps: () => ({
@@ -60,7 +60,7 @@ export const columnsMobile = [
   },
   {
     label: "Size of Position ($)",
-    name: "name",
+    name: "sizeOfPosition",
     options: {
       display: false,
       setCellProps: () => ({
@@ -71,7 +71,7 @@ export const columnsMobile = [
   },
   {
     label: "Position Profit or Loss ($)",
-    name: "name",
+    name: "positionProfitOrLoss",
     options: {
       display: false,
       setCellProps: () => ({
@@ -81,13 +81,13 @@ export const columnsMobile = [
   },
   {
     label: "Position Exposure (%)",
-    name: "name",
+    name: "positionExposure",
     options: {
       display: false,
       setCellProps: () => ({
         align: "right",
       }),
-      hint: "We often don't want too much exposure to 1 investment (risky). This is why we diversify by owning multiple investments.",
+      hint: "We often don't want too much exposure to 100 investment (risky). This is why we diversify by owning multiple investments.",
     },
   },
   {
@@ -349,7 +349,7 @@ export const columnsMobile = [
   },
   {
     label: "PEG Ratio",
-    name: "name",
+    name: "pegRatio",
     options: {
       display: false,
       setCellProps: () => ({
@@ -382,7 +382,7 @@ export const columnsMobile = [
   },
   {
     label: "Price/Sales",
-    name: "name",
+    name: "priceToSalesTrailing12Months",
     options: {
       display: false,
       setCellProps: () => ({
@@ -393,7 +393,7 @@ export const columnsMobile = [
   },
   {
     label: "Beta",
-    name: "name",
+    name: "beta",
     options: {
       display: false,
       setCellProps: () => ({
@@ -434,8 +434,8 @@ export const columnsMobileExpandRow = [
     },
   },
   {
-    label: "Change from Purchase Price (%)",
-    name: "name",
+    label: "Purchase Price Change",
+    name: "changeFromPurchasePercent",
     options: {
       setCellProps: () => ({
         align: "right",
@@ -462,7 +462,7 @@ export const columnsMobileExpandRow = [
   },
   {
     label: "Size of Position ($)",
-    name: "name",
+    name: "sizeOfPosition",
     options: {
       setCellProps: () => ({
         align: "right",
@@ -472,7 +472,7 @@ export const columnsMobileExpandRow = [
   },
   {
     label: "Position Profit or Loss ($)",
-    name: "name",
+    name: "positionProfitOrLoss",
     options: {
       setCellProps: () => ({
         align: "right",
@@ -481,12 +481,12 @@ export const columnsMobileExpandRow = [
   },
   {
     label: "Position Exposure (%)",
-    name: "name",
+    name: "positionExposure",
     options: {
       setCellProps: () => ({
         align: "right",
       }),
-      hint: "We often don't want too much exposure to 1 investment (risky). This is why we diversify by owning multiple investments.",
+      hint: "We often don't want too much exposure to 100 investment (risky). This is why we diversify by owning multiple investments.",
     },
   },
   {
@@ -729,7 +729,7 @@ export const columnsMobileExpandRow = [
   },
   {
     label: "PEG Ratio",
-    name: "name",
+    name: "pegRatio",
     options: {
       setCellProps: () => ({
         align: "right",
@@ -759,7 +759,7 @@ export const columnsMobileExpandRow = [
   },
   {
     label: "Price/Sales",
-    name: "name",
+    name: "priceToSalesTrailing12Months",
     options: {
       setCellProps: () => ({
         align: "right",
@@ -769,7 +769,7 @@ export const columnsMobileExpandRow = [
   },
   {
     label: "Beta",
-    name: "name",
+    name: "beta",
     options: {
       setCellProps: () => ({
         align: "right",

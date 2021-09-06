@@ -41,15 +41,23 @@ class PortfolioTable extends Component {
       overrides: {
         MuiButton: {
           root: {
-            fontWeight: "600 !important",
+            fontWeight: "550",
+            fontSize: "0.75rem",
+            color: "#757575",
           },
         },
         MuiTableCell: {
           head: {
             backgroundColor: "#F5F5F5 !important",
+            fontWeight: "550",
+            fontSize: "0.75rem",
+            color: "#757575",
           },
           body: {
+            backgroundColor: "#FEFEFE",
             borderLeft: "solid 0.5px #D3D3D3",
+            fontFamily: '"Segoe UI", Arial, Sans-serif',
+            fontWeight: "550",
           },
         },
         MUIDataTableSelectCell: {
