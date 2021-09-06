@@ -46,39 +46,80 @@ export const PortfolioDashboard = (props) => {
       ...props.yahooFinance.tickerData.find((e2) => e2.symbol === e1.symbol),
     }));
     setMergedData([...mergedArray]);
+
+    // Calculate additionals fields
+    mergedArray.forEach((e) => {
+      e["changeFromPurchasePercent"] =
+        (e.ask - e.priceOfShare) / e.priceOfShare;
+      e["sizeOfPosition"] = e.ask * e.numberOfShares;
+      e["positionProfitOrLoss"] = (e.ask - e.priceOfShare) * e.numberOfShares;
+    });
+
+    // sum the size of position
+    const sumOfPosition = mergedArray.reduce(
+      (n, { sizeOfPosition }) => n + sizeOfPosition,
+      0
+    );
+
+    mergedArray.forEach((e) => {
+      e["positionExposure"] = e.sizeOfPosition / sumOfPosition;
+    });
   }, [props.yahooFinance.tickerData]); // run when tickerData change
 
   //Copy array to another array
   // const data = JSON.parse(JSON.stringify(mergedData));
 
   mergedData.forEach((e, i) => {
-    Object.keys(e).forEach(function (key, j) {
+    Object.keys(e).forEach((key, j) => {
       if (
         key &&
-        key !== "trailingAnnualDividendYield" &&
-        key !== "fiftyTwoWeekLowChangePercent" &&
-        key !== "fiftyTwoWeekHighChangePercent"
+        (key === "priceOfShare" ||
+          key === "sizeOfPosition" ||
+          key === "positionProfitOrLoss" ||
+          key === "marketCap" ||
+          key === "ask" ||
+          key === "regularMarketChange" ||
+          key === "regularMarketDayHigh" ||
+          key === "regularMarketDayLow" ||
+          key === "regularMarketOpen" ||
+          key === "regularMarketPreviousClose" ||
+          key === "fiftyTwoWeekHigh" ||
+          key === "fiftyTwoWeekLowChange" ||
+          key === "fiftyTwoWeekHighChange" ||
+          key === "bookValue" ||
+          key === "numberOfShares" ||
+          key === "regularMarketVolume" ||
+          key === "averageDailyVolume3Month" ||
+          key === "sharesOutstanding" ||
+          key === "forwardPE" ||
+          key === "priceToBook" ||
+          key === "trailingPE" ||
+          key === "priceToSalesTrailing12Months" ||
+          key === "beta" ||
+          key === "trailingAnnualDividendRate")
       ) {
         mergedData[i][key] = e[key].toLocaleString("en-US", {
           maximumFractionDigits: 2,
         });
       }
-      switch (key) {
-        case "trailingAnnualDividendYield":
-        case "fiftyTwoWeekLowChangePercent":
-        case "fiftyTwoWeekHighChangePercent":
-        case "changeFromPurchasePercent":
-          mergedData[i][key] =
-            (e[key] * 100).toLocaleString("en-US", {
-              maximumFractionDigits: 2,
-            }) + "%";
-          break;
-        case "dividendDate":
-        case "purchaseDate": {
-          mergedData[i][key] = new Date(mergedData[i][key]).toUTCString();
-        }
-        default:
-        // code block
+
+      if (
+        key &&
+        (key === "changeFromPurchasePercent" ||
+          key === "regularMarketChangePercent" ||
+          key === "positionExposure" ||
+          key === "trailingAnnualDividendYield" ||
+          key === "fiftyTwoWeekLowChangePercent" ||
+          key === "fiftyTwoWeekHighChangePercent")
+      ) {
+        e[key] =
+          (e[key] * 100).toLocaleString("en-US", {
+            maximumFractionDigits: 2,
+          }) + "%";
+      }
+
+      if (key && (key === "dividendDate" || key === "purchaseDate")) {
+        e[key] = new Date(e[key]).toDateString();
       }
     });
   });

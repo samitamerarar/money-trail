@@ -41,7 +41,23 @@ router.get(
           "trailingPE",
         ],
       })
-      .then((tickerData) => res.json(tickerData))
+      .then((tickerData) => {
+        yahooFinance
+          .quoteSummary(req.query.symbol, {
+            modules: ["summaryDetail", "defaultKeyStatistics"],
+          })
+          .then((tickerDataStats) => {
+            tickerData["pegRatio"] =
+              tickerDataStats.defaultKeyStatistics.pegRatio;
+
+            tickerData["beta"] = tickerDataStats.summaryDetail.beta;
+
+            tickerData["priceToSalesTrailing12Months"] =
+              tickerDataStats.summaryDetail.priceToSalesTrailing12Months;
+
+            res.json(tickerData);
+          });
+      })
       .catch((err) => console.log(err));
   }
 );
