@@ -106,7 +106,6 @@ export const PortfolioDashboard = (props) => {
       if (
         key &&
         (key === "changeFromPurchasePercent" ||
-          key === "regularMarketChangePercent" ||
           key === "positionExposure" ||
           key === "trailingAnnualDividendYield" ||
           key === "fiftyTwoWeekLowChangePercent" ||
@@ -114,6 +113,13 @@ export const PortfolioDashboard = (props) => {
       ) {
         e[key] =
           (e[key] * 100).toLocaleString("en-US", {
+            maximumFractionDigits: 2,
+          }) + "%";
+      }
+
+      if (key && key === "regularMarketChangePercent") {
+        e[key] =
+          e[key].toLocaleString("en-US", {
             maximumFractionDigits: 2,
           }) + "%";
       }
