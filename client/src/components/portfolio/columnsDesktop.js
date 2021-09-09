@@ -12,13 +12,14 @@ export const columnsDesktop = [
     label: "Name",
     name: "name",
     options: {
+      sort: false,
       setCellProps: () => ({
         align: "right",
       }),
     },
   },
   {
-    label: "Price⠀($)",
+    label: "Price",
     name: "ask",
     options: {
       sort: false,
@@ -28,40 +29,7 @@ export const columnsDesktop = [
     },
   },
   {
-    label: "Price Change⠀(%)",
-    name: "regularMarketChangePercent",
-    options: {
-      sort: false,
-      setCellProps: () => ({
-        align: "right",
-      }),
-      customBodyRender: (value, tableMeta, updateValue) => {
-        if (value && parseFloat(value.replaceAll("value", "")) >= 0) {
-          return (
-            <div
-              value={value}
-              style={{
-                /*backgroundColor: "rgba(55, 180, 0, 0.32)"*/ color: "green",
-              }}>
-              {value}
-            </div>
-          );
-        } else {
-          return (
-            <div
-              value={value}
-              style={{
-                /*backgroundColor: "rgba(243, 23, 0, 0.32)"*/ color: "darkred",
-              }}>
-              {value}
-            </div>
-          );
-        }
-      },
-    },
-  },
-  {
-    label: "Price Change⠀($)",
+    label: "Price Change",
     name: "regularMarketChange",
     options: {
       sort: false,
@@ -69,24 +37,25 @@ export const columnsDesktop = [
         align: "right",
       }),
       customBodyRender: (value, tableMeta, updateValue) => {
-        if (value && parseFloat(value.replaceAll("value", "")) >= 0) {
+        let val = new String(value);
+        if (val && parseFloat(val.replaceAll("%", "")) >= 0) {
           return (
             <div
-              value={value}
+              value={val}
               style={{
                 /*backgroundColor: "rgba(55, 180, 0, 0.32)"*/ color: "green",
               }}>
-              {value}
+              {val}
             </div>
           );
         } else {
           return (
             <div
-              value={value}
+              value={val}
               style={{
                 /*backgroundColor: "rgba(243, 23, 0, 0.32)"*/ color: "darkred",
               }}>
-              {value}
+              {val}
             </div>
           );
         }
@@ -94,32 +63,33 @@ export const columnsDesktop = [
     },
   },
   {
-    label: "Purchase Price⠀Change",
-    name: "changeFromPurchasePercent",
+    label: "Price Change",
+    name: "regularMarketChangePercent",
     options: {
       sort: false,
       setCellProps: () => ({
         align: "right",
       }),
       customBodyRender: (value, tableMeta, updateValue) => {
-        if (value && parseFloat(value.replaceAll("%", "")) >= 0) {
+        let val = new String(value);
+        if (val && parseFloat(val.replaceAll("%", "")) >= 0) {
           return (
             <div
-              value={value}
+              value={val}
               style={{
                 /*backgroundColor: "rgba(55, 180, 0, 0.32)"*/ color: "green",
               }}>
-              {value}
+              {val}
             </div>
           );
         } else {
           return (
             <div
-              value={value}
+              value={val}
               style={{
                 /*backgroundColor: "rgba(243, 23, 0, 0.32)"*/ color: "darkred",
               }}>
-              {value}
+              {val}
             </div>
           );
         }
@@ -127,7 +97,7 @@ export const columnsDesktop = [
     },
   },
   {
-    label: "Day's High ($)",
+    label: "Day's High",
     name: "regularMarketDayHigh",
     options: {
       sort: false,
@@ -137,7 +107,7 @@ export const columnsDesktop = [
     },
   },
   {
-    label: "Day's Low ($)",
+    label: "Day's Low",
     name: "regularMarketDayLow",
     options: {
       sort: false,
@@ -147,7 +117,7 @@ export const columnsDesktop = [
     },
   },
   {
-    label: "Open Price ($)",
+    label: "Open Price",
     name: "regularMarketOpen",
     options: {
       sort: false,
@@ -157,7 +127,7 @@ export const columnsDesktop = [
     },
   },
   {
-    label: "Previous Close ($)",
+    label: "Prev. Close",
     name: "regularMarketPreviousClose",
     options: {
       sort: false,
@@ -178,18 +148,18 @@ export const columnsDesktop = [
     },
   },
   {
-    label: "Average⠀Daily Volume",
+    label: "Avg. Vol.",
     name: "averageDailyVolume3Month",
     options: {
       sort: false,
       setCellProps: () => ({
         align: "right",
       }),
-      hint: "Don't buy if it's too low or you become a \"stuckholder\" and can't sell it easily.",
+      hint: "Average Volume (3 Months). Don't buy if it's too low or you become a \"stuckholder\" and can't sell it easily.",
     },
   },
   {
-    label: "Market Capitalization⠀($)",
+    label: "Market Cap",
     name: "marketCap",
     options: {
       sort: false,
@@ -200,7 +170,7 @@ export const columnsDesktop = [
     },
   },
   {
-    label: "52⠀week Low⠀($)",
+    label: "52w - Low",
     name: "fiftyTwoWeekLow",
     options: {
       sort: false,
@@ -210,7 +180,7 @@ export const columnsDesktop = [
     },
   },
   {
-    label: "52⠀week High⠀($)",
+    label: "52w - High",
     name: "fiftyTwoWeekHigh",
     options: {
       sort: false,
@@ -220,7 +190,7 @@ export const columnsDesktop = [
     },
   },
   {
-    label: "52⠀week Low⠀Change⠀($)",
+    label: "52⠀week Low⠀Change",
     name: "fiftyTwoWeekLowChange",
     options: {
       display: false,
@@ -230,7 +200,7 @@ export const columnsDesktop = [
     },
   },
   {
-    label: "52⠀week High⠀Change⠀($)",
+    label: "52⠀week High⠀Change",
     name: "fiftyTwoWeekHighChange",
     options: {
       display: false,
@@ -252,7 +222,7 @@ export const columnsDesktop = [
     },
   },
   {
-    label: "52⠀week Low⠀Change⠀(%)",
+    label: "52⠀week Low⠀Change",
     name: "fiftyTwoWeekLowChangePercent",
     options: {
       display: false,
@@ -263,7 +233,7 @@ export const columnsDesktop = [
     },
   },
   {
-    label: "52⠀week High⠀Change⠀(%)",
+    label: "52⠀week High⠀Change",
     name: "fiftyTwoWeekHighChangePercent",
     options: {
       display: false,
@@ -274,7 +244,7 @@ export const columnsDesktop = [
     },
   },
   {
-    label: "Book Value⠀($)",
+    label: "Book Value",
     name: "bookValue",
     options: {
       sort: false,
@@ -285,7 +255,7 @@ export const columnsDesktop = [
     },
   },
   {
-    label: "Dividend-Pay Date",
+    label: "Dividend Date",
     name: "dividendDate",
     options: {
       sort: false,
@@ -307,29 +277,7 @@ export const columnsDesktop = [
     },
   },
   {
-    label: "Dividend Yield (%)",
-    name: "trailingAnnualDividendYield",
-    options: {
-      sort: false,
-      setCellProps: () => ({
-        align: "right",
-      }),
-      hint: "This is the percent return on a divided and it is calculated as the dividend / stock price.",
-      customBodyRender: (value, tableMeta, updateValue) => {
-        if (value) {
-          return <div value={value}>{value}</div>;
-        } else {
-          return (
-            <div value={value} style={{ color: "#C3C3C3" }}>
-              no divid.
-            </div>
-          );
-        }
-      },
-    },
-  },
-  {
-    label: "Dividend/Share ($)",
+    label: "Dividend",
     name: "trailingAnnualDividendRate",
     options: {
       sort: false,
@@ -351,7 +299,29 @@ export const columnsDesktop = [
     },
   },
   {
-    label: "Forward⠀P/E Ratio",
+    label: "Dividend Yield",
+    name: "trailingAnnualDividendYield",
+    options: {
+      sort: false,
+      setCellProps: () => ({
+        align: "right",
+      }),
+      hint: "This is the percent return on a divided and it is calculated as the dividend / stock price.",
+      customBodyRender: (value, tableMeta, updateValue) => {
+        if (value) {
+          return <div value={value}>{value}</div>;
+        } else {
+          return (
+            <div value={value} style={{ color: "#C3C3C3" }}>
+              no divid.
+            </div>
+          );
+        }
+      },
+    },
+  },
+  {
+    label: "Forward P/E",
     name: "forwardPE",
     options: {
       sort: false,
@@ -362,7 +332,7 @@ export const columnsDesktop = [
     },
   },
   {
-    label: "Trailing⠀P/E Ratio",
+    label: "Trailing P/E",
     name: "trailingPE",
     options: {
       sort: false,
@@ -427,59 +397,7 @@ export const columnsDesktop = [
     },
   },
   {
-    label: "Purchase Date",
-    name: "purchaseDate",
-    options: {
-      sort: false,
-      setCellProps: () => ({
-        align: "right",
-      }),
-    },
-  },
-  {
-    label: "Purchase Price ($)",
-    name: "priceOfShare",
-    options: {
-      sort: false,
-      setCellProps: () => ({
-        align: "right",
-      }),
-    },
-  },
-  {
-    label: "Shares Owned",
-    name: "numberOfShares",
-    options: {
-      sort: false,
-      setCellProps: () => ({
-        align: "right",
-      }),
-    },
-  },
-  {
-    label: "Position Size⠀($)",
-    name: "sizeOfPosition",
-    options: {
-      sort: false,
-      setCellProps: () => ({
-        align: "right",
-      }),
-      hint: "Last price * shares owned.",
-    },
-  },
-  {
-    label: "Position Exposure⠀(%)",
-    name: "positionExposure",
-    options: {
-      sort: false,
-      setCellProps: () => ({
-        align: "right",
-      }),
-      hint: "We often don't want too much exposure to 100 investment (risky). This is why we diversify by owning multiple investments.",
-    },
-  },
-  {
-    label: "Sector Exposure (%)",
+    label: "Sector Exposure",
     name: "null",
     options: {
       sort: false,
@@ -501,7 +419,59 @@ export const columnsDesktop = [
     },
   },
   {
-    label: "Position Profit⠀or⠀Loss⠀($)",
+    label: "Position Exposure",
+    name: "positionExposure",
+    options: {
+      sort: false,
+      setCellProps: () => ({
+        align: "right",
+      }),
+      hint: "We often don't want too much exposure to 100 investment (risky). This is why we diversify by owning multiple investments.",
+    },
+  },
+  {
+    label: "Purchase Date",
+    name: "purchaseDate",
+    options: {
+      sort: false,
+      setCellProps: () => ({
+        align: "right",
+      }),
+    },
+  },
+  {
+    label: "Purchase Price",
+    name: "priceOfShare",
+    options: {
+      sort: false,
+      setCellProps: () => ({
+        align: "right",
+      }),
+    },
+  },
+  {
+    label: "Shares Owned",
+    name: "numberOfShares",
+    options: {
+      sort: false,
+      setCellProps: () => ({
+        align: "right",
+      }),
+    },
+  },
+  {
+    label: "Position Size",
+    name: "sizeOfPosition",
+    options: {
+      sort: false,
+      setCellProps: () => ({
+        align: "right",
+      }),
+      hint: "Last price * shares owned.",
+    },
+  },
+  {
+    label: "Position Change",
     name: "positionProfitOrLoss",
     options: {
       sort: false,
@@ -509,24 +479,59 @@ export const columnsDesktop = [
         align: "right",
       }),
       customBodyRender: (value, tableMeta, updateValue) => {
-        if (value && parseFloat(value.replaceAll("$", "")) >= 0) {
+        let val = new String(value);
+        if (val && parseFloat(val.replaceAll("$", "")) >= 0) {
           return (
             <div
-              value={value}
+              value={val}
               style={{
                 /*backgroundColor: "rgba(55, 180, 0, 0.32)"*/ color: "green",
               }}>
-              {value}
+              {val}
             </div>
           );
         } else {
           return (
             <div
-              value={value}
+              value={val}
               style={{
                 /*backgroundColor: "rgba(243, 23, 0, 0.32)"*/ color: "darkred",
               }}>
-              {value}
+              {val}
+            </div>
+          );
+        }
+      },
+    },
+  },
+  {
+    label: "Position Change",
+    name: "changeFromPurchasePercent",
+    options: {
+      sort: false,
+      setCellProps: () => ({
+        align: "right",
+      }),
+      customBodyRender: (value, tableMeta, updateValue) => {
+        let val = new String(value);
+        if (val && parseFloat(val.replaceAll("%", "")) >= 0) {
+          return (
+            <div
+              value={val}
+              style={{
+                /*backgroundColor: "rgba(55, 180, 0, 0.32)"*/ color: "green",
+              }}>
+              {val}
+            </div>
+          );
+        } else {
+          return (
+            <div
+              value={val}
+              style={{
+                /*backgroundColor: "rgba(243, 23, 0, 0.32)"*/ color: "darkred",
+              }}>
+              {val}
             </div>
           );
         }

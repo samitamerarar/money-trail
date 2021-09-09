@@ -25,7 +25,7 @@ class PortfolioTable extends Component {
     const options = {
       filter: true,
       filterType: "dropdown",
-      responsive: "standard",
+      responsive: "vertical",
       selectableRows: "none",
       expandableRowsHeader: false,
       elevation: 1,
@@ -64,6 +64,11 @@ class PortfolioTable extends Component {
           expandDisabled: {
             // Soft hide the button.
             visibility: "hidden",
+          },
+        },
+        MUIDataTableBodyCell: {
+          root: {
+            minWidth: "80px",
           },
         },
       },
