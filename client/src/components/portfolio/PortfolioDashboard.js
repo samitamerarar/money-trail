@@ -136,15 +136,17 @@ export const PortfolioDashboard = (props) => {
         <Col>
           <Container>
             <Row className="mt-3">
-              <h5>Investments</h5>
+              <h4>Investments</h4>
             </Row>
             <Row className="mt-3">
-              <Col>
+              <Col style={{ paddingLeft: "2px" }}>
                 <p className="grey-text text-darken-1">
                   You have <b>{mergedData.length}</b> assets.
                 </p>
               </Col>
-              <Col className="d-flex justify-content-end">
+              <Col
+                className="d-flex justify-content-end"
+                style={{ paddingRight: "2px" }}>
                 <Button variant="primary" onClick={(e) => openModal()}>
                   Add Asset
                 </Button>

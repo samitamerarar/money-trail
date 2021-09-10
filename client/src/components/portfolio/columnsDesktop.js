@@ -1,4 +1,41 @@
+import { Button, Col, Container, Row } from "react-bootstrap";
+
 export const columnsDesktop = [
+  {
+    label: "Actions",
+    name: "actions",
+    options: {
+      sort: false,
+      setCellProps: () => ({
+        align: "right",
+      }),
+      customBodyRender: (value, tableMeta, updateValue) => {
+        return (
+          <>
+            <Container style={{ padding: "0px" }}>
+              <Row>
+                <Col style={{ minWidth: "max-content" }}>
+                  <Button
+                    style={{ marginRight: "0.9em" }}
+                    variant="outline-primary"
+                    size="sm"
+                    onClick={() => console.log(value, tableMeta)}>
+                    Edit
+                  </Button>
+                  <Button
+                    variant="outline-danger"
+                    size="sm"
+                    onClick={() => console.log(value, tableMeta)}>
+                    X
+                  </Button>
+                </Col>
+              </Row>
+            </Container>
+          </>
+        );
+      },
+    },
+  },
   {
     label: "Symbol",
     name: "symbol",
@@ -13,6 +50,15 @@ export const columnsDesktop = [
     name: "name",
     options: {
       sort: false,
+      setCellProps: () => ({
+        align: "right",
+      }),
+    },
+  },
+  {
+    label: "Currency",
+    name: "currency",
+    options: {
       setCellProps: () => ({
         align: "right",
       }),
@@ -40,21 +86,13 @@ export const columnsDesktop = [
         let val = new String(value);
         if (val && parseFloat(val.replaceAll("%", "")) >= 0) {
           return (
-            <div
-              value={val}
-              style={{
-                /*backgroundColor: "rgba(55, 180, 0, 0.32)"*/ color: "green",
-              }}>
+            <div value={val} style={{ color: "green" }}>
               {val}
             </div>
           );
         } else {
           return (
-            <div
-              value={val}
-              style={{
-                /*backgroundColor: "rgba(243, 23, 0, 0.32)"*/ color: "darkred",
-              }}>
+            <div value={val} style={{ color: "darkred" }}>
               {val}
             </div>
           );
@@ -74,21 +112,13 @@ export const columnsDesktop = [
         let val = new String(value);
         if (val && parseFloat(val.replaceAll("%", "")) >= 0) {
           return (
-            <div
-              value={val}
-              style={{
-                /*backgroundColor: "rgba(55, 180, 0, 0.32)"*/ color: "green",
-              }}>
+            <div value={val} style={{ color: "green" }}>
               {val}
             </div>
           );
         } else {
           return (
-            <div
-              value={val}
-              style={{
-                /*backgroundColor: "rgba(243, 23, 0, 0.32)"*/ color: "darkred",
-              }}>
+            <div value={val} style={{ color: "darkred" }}>
               {val}
             </div>
           );
@@ -244,45 +274,16 @@ export const columnsDesktop = [
     },
   },
   {
-    label: "Book Value",
-    name: "bookValue",
-    options: {
-      sort: false,
-      setCellProps: () => ({
-        align: "right",
-      }),
-      hint: "The book value describes what the company is worth if all of its ownings are sold like their buildings, machines etc MINUS all debt paid back.",
-    },
-  },
-  {
-    label: "Dividend Date",
-    name: "dividendDate",
-    options: {
-      sort: false,
-      setCellProps: () => ({
-        align: "right",
-      }),
-      hint: "Sometimes if a company issues a very large dividend, then the stock drops immediately after the dividend has been paid.",
-      customBodyRender: (value, tableMeta, updateValue) => {
-        if (value) {
-          return <div value={value}>{value}</div>;
-        } else {
-          return (
-            <div value={value} style={{ color: "#C3C3C3" }}>
-              no divid.
-            </div>
-          );
-        }
-      },
-    },
-  },
-  {
     label: "Dividend",
     name: "trailingAnnualDividendRate",
     options: {
       sort: false,
       setCellProps: () => ({
         align: "right",
+        style: {
+          backgroundColor: "#fbfffb",
+          borderLeft: "1px double black",
+        },
       }),
       hint: "This is the value of the divided in dollar terms per share.",
       customBodyRender: (value, tableMeta, updateValue) => {
@@ -305,6 +306,9 @@ export const columnsDesktop = [
       sort: false,
       setCellProps: () => ({
         align: "right",
+        style: {
+          backgroundColor: "#fbfffb",
+        },
       }),
       hint: "This is the percent return on a divided and it is calculated as the dividend / stock price.",
       customBodyRender: (value, tableMeta, updateValue) => {
@@ -321,12 +325,55 @@ export const columnsDesktop = [
     },
   },
   {
+    label: "Dividend Date",
+    name: "dividendDate",
+    options: {
+      sort: false,
+      setCellProps: () => ({
+        align: "right",
+        style: {
+          backgroundColor: "#fbfffb",
+        },
+      }),
+      hint: "Sometimes if a company issues a very large dividend, then the stock drops immediately after the dividend has been paid.",
+      customBodyRender: (value, tableMeta, updateValue) => {
+        if (value) {
+          return <div value={value}>{value}</div>;
+        } else {
+          return (
+            <div value={value} style={{ color: "#C3C3C3" }}>
+              no divid.
+            </div>
+          );
+        }
+      },
+    },
+  },
+  {
+    label: "Book Value",
+    name: "bookValue",
+    options: {
+      sort: false,
+      setCellProps: () => ({
+        align: "right",
+        style: {
+          backgroundColor: "#f8fcff",
+          borderLeft: "1px double black",
+        },
+      }),
+      hint: "The book value describes what the company is worth if all of its ownings are sold like their buildings, machines etc MINUS all debt paid back.",
+    },
+  },
+  {
     label: "Forward P/E",
     name: "forwardPE",
     options: {
       sort: false,
       setCellProps: () => ({
         align: "right",
+        style: {
+          backgroundColor: "#f8fcff",
+        },
       }),
       hint: "This is the Price Earnings Ratio based on what investors are expecting in earnings next year. Lower = better.",
     },
@@ -338,6 +385,9 @@ export const columnsDesktop = [
       sort: false,
       setCellProps: () => ({
         align: "right",
+        style: {
+          backgroundColor: "#f8fcff",
+        },
       }),
       hint: "This is the Price Earnings ratio based on the most recent year's historical earnings.",
     },
@@ -349,6 +399,9 @@ export const columnsDesktop = [
       sort: false,
       setCellProps: () => ({
         align: "right",
+        style: {
+          backgroundColor: "#f8fcff",
+        },
       }),
       hint: "This is the P/E ratio divided by the earnings growth rate. Well under 2 is preferred by most investors.",
     },
@@ -360,6 +413,9 @@ export const columnsDesktop = [
       sort: false,
       setCellProps: () => ({
         align: "right",
+        style: {
+          backgroundColor: "#f8fcff",
+        },
       }),
       hint: "This is how much more expensive the company is versus it's book value. Value investors like Buffett love when this is under 1x or closer to 1x.",
     },
@@ -371,6 +427,9 @@ export const columnsDesktop = [
       sort: false,
       setCellProps: () => ({
         align: "right",
+        style: {
+          backgroundColor: "#f8fcff",
+        },
       }),
       hint: "If a company doesn't have earnings, then investors look at Price / Sales instead of Price / Earnings. Note that Sales and Revenue is the same thing.",
     },
@@ -382,6 +441,9 @@ export const columnsDesktop = [
       sort: false,
       setCellProps: () => ({
         align: "right",
+        style: {
+          backgroundColor: "#f8fcff",
+        },
       }),
       hint: "Beta measures how volatile a stock is relative to the index it is on. A value of 1 means not volatile.",
     },
@@ -393,6 +455,10 @@ export const columnsDesktop = [
       sort: false,
       setCellProps: () => ({
         align: "right",
+        style: {
+          backgroundColor: "#fffffa",
+          borderLeft: "2px solid black",
+        },
       }),
     },
   },
@@ -404,6 +470,9 @@ export const columnsDesktop = [
       display: false,
       setCellProps: () => ({
         align: "right",
+        style: {
+          backgroundColor: "#fffffa",
+        },
       }),
     },
   },
@@ -415,6 +484,9 @@ export const columnsDesktop = [
       display: false,
       setCellProps: () => ({
         align: "right",
+        style: {
+          backgroundColor: "#fffffa",
+        },
       }),
     },
   },
@@ -425,6 +497,9 @@ export const columnsDesktop = [
       sort: false,
       setCellProps: () => ({
         align: "right",
+        style: {
+          backgroundColor: "#fffffa",
+        },
       }),
       hint: "We often don't want too much exposure to 100 investment (risky). This is why we diversify by owning multiple investments.",
     },
@@ -436,6 +511,9 @@ export const columnsDesktop = [
       sort: false,
       setCellProps: () => ({
         align: "right",
+        style: {
+          backgroundColor: "#fffffa",
+        },
       }),
     },
   },
@@ -446,6 +524,9 @@ export const columnsDesktop = [
       sort: false,
       setCellProps: () => ({
         align: "right",
+        style: {
+          backgroundColor: "#fffffa",
+        },
       }),
     },
   },
@@ -456,6 +537,9 @@ export const columnsDesktop = [
       sort: false,
       setCellProps: () => ({
         align: "right",
+        style: {
+          backgroundColor: "#fffffa",
+        },
       }),
     },
   },
@@ -466,6 +550,9 @@ export const columnsDesktop = [
       sort: false,
       setCellProps: () => ({
         align: "right",
+        style: {
+          backgroundColor: "#fffffa",
+        },
       }),
       hint: "Last price * shares owned.",
     },
@@ -477,26 +564,21 @@ export const columnsDesktop = [
       sort: false,
       setCellProps: () => ({
         align: "right",
+        style: {
+          backgroundColor: "#fffffa",
+        },
       }),
       customBodyRender: (value, tableMeta, updateValue) => {
         let val = new String(value);
         if (val && parseFloat(val.replaceAll("$", "")) >= 0) {
           return (
-            <div
-              value={val}
-              style={{
-                /*backgroundColor: "rgba(55, 180, 0, 0.32)"*/ color: "green",
-              }}>
+            <div value={val} style={{ color: "green" }}>
               {val}
             </div>
           );
         } else {
           return (
-            <div
-              value={val}
-              style={{
-                /*backgroundColor: "rgba(243, 23, 0, 0.32)"*/ color: "darkred",
-              }}>
+            <div value={val} style={{ color: "darkred" }}>
               {val}
             </div>
           );
@@ -511,26 +593,21 @@ export const columnsDesktop = [
       sort: false,
       setCellProps: () => ({
         align: "right",
+        style: {
+          backgroundColor: "#fffffa",
+        },
       }),
       customBodyRender: (value, tableMeta, updateValue) => {
         let val = new String(value);
         if (val && parseFloat(val.replaceAll("%", "")) >= 0) {
           return (
-            <div
-              value={val}
-              style={{
-                /*backgroundColor: "rgba(55, 180, 0, 0.32)"*/ color: "green",
-              }}>
+            <div value={val} style={{ color: "green" }}>
               {val}
             </div>
           );
         } else {
           return (
-            <div
-              value={val}
-              style={{
-                /*backgroundColor: "rgba(243, 23, 0, 0.32)"*/ color: "darkred",
-              }}>
+            <div value={val} style={{ color: "darkred" }}>
               {val}
             </div>
           );
