@@ -28,7 +28,7 @@ class PortfolioTable extends Component {
       responsive: "vertical",
       selectableRows: "none",
       expandableRowsHeader: false,
-      elevation: 1,
+      elevation: 3,
       print: false,
       download: false,
       pagination: false,
