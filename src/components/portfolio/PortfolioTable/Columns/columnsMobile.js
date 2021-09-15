@@ -133,7 +133,7 @@ export const columnsMobile = [
   },
   {
     label: "Price ($)",
-    name: "ask",
+    name: "regularMarketPrice",
     options: {
       setCellProps: () => ({
         align: "right",
@@ -530,7 +530,7 @@ export const columnsMobileExpandRow = [
   },
   {
     label: "Price ($)",
-    name: "ask",
+    name: "regularMarketPrice",
     options: {
       display: false,
       setCellProps: () => ({

@@ -21,7 +21,13 @@ export default function shopReducer(state = initialState, action) {
     case ADD_INVESTMENT:
       return {
         ...state,
-        investmentsList: [action.payload, ...state.investmentsList],
+        // investmentsList: [action.payload, ...state.investmentsList],
+        investmentsList: [
+          action.payload,
+          ...state.investmentsList.filter(
+            (e) => e.symbol !== action.payload.symbol
+          ),
+        ],
       };
     case GET_INVESTMENTS:
       return {

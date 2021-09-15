@@ -9,10 +9,11 @@ import {
 } from "../../actions/investmentAction";
 import { getTickerData, searchStock } from "../../actions/yahooActions";
 
-import PortfolioTable from "./PortfolioTable";
-import AddStockModal from "./AddStockModal";
+import PortfolioTable from "./PortfolioTable/PortfolioTable";
+import AddStockModal from "./AddStock/AddStockModal";
 
 export const PortfolioDashboard = (props) => {
+  const [componentJustCreated, setComponentJustCreated] = useState(true);
   const [isOpenModal, setIsOpenModal] = useState(false);
   const [mergedData, setMergedData] = useState([]);
 
@@ -26,6 +27,8 @@ export const PortfolioDashboard = (props) => {
     }
   };
 
+  console.log(props.investments.investmentsList);
+
   useEffect(() => {
     props.getInvestments();
   }, []); // run this once
@@ -35,8 +38,10 @@ export const PortfolioDashboard = (props) => {
       const found = props.yahooFinance.tickerData.some(
         (s) => s.symbol === e.symbol
       );
-      if (!found) props.getTickerData(e);
+      if (!found || !componentJustCreated) props.getTickerData(e);
     });
+
+    setComponentJustCreated(false);
   }, [props.investments.investmentsList]); // run when investmentsList change
 
   useEffect(() => {
@@ -50,9 +55,10 @@ export const PortfolioDashboard = (props) => {
     // Calculate additionals fields
     mergedArray.forEach((e) => {
       e["changeFromPurchasePercent"] =
-        (e.ask - e.priceOfShare) / e.priceOfShare;
-      e["sizeOfPosition"] = e.ask * e.numberOfShares;
-      e["positionProfitOrLoss"] = (e.ask - e.priceOfShare) * e.numberOfShares;
+        (e.regularMarketPrice - e.priceOfShare) / e.priceOfShare;
+      e["sizeOfPosition"] = e.regularMarketPrice * e.numberOfShares;
+      e["positionProfitOrLoss"] =
+        (e.regularMarketPrice - e.priceOfShare) * e.numberOfShares;
     });
 
     // sum the size of position
@@ -77,7 +83,7 @@ export const PortfolioDashboard = (props) => {
           key === "sizeOfPosition" ||
           key === "positionProfitOrLoss" ||
           key === "marketCap" ||
-          key === "ask" ||
+          key === "regularMarketPrice" ||
           key === "regularMarketChange" ||
           key === "regularMarketDayHigh" ||
           key === "regularMarketDayLow" ||
@@ -129,6 +135,8 @@ export const PortfolioDashboard = (props) => {
       }
     });
   });
+
+  console.log(mergedData);
 
   return (
     <Container fluid>

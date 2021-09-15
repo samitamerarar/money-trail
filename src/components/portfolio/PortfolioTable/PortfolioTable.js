@@ -8,8 +8,9 @@ import TableRow from "@material-ui/core/TableRow";
 import TableCell from "@material-ui/core/TableCell";
 import { MuiThemeProvider } from "@material-ui/core/styles";
 import { createTheme } from "@material-ui/core/styles";
-import { columnsMobile, columnsMobileExpandRow } from "./columnsMobile";
-import { columnsDesktop } from "./columnsDesktop";
+
+import { columnsMobile, columnsMobileExpandRow } from "./Columns/columnsMobile";
+import { columnsDesktop } from "./Columns/columnsDesktop";
 
 import { isMobile } from "react-device-detect";
 
