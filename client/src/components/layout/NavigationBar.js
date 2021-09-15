@@ -37,22 +37,25 @@ class NavigationBar extends Component {
                 </NavDropdown.Item>
               </NavDropdown>
             </Nav>
-            {this.props.auth.isAuthenticated ? (
-              <NavDropdown
-                title={user.name.split(" ")[0]}
-                id="basic-nav-dropdown">
-                <NavDropdown.Item as={Link} to="/manage">
-                  Manage
-                </NavDropdown.Item>
 
-                <NavDropdown.Divider />
-                <NavDropdown.Item href="" onClick={this.onLogoutClick}>
-                  Logout
-                </NavDropdown.Item>
-              </NavDropdown>
-            ) : (
-              <div></div>
-            )}
+            <Nav>
+              {this.props.auth.isAuthenticated ? (
+                <NavDropdown
+                  title={user.name.split(" ")[0]}
+                  id="basic-nav-dropdown">
+                  <NavDropdown.Item as={Link} to="/manage">
+                    Manage
+                  </NavDropdown.Item>
+
+                  <NavDropdown.Divider />
+                  <NavDropdown.Item href="" onClick={this.onLogoutClick}>
+                    Logout
+                  </NavDropdown.Item>
+                </NavDropdown>
+              ) : (
+                <></>
+              )}
+            </Nav>
           </Navbar.Collapse>
         </Container>
       </Navbar>

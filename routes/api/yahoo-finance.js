@@ -13,32 +13,32 @@ router.get(
     yahooFinance
       .quote(req.query.symbol, {
         fields: [
-          "symbol",
-          "displayName",
-          "marketCap",
-          "ask",
-          "regularMarketChangePercent",
-          "regularMarketChange",
-          "regularMarketDayHigh",
-          "regularMarketDayLow",
-          "regularMarketOpen",
-          "regularMarketPreviousClose",
-          "regularMarketVolume",
-          "averageDailyVolume3Month",
-          "fiftyTwoWeekLow",
-          "fiftyTwoWeekHigh",
-          "fiftyTwoWeekLowChange",
-          "fiftyTwoWeekHighChange",
-          "sharesOutstanding",
-          "fiftyTwoWeekLowChangePercent",
-          "fiftyTwoWeekHighChangePercent",
-          "bookValue",
-          "dividendDate",
-          "trailingAnnualDividendRate",
-          "trailingAnnualDividendYield",
-          "forwardPE",
-          "priceToBook",
-          "trailingPE",
+          // "symbol",
+          // "displayName",
+          // "marketCap",
+          // "regularMarketPrice",
+          // "regularMarketChangePercent",
+          // "regularMarketChange",
+          // "regularMarketDayHigh",
+          // "regularMarketDayLow",
+          // "regularMarketOpen",
+          // "regularMarketPreviousClose",
+          // "regularMarketVolume",
+          // "averageDailyVolume3Month",
+          // "fiftyTwoWeekLow",
+          // "fiftyTwoWeekHigh",
+          // "fiftyTwoWeekLowChange",
+          // "fiftyTwoWeekHighChange",
+          // "sharesOutstanding",
+          // "fiftyTwoWeekLowChangePercent",
+          // "fiftyTwoWeekHighChangePercent",
+          // "bookValue",
+          // "dividendDate",
+          // "trailingAnnualDividendRate",
+          // "trailingAnnualDividendYield",
+          // "forwardPE",
+          // "priceToBook",
+          // "trailingPE",
         ],
       })
       .then((tickerData) => {
@@ -47,13 +47,19 @@ router.get(
             modules: ["summaryDetail", "defaultKeyStatistics"],
           })
           .then((tickerDataStats) => {
-            tickerData["pegRatio"] =
-              tickerDataStats.defaultKeyStatistics.pegRatio;
+            if (
+              tickerDataStats &&
+              tickerDataStats.defaultKeyStatistics &&
+              tickerDataStats.summaryDetail
+            ) {
+              tickerData["pegRatio"] =
+                tickerDataStats.defaultKeyStatistics.pegRatio;
 
-            tickerData["beta"] = tickerDataStats.summaryDetail.beta;
+              tickerData["beta"] = tickerDataStats.summaryDetail.beta;
 
-            tickerData["priceToSalesTrailing12Months"] =
-              tickerDataStats.summaryDetail.priceToSalesTrailing12Months;
+              tickerData["priceToSalesTrailing12Months"] =
+                tickerDataStats.summaryDetail.priceToSalesTrailing12Months;
+            }
 
             res.json(tickerData);
           });

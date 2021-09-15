@@ -20,9 +20,17 @@ export const SearchTicker = (props) => {
           .filter((i) => i.shortname && i.symbol)
           .map((i) => ({ shortname: i.shortname, symbol: i.symbol }));
 
+        // Remove already added symbols from the options
+        options = options.filter(
+          (f) =>
+            !props.investments.investmentsList.some(
+              (e) => e.symbol === f.symbol
+            )
+        );
+
         setOptions(options);
-        setIsLoading(false);
       }
+      setIsLoading(false);
     });
   };
 
@@ -45,7 +53,7 @@ export const SearchTicker = (props) => {
       onSearch={handleSearch}
       options={options}
       onChange={(e) => sendSelectedToForm(e)}
-      placeholder="Search by Ticker symbol or Company name..."
+      placeholder="Search by Ticker or Name..."
       renderMenuItemChildren={(option, props) => (
         <Fragment>
           <span>
@@ -61,11 +69,13 @@ SearchTicker.propTypes = {
   auth: PropTypes.object.isRequired,
   yahooFinance: PropTypes.object.isRequired,
   searchStock: PropTypes.func.isRequired,
+  investments: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   auth: state.auth,
   yahooFinance: state.yahooFinance,
+  investments: state.investments,
 });
 
 export default connect(mapStateToProps, { searchStock })(SearchTicker);

@@ -19,13 +19,13 @@ router.post(
     })
       .then((investment) => {
         if (investment) {
-          investment.name = req.body.symbolNameObj.shortname;
+          //investment.name = req.body.symbolNameObj.shortname;
           investment.priceOfShare = req.body.price;
           investment.numberOfShares = req.body.shares;
           investment.sector = req.body.sector;
-          investment.risk = req.body.risk;
+          //investment.risk = req.body.risk;
           investment.purchaseDate = req.body.date;
-          investment.comments = req.body.comments;
+          //investment.comments = req.body.comments;
           //investment.investmentType = req.body.investmentType;
           investment.save().then((investment) => res.json(investment));
         } else {

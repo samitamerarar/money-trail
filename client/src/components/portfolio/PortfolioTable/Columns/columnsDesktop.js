@@ -1,4 +1,4 @@
-import { Button, Col, Container, Row } from "react-bootstrap";
+import EditStock from "../EditStock/EditStock";
 
 export const columnsDesktop = [
   {
@@ -11,27 +11,11 @@ export const columnsDesktop = [
       }),
       customBodyRender: (value, tableMeta, updateValue) => {
         return (
-          <>
-            <Container style={{ padding: "0px" }}>
-              <Row>
-                <Col style={{ minWidth: "max-content" }}>
-                  <Button
-                    style={{ marginRight: "0.9em" }}
-                    variant="outline-primary"
-                    size="sm"
-                    onClick={() => console.log(value, tableMeta)}>
-                    Edit
-                  </Button>
-                  <Button
-                    variant="outline-danger"
-                    size="sm"
-                    onClick={() => console.log(value, tableMeta)}>
-                    X
-                  </Button>
-                </Col>
-              </Row>
-            </Container>
-          </>
+          <EditStock
+            value={value}
+            tableMeta={tableMeta}
+            updateValue={updateValue}
+          />
         );
       },
     },
@@ -66,7 +50,7 @@ export const columnsDesktop = [
   },
   {
     label: "Price",
-    name: "ask",
+    name: "regularMarketPrice",
     options: {
       sort: false,
       setCellProps: () => ({

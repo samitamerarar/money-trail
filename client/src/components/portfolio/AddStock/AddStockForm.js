@@ -9,7 +9,7 @@ import {
   Tooltip,
   OverlayTrigger,
 } from "react-bootstrap";
-import SearchTicker from "./SearchTicker";
+import SearchTicker from "../SearchTicker";
 
 const AddStockForm = (props) => {
   // Form
@@ -483,7 +483,7 @@ const AddStockForm = (props) => {
             </Form.Group>
             <Col className="d-flex justify-content-end p-0">
               <Button type="submit" onClick={handleSubmit}>
-                Add Investment
+                Add Asset
               </Button>
             </Col>
           </>

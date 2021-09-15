@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Container, Row, Col, Form, Button, Modal } from "react-bootstrap";
+import { Container, Row, Col, Modal } from "react-bootstrap";
 import AddStockForm from "./AddStockForm";
 
 class AddStockModal extends Component {
@@ -7,8 +7,6 @@ class AddStockModal extends Component {
     super();
     this.state = { investment: null };
   }
-
-  componentDidMount() {}
 
   receiveFormData = (data) => {
     this.setState(
@@ -39,7 +37,8 @@ class AddStockModal extends Component {
                   {...this.props}
                   size="lg"
                   aria-labelledby="contained-modal-title-vcenter"
-                  centered>
+                  //centered
+                >
                   <Modal.Header closeButton>
                     <Modal.Title id="contained-modal-title-vcenter">
                       Add Asset
