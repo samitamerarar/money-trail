@@ -62,6 +62,10 @@ router.get(
             }
 
             res.json(tickerData);
+          })
+          .catch((err) => {
+            console.log(err);
+            res.json(tickerData);
           });
       })
       .catch((err) => console.log(err));

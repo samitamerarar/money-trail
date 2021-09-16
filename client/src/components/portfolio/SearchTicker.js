@@ -28,6 +28,14 @@ export const SearchTicker = (props) => {
             )
         );
 
+        // Remove not working ticker
+        // prettier-ignore
+        const reservedChars = [":", "/", "?", "#", "[", "]", "@", "!", "$", "&", "(", ")", "*", "+", ",", ";", "="];
+
+        options = options.filter((f) =>
+          reservedChars.every((e) => f.symbol.indexOf(e) === -1)
+        );
+
         setOptions(options);
       }
       setIsLoading(false);

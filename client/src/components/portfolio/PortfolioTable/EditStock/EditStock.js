@@ -1,23 +1,32 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { addInvestment } from "../../../../actions/investmentAction";
+import {
+  addInvestment,
+  deleteInvestment,
+} from "../../../../actions/investmentAction";
 
 import { Button, Col, Container, Row, Modal } from "react-bootstrap";
 import EditStockForm from "./EditStockForm";
 
 export const EditStock = (props) => {
-  const [show, setShow] = useState(false);
+  const [showEdit, setShowEdit] = useState(false);
+  const [showDelete, setShowDelete] = useState(false);
 
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+  const handleCloseEdit = () => setShowEdit(false);
+  const handleShowEdit = () => setShowEdit(true);
+
+  const handleCloseDelete = () => setShowDelete(false);
+  const handleShowDelete = () => setShowDelete(true);
 
   const data = {
-    symbol: props.tableMeta.rowData[1],
-    shares: props.tableMeta.rowData[37],
-    price: props.tableMeta.rowData[36],
-    date: new Date(props.tableMeta.rowData[35]).toISOString().substr(0, 10),
-    sector: props.tableMeta.rowData[31],
+    id: props.tableMeta.rowData[0],
+    symbol: props.tableMeta.rowData[2],
+    name: props.tableMeta.rowData[3],
+    shares: parseFloat(props.tableMeta.rowData[37].replace(/,/g, "")),
+    price: parseFloat(props.tableMeta.rowData[38].replace(/,/g, "")),
+    date: new Date(props.tableMeta.rowData[36]).toISOString().substr(0, 10),
+    sector: props.tableMeta.rowData[32],
     //risk: props.tableMetal.rowData,
     //comments : props.tableMetal.rowData
   };
@@ -26,7 +35,15 @@ export const EditStock = (props) => {
   const receiveFormData = (data) => {
     if (data) {
       props.addInvestment(data);
-      handleClose();
+      handleCloseEdit();
+    }
+  };
+
+  // delete existing investment in database
+  const deleteInvestment = () => {
+    if (data) {
+      props.deleteInvestment(data);
+      handleCloseDelete();
     }
   };
 
@@ -36,26 +53,23 @@ export const EditStock = (props) => {
         <Row>
           <Col style={{ minWidth: "max-content" }}>
             <Button
-              onClick={handleShow}
+              onClick={handleShowEdit}
               style={{ marginRight: "0.9em" }}
               variant="outline-primary"
-              size="sm"
-              //onClick={() => console.log(value, tableMeta)}
-            >
+              size="sm">
               Edit
             </Button>
             <Button
+              onClick={handleShowDelete}
               variant="outline-danger"
-              size="sm"
-              //onClick={() => console.log(value, tableMeta)}
-            >
+              size="sm">
               X
             </Button>
           </Col>
         </Row>
       </Container>
 
-      <Modal show={show} onHide={handleClose}>
+      <Modal show={showEdit} onHide={handleCloseEdit}>
         <Modal.Header closeButton>
           <Modal.Title>Edit {data.symbol}</Modal.Title>
         </Modal.Header>
@@ -67,6 +81,34 @@ export const EditStock = (props) => {
           />
         </Modal.Body>
       </Modal>
+
+      <Modal show={showDelete} onHide={handleCloseDelete}>
+        <Modal.Header closeButton>
+          <Modal.Title>Delete {data.symbol}</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <Row
+            className="justify-content-center"
+            style={{ textAlign: "center" }}>
+            <p>
+              This will remove <i>{data.name}</i> from your list!
+            </p>
+          </Row>
+          <Row className="justify-content-center">
+            <p>
+              <b>Are you sure?</b>
+            </p>
+          </Row>
+
+          <Col
+            className="d-flex justify-content-end"
+            style={{ paddingRight: "2px" }}>
+            <Button onClick={deleteInvestment} variant="danger">
+              Delete Asset
+            </Button>
+          </Col>
+        </Modal.Body>
+      </Modal>
     </>
   );
 };
@@ -75,10 +117,13 @@ EditStock.propTypes = {
   auth: PropTypes.object.isRequired,
   investments: PropTypes.object.isRequired,
   addInvestment: PropTypes.func.isRequired,
+  deleteInvestment: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   auth: state.auth,
 });
 
-export default connect(mapStateToProps, { addInvestment })(EditStock);
+export default connect(mapStateToProps, { addInvestment, deleteInvestment })(
+  EditStock
+);

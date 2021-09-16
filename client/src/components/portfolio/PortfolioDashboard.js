@@ -2,20 +2,20 @@ import React, { useState, useEffect, useReducer } from "react";
 import { Row, Col, Container, Button } from "react-bootstrap";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import {
-  getInvestments,
-  addInvestment,
-  mergeWithYahoo,
-} from "../../actions/investmentAction";
-import { getTickerData, searchStock } from "../../actions/yahooActions";
+import { getInvestments, addInvestment } from "../../actions/investmentAction";
+import { getTickerData } from "../../actions/yahooActions";
 
 import PortfolioTable from "./PortfolioTable/PortfolioTable";
 import AddStockModal from "./AddStock/AddStockModal";
 
+import ScaleLoader from "react-spinners/ScaleLoader";
+import ClimbingBoxLoader from "react-spinners/ClimbingBoxLoader";
+
 export const PortfolioDashboard = (props) => {
-  const [componentJustCreated, setComponentJustCreated] = useState(true);
   const [isOpenModal, setIsOpenModal] = useState(false);
   const [mergedData, setMergedData] = useState([]);
+  const [isComponentLoading, setIsComponentLoading] = useState(false);
+  const [APIFetchDone, setAPIFetchDone] = useState(false);
 
   const openModal = () => setIsOpenModal(true);
   const closeModal = () => setIsOpenModal(false);
@@ -27,21 +27,34 @@ export const PortfolioDashboard = (props) => {
     }
   };
 
-  console.log(props.investments.investmentsList);
+  useEffect(() => {
+    setIsComponentLoading(false);
+  }, [APIFetchDone]); // run this once
 
   useEffect(() => {
     props.getInvestments();
   }, []); // run this once
 
   useEffect(() => {
-    props.investments.investmentsList.forEach((e, i) => {
+    const { investmentsList } = props.investments;
+
+    // Remove deleted elements from UI on runtime
+    if (investmentsList.length < mergedData.length && mergedData.length > 0) {
+      const notDeletedElements = mergedData.filter((e) =>
+        investmentsList.includes(e)
+      );
+      setMergedData([...notDeletedElements]);
+    }
+
+    investmentsList.forEach((e, i) => {
       const found = props.yahooFinance.tickerData.some(
         (s) => s.symbol === e.symbol
       );
-      if (!found || !componentJustCreated) props.getTickerData(e);
+      if (!found || e.justModified) {
+        setIsComponentLoading(true);
+        props.getTickerData(e).then(() => setAPIFetchDone(!APIFetchDone));
+      }
     });
-
-    setComponentJustCreated(false);
   }, [props.investments.investmentsList]); // run when investmentsList change
 
   useEffect(() => {
@@ -117,13 +130,19 @@ export const PortfolioDashboard = (props) => {
           key === "fiftyTwoWeekLowChangePercent" ||
           key === "fiftyTwoWeekHighChangePercent")
       ) {
+        if (typeof e[key] === "string")
+          e[key] = parseFloat(e[key].replaceAll(",", ""));
+
         e[key] =
-          (e[key] * 100).toLocaleString("en-US", {
+          (e[key] * 10).toLocaleString("en-US", {
             maximumFractionDigits: 2,
           }) + "%";
       }
 
       if (key && key === "regularMarketChangePercent") {
+        if (typeof e[key] === "string")
+          e[key] = parseFloat(e[key].replaceAll(",", ""));
+
         e[key] =
           e[key].toLocaleString("en-US", {
             maximumFractionDigits: 2,
@@ -135,8 +154,6 @@ export const PortfolioDashboard = (props) => {
       }
     });
   });
-
-  console.log(mergedData);
 
   return (
     <Container fluid>
@@ -162,9 +179,37 @@ export const PortfolioDashboard = (props) => {
             </Row>
           </Container>
 
-          <Container style={{ padding: "0px" }} fluid>
-            <PortfolioTable tableData={mergedData} />
-          </Container>
+          {props.investments.investmentsLoading || isComponentLoading ? (
+            <Container className="mt-5">
+              <Row className="justify-content-center m-3">
+                Loading assets...
+              </Row>
+              <Row className="justify-content-center">
+                <ScaleLoader color={"#007bff"} speedMultiplier={1} />
+              </Row>
+            </Container>
+          ) : (
+            <>
+              {mergedData.length > 0 ? (
+                <Container style={{ padding: "0px" }} fluid>
+                  <PortfolioTable tableData={mergedData} />
+                </Container>
+              ) : (
+                <Container className="mt-5">
+                  <Row
+                    className="justify-content-center m-3"
+                    style={{ textAlign: "center" }}>
+                    You don't have any Asset.
+                    <br />
+                    Time to invest!
+                  </Row>
+                  <Row className="justify-content-center">
+                    <ClimbingBoxLoader color={"black"} speedMultiplier={0.33} />
+                  </Row>
+                </Container>
+              )}
+            </>
+          )}
         </Col>
       </Row>
       <AddStockModal
@@ -181,10 +226,8 @@ PortfolioDashboard.propTypes = {
   investments: PropTypes.object.isRequired,
   yahooFinance: PropTypes.object.isRequired,
   getTickerData: PropTypes.func.isRequired,
-  searchStock: PropTypes.func.isRequired,
   addInvestment: PropTypes.func.isRequired,
   getInvestments: PropTypes.func.isRequired,
-  mergeWithYahoo: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -195,8 +238,6 @@ const mapStateToProps = (state) => ({
 
 export default connect(mapStateToProps, {
   getTickerData,
-  searchStock,
   getInvestments,
   addInvestment,
-  mergeWithYahoo,
 })(PortfolioDashboard);

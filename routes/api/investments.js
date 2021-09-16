@@ -12,7 +12,6 @@ router.post(
   "/add",
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
-    console.log(req.body);
     Investment.findOne({
       userId: req.user.id,
       symbol: req.body.symbolNameObj.symbol,
@@ -57,6 +56,28 @@ router.get(
   (req, res) => {
     Investment.find({ userId: req.user.id })
       .then((investments) => res.json(investments))
+      .catch((err) => console.log(err));
+  }
+);
+
+// @route DELETE api/investments/:id
+// @desc Delete investment with given id
+// @access Private
+router.delete(
+  "/:id",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    Investment.findById(req.params.id)
+      .then((inv) => {
+        // Delete Transaction
+        inv
+          .remove()
+          .then(() => res.json({ success: true }))
+          .catch((err) => {
+            console.log(err);
+            res.json({ success: false });
+          });
+      })
       .catch((err) => console.log(err));
   }
 );
