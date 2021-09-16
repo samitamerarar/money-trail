@@ -34,7 +34,7 @@ class PortfolioTable extends Component {
       download: false,
       pagination: false,
       filter: false,
-      viewColumns: false,
+      viewColumns: true,
       search: false,
     };
 

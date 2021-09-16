@@ -9,12 +9,28 @@ import {
 
 // Add investment
 export const addInvestment = (data) => (dispatch) => {
+  dispatch(setInvestmentsLoading());
   axios
     .post("api/investments/add", data)
     .then((res) =>
       dispatch({
         type: ADD_INVESTMENT,
         payload: res.data,
+      })
+    )
+    .catch((err) => console.log(err));
+};
+
+// Delete transaction
+export const deleteInvestment = (data) => (dispatch) => {
+  dispatch(setInvestmentsLoading());
+  const id = data.id;
+  axios
+    .delete(`api/investments/${id}`)
+    .then((res) =>
+      dispatch({
+        type: DELETE_INVESTMENT,
+        payload: id,
       })
     )
     .catch((err) => console.log(err));
@@ -53,6 +69,7 @@ export const setInvestmentsLoading = () => {
 // Given array containing latest yahoo finance stocks
 // and user investments, replace it with current one.
 export const mergeWithYahoo = (data) => (dispatch) => {
+  dispatch(setInvestmentsLoading());
   dispatch({
     type: MERGE_WITH_YAHOO,
     payload: data,
