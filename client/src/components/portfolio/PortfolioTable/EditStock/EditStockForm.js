@@ -17,6 +17,8 @@ const EditStockForm = (props) => {
     price: props.previousData.price,
     date: props.previousData.date,
     sector: props.previousData.sector,
+    risk: props.previousData.risk,
+    comments: props.previousData.comments,
   });
   const [errors, setErrors] = useState({});
 
@@ -64,13 +66,13 @@ const EditStockForm = (props) => {
     if (!date) newErrors.date = "must have a date!";
     // sector errors
     if (!sector || sector === "") newErrors.sector = "select a sector!";
-    // // risk errors
-    // if (!risk || risk === "") newErrors.risk = "select a risk!";
+    // risk errors
+    if (!risk || risk === "") newErrors.risk = "select a risk!";
 
-    // // comments errors
-    // //if (!comments || comments === "") newErrors.comments = "cannot be blank!";
-    // if (comments && comments.length > 200)
-    //   newErrors.comments = "comments are too long! (200 characters max)";
+    // comments errors
+    //if (!comments || comments === "") newErrors.comments = "cannot be blank!";
+    if (comments && comments.length > 200)
+      newErrors.comments = "comments are too long! (200 characters max)";
 
     return newErrors;
   };
@@ -193,7 +195,7 @@ const EditStockForm = (props) => {
           </Form.Control.Feedback>
         </Form.Group>
 
-        {/* <Form.Group className="mt-4">
+        <Form.Group className="mt-4">
           <Row>
             <Col>
               <Form.Label>Investment Risk</Form.Label>
@@ -234,30 +236,32 @@ const EditStockForm = (props) => {
 
           <Form.Control
             as="select"
+            defaultValue={props.previousData.risk}
             onChange={(e) => setField("risk", e.target.value)}
             isInvalid={!!errors.risk}>
             <option value="">Select the risk...</option>
-            <option value="More-Risky">More-Risky</option>
-            <option value="Less-Risky">Less-Risky</option>
+            <option value="More risky">More risky</option>
+            <option value="Less risky">Less risky</option>
           </Form.Control>
           <Form.Control.Feedback type="invalid">
             {errors.risk}
           </Form.Control.Feedback>
-        </Form.Group> */}
+        </Form.Group>
 
-        {/* <Form.Group>
+        <Form.Group>
           <Form.Label>
             Comments <small>(Why is it a good investment?)</small>
           </Form.Label>
           <Form.Control
             as="textarea"
+            defaultValue={props.previousData.comments}
             onChange={(e) => setField("comments", e.target.value)}
             isInvalid={!!errors.comments}
           />
           <Form.Control.Feedback type="invalid">
             {errors.comments}
           </Form.Control.Feedback>
-        </Form.Group> */}
+        </Form.Group>
 
         <Col className="d-flex justify-content-end p-0">
           <Button type="submit" onClick={handleSubmit}>

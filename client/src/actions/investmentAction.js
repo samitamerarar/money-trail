@@ -4,7 +4,6 @@ import {
   GET_INVESTMENTS,
   INVESTMENTS_LOADING,
   DELETE_INVESTMENT,
-  MERGE_WITH_YAHOO,
 } from "./types";
 
 // Add investment
@@ -64,14 +63,4 @@ export const setInvestmentsLoading = () => {
   return {
     type: INVESTMENTS_LOADING,
   };
-};
-
-// Given array containing latest yahoo finance stocks
-// and user investments, replace it with current one.
-export const mergeWithYahoo = (data) => (dispatch) => {
-  dispatch(setInvestmentsLoading());
-  dispatch({
-    type: MERGE_WITH_YAHOO,
-    payload: data,
-  });
 };

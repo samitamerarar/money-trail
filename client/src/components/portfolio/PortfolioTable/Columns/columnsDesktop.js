@@ -504,6 +504,19 @@ export const columnsDesktop = [
     },
   },
   {
+    label: "Investment Risk",
+    name: "risk",
+    options: {
+      viewColumns: false,
+      setCellProps: () => ({
+        align: "center",
+        style: {
+          backgroundColor: "#fffffa",
+        },
+      }),
+    },
+  },
+  {
     label: "Position Exposure",
     name: "positionExposure",
     options: {
@@ -515,7 +528,7 @@ export const columnsDesktop = [
           backgroundColor: "#fffffa",
         },
       }),
-      hint: "We often don't want too much exposure to 100 investment (risky). This is why we diversify by owning multiple investments.",
+      hint: "We often don't want too much exposure to 100% investment (risky). This is why we diversify by owning multiple investments.",
     },
   },
   {
@@ -639,7 +652,7 @@ export const columnsDesktop = [
     label: "Comments",
     name: "comments",
     options: {
-      display: false,
+      display: true,
       setCellProps: () => ({
         align: "left",
       }),
