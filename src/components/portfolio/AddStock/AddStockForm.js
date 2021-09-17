@@ -460,8 +460,8 @@ const AddStockForm = (props) => {
                 onChange={(e) => setField("risk", e.target.value)}
                 isInvalid={!!errors.risk}>
                 <option value="">Select the risk...</option>
-                <option value="More-Risky">More-Risky</option>
-                <option value="Less-Risky">Less-Risky</option>
+                <option value="More risky">More risky</option>
+                <option value="Less risky">Less risky</option>
               </Form.Control>
               <Form.Control.Feedback type="invalid">
                 {errors.risk}

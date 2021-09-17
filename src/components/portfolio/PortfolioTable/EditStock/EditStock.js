@@ -23,12 +23,14 @@ export const EditStock = (props) => {
     id: props.tableMeta.rowData[0],
     symbol: props.tableMeta.rowData[2],
     name: props.tableMeta.rowData[3],
-    shares: parseFloat(props.tableMeta.rowData[37].replace(/,/g, "")),
-    price: parseFloat(props.tableMeta.rowData[38].replace(/,/g, "")),
-    date: new Date(props.tableMeta.rowData[36]).toISOString().substr(0, 10),
     sector: props.tableMeta.rowData[32],
-    //risk: props.tableMetal.rowData,
-    //comments : props.tableMetal.rowData
+    risk: props.tableMeta.rowData[35],
+    date: new Date(props.tableMeta.rowData[37]).toISOString().substr(0, 10),
+    shares: parseFloat(
+      props.tableMeta.rowData[38].toString().replace(/,/g, "")
+    ),
+    price: parseFloat(props.tableMeta.rowData[39].toString().replace(/,/g, "")),
+    comments: props.tableMeta.rowData[43],
   };
 
   // edit existing investment in database

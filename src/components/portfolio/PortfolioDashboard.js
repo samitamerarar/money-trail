@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useReducer } from "react";
+import React, { useState, useEffect } from "react";
 import { Row, Col, Container, Button } from "react-bootstrap";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
@@ -13,12 +13,14 @@ import ClimbingBoxLoader from "react-spinners/ClimbingBoxLoader";
 
 export const PortfolioDashboard = (props) => {
   const [isOpenModal, setIsOpenModal] = useState(false);
-  const [mergedData, setMergedData] = useState([]);
   const [isComponentLoading, setIsComponentLoading] = useState(false);
   const [APIFetchDone, setAPIFetchDone] = useState(false);
 
   const openModal = () => setIsOpenModal(true);
   const closeModal = () => setIsOpenModal(false);
+
+  const [mergedData, setMergedData] = useState([]);
+  const [needToMergeData, setNeedToMergeData] = useState(false);
 
   // add investment to database
   const handleSubmit = (data) => {
@@ -27,132 +29,151 @@ export const PortfolioDashboard = (props) => {
     }
   };
 
+  /**
+   * Control UI Loading.
+   */
   useEffect(() => {
     setIsComponentLoading(false);
-  }, [APIFetchDone]); // run this once
+  }, [APIFetchDone]);
 
+  /**
+   * Get User Investments.
+   */
   useEffect(() => {
     props.getInvestments();
   }, []); // run this once
 
+  /**
+   * For each User Investment, fetch its live summary details from the API.
+   */
   useEffect(() => {
     const { investmentsList } = props.investments;
-
-    // Remove deleted elements from UI on runtime
-    if (investmentsList.length < mergedData.length && mergedData.length > 0) {
-      const notDeletedElements = mergedData.filter((e) =>
-        investmentsList.includes(e)
-      );
-      setMergedData([...notDeletedElements]);
-    }
 
     investmentsList.forEach((e, i) => {
       const found = props.yahooFinance.tickerData.some(
         (s) => s.symbol === e.symbol
       );
-      if (!found || e.justModified) {
+      if (!found) {
         setIsComponentLoading(true);
         props.getTickerData(e).then(() => setAPIFetchDone(!APIFetchDone));
       }
     });
-  }, [props.investments.investmentsList]); // run when investmentsList change
 
+    // Delete asset if marked as "justDeleted"
+    investmentsList.forEach((e, i, obj) => e.justDeleted && obj.splice(i, 1));
+
+    setNeedToMergeData(!needToMergeData);
+  }, [props.investments.investmentsList]);
+
+  /**
+   * When we get new tickers new data, Merge tickers data with the user investments data.
+   */
   useEffect(() => {
+    mergeAndCalculateUserInvestmentsWithRealTimeData();
+  }, [props.yahooFinance.tickerData]);
+
+  /**
+   * When needToMergeData is Toggled, Merge live data with the user data.
+   */
+  useEffect(() => {
+    mergeAndCalculateUserInvestmentsWithRealTimeData();
+  }, [needToMergeData]);
+
+  /**
+   * This function is used to merge 2 arrays (Yahoo Tickers Data with User Investments).
+   */
+  const mergeAndCalculateUserInvestmentsWithRealTimeData = () => {
     // Merge the 2 arrays on the field 'symbol'
     const mergedArray = props.investments.investmentsList.map((e1) => ({
       ...e1,
       ...props.yahooFinance.tickerData.find((e2) => e2.symbol === e1.symbol),
     }));
-    setMergedData([...mergedArray]);
 
     // Calculate additionals fields
     mergedArray.forEach((e) => {
-      e["changeFromPurchasePercent"] =
-        (e.regularMarketPrice - e.priceOfShare) / e.priceOfShare;
+      e["changeFromPurchasePercent"] = (e.regularMarketPrice - e.priceOfShare) / e.priceOfShare;
       e["sizeOfPosition"] = e.regularMarketPrice * e.numberOfShares;
-      e["positionProfitOrLoss"] =
-        (e.regularMarketPrice - e.priceOfShare) * e.numberOfShares;
+      e["positionProfitOrLoss"] = (e.regularMarketPrice - e.priceOfShare) * e.numberOfShares;
     });
 
     // sum the size of position
-    const sumOfPosition = mergedArray.reduce(
-      (n, { sizeOfPosition }) => n + sizeOfPosition,
-      0
-    );
+    const sumOfPosition = mergedArray.reduce((n, { sizeOfPosition }) => n + sizeOfPosition, 0);
 
     mergedArray.forEach((e) => {
       e["positionExposure"] = e.sizeOfPosition / sumOfPosition;
     });
-  }, [props.yahooFinance.tickerData]); // run when tickerData change
 
-  //Copy array to another array
-  // const data = JSON.parse(JSON.stringify(mergedData));
+    setMergedData([...mergedArray]);
+  };
 
   mergedData.forEach((e, i) => {
-    Object.keys(e).forEach((key, j) => {
-      if (
-        key &&
-        (key === "priceOfShare" ||
-          key === "sizeOfPosition" ||
-          key === "positionProfitOrLoss" ||
-          key === "marketCap" ||
-          key === "regularMarketPrice" ||
-          key === "regularMarketChange" ||
-          key === "regularMarketDayHigh" ||
-          key === "regularMarketDayLow" ||
-          key === "regularMarketOpen" ||
-          key === "regularMarketPreviousClose" ||
-          key === "fiftyTwoWeekHigh" ||
-          key === "fiftyTwoWeekLowChange" ||
-          key === "fiftyTwoWeekHighChange" ||
-          key === "bookValue" ||
-          key === "numberOfShares" ||
-          key === "regularMarketVolume" ||
-          key === "averageDailyVolume3Month" ||
-          key === "sharesOutstanding" ||
-          key === "forwardPE" ||
-          key === "priceToBook" ||
-          key === "trailingPE" ||
-          key === "priceToSalesTrailing12Months" ||
-          key === "beta" ||
-          key === "trailingAnnualDividendRate")
-      ) {
-        mergedData[i][key] = e[key].toLocaleString("en-US", {
-          maximumFractionDigits: 2,
-        });
-      }
-
-      if (
-        key &&
-        (key === "changeFromPurchasePercent" ||
-          key === "positionExposure" ||
-          key === "trailingAnnualDividendYield" ||
-          key === "fiftyTwoWeekLowChangePercent" ||
-          key === "fiftyTwoWeekHighChangePercent")
-      ) {
-        if (typeof e[key] === "string")
-          e[key] = parseFloat(e[key].replaceAll(",", ""));
-
-        e[key] =
-          (e[key] * 10).toLocaleString("en-US", {
+    if (!e.hasOwnProperty("assetAlreadyConverted")) {
+      e["assetAlreadyConverted"] = true;
+      Object.keys(e).forEach((key, j) => {
+        if (
+          key &&
+          (key === "priceOfShare" ||
+            key === "sizeOfPosition" ||
+            key === "positionProfitOrLoss" ||
+            key === "marketCap" ||
+            key === "regularMarketPrice" ||
+            key === "regularMarketChange" ||
+            key === "regularMarketDayHigh" ||
+            key === "regularMarketDayLow" ||
+            key === "regularMarketOpen" ||
+            key === "regularMarketPreviousClose" ||
+            key === "fiftyTwoWeekHigh" ||
+            key === "fiftyTwoWeekLowChange" ||
+            key === "fiftyTwoWeekHighChange" ||
+            key === "bookValue" ||
+            key === "numberOfShares" ||
+            key === "regularMarketVolume" ||
+            key === "averageDailyVolume3Month" ||
+            key === "sharesOutstanding" ||
+            key === "forwardPE" ||
+            key === "priceToBook" ||
+            key === "trailingPE" ||
+            key === "priceToSalesTrailing12Months" ||
+            key === "beta" ||
+            key === "trailingAnnualDividendRate")
+        ) {
+          mergedData[i][key] = e[key].toLocaleString("en-US", {
             maximumFractionDigits: 2,
-          }) + "%";
-      }
+          });
+        }
 
-      if (key && key === "regularMarketChangePercent") {
-        if (typeof e[key] === "string")
-          e[key] = parseFloat(e[key].replaceAll(",", ""));
+        if (
+          key &&
+          (key === "changeFromPurchasePercent" ||
+            key === "positionExposure" ||
+            key === "trailingAnnualDividendYield" ||
+            key === "fiftyTwoWeekLowChangePercent" ||
+            key === "fiftyTwoWeekHighChangePercent")
+        ) {
+          if (typeof e[key] === "string")
+            e[key] = parseFloat(e[key].replaceAll(",", ""));
 
-        e[key] =
-          e[key].toLocaleString("en-US", {
-            maximumFractionDigits: 2,
-          }) + "%";
-      }
+          e[key] =
+            (e[key] * 100).toLocaleString("en-US", {
+              maximumFractionDigits: 2,
+            }) + "%";
+        }
 
-      if (key && (key === "dividendDate" || key === "purchaseDate")) {
-        e[key] = new Date(e[key]).toDateString();
-      }
-    });
+        if (key && key === "regularMarketChangePercent") {
+          if (typeof e[key] === "string")
+            e[key] = parseFloat(e[key].replaceAll(",", ""));
+
+          e[key] =
+            e[key].toLocaleString("en-US", {
+              maximumFractionDigits: 2,
+            }) + "%";
+        }
+
+        if (key && (key === "dividendDate" || key === "purchaseDate")) {
+          e[key] = new Date(e[key]).toDateString();
+        }
+      });
+    }
   });
 
   return (
