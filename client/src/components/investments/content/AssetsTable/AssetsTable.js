@@ -9,12 +9,12 @@ import TableCell from "@material-ui/core/TableCell";
 import { MuiThemeProvider } from "@material-ui/core/styles";
 import { createTheme } from "@material-ui/core/styles";
 
-import { columnsMobile, columnsMobileExpandRow } from "./Columns/columnsMobile";
-import { columnsDesktop } from "./Columns/columnsDesktop";
+import { columnsMobile, columnsMobileExpandRow } from "./columns/columnsMobile";
+import { columnsDesktop } from "./columns/columnsDesktop";
 
 import { isMobile } from "react-device-detect";
 
-class PortfolioTable extends Component {
+class AssetsTable extends Component {
   constructor(props) {
     super(props);
   }
@@ -217,7 +217,7 @@ class PortfolioTable extends Component {
   }
 }
 
-PortfolioTable.propTypes = {
+AssetsTable.propTypes = {
   auth: PropTypes.object.isRequired,
 };
 
@@ -225,4 +225,4 @@ const mapStateToProps = (state) => ({
   auth: state.auth,
 });
 
-export default connect(mapStateToProps, {})(PortfolioTable);
+export default connect(mapStateToProps, {})(AssetsTable);

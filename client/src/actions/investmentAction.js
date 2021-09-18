@@ -4,6 +4,7 @@ import {
   GET_INVESTMENTS,
   INVESTMENTS_LOADING,
   DELETE_INVESTMENT,
+  GET_ERRORS,
 } from "./types";
 
 // Add investment
@@ -17,7 +18,12 @@ export const addInvestment = (data) => (dispatch) => {
         payload: res.data,
       })
     )
-    .catch((err) => console.log(err));
+    .catch((err) =>
+      dispatch({
+        type: GET_ERRORS,
+        payload: err.response.data,
+      })
+    );
 };
 
 // Delete transaction
@@ -32,7 +38,12 @@ export const deleteInvestment = (data) => (dispatch) => {
         payload: id,
       })
     )
-    .catch((err) => console.log(err));
+    .catch((err) =>
+      dispatch({
+        type: GET_ERRORS,
+        payload: err.response.data,
+      })
+    );
 };
 
 // Get all investments for the user
@@ -49,8 +60,8 @@ export const getInvestments = () => {
       )
       .catch((err) =>
         dispatch({
-          type: GET_INVESTMENTS,
-          payload: null,
+          type: GET_ERRORS,
+          payload: err.response.data,
         })
       );
 

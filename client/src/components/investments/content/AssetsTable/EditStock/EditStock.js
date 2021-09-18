@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import {
   addInvestment,
   deleteInvestment,
-} from "../../../../actions/investmentAction";
+} from "../../../../../actions/investmentAction";
 
 import { Button, Col, Container, Row, Modal } from "react-bootstrap";
 import EditStockForm from "./EditStockForm";

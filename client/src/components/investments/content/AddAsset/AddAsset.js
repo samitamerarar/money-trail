@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import { Container, Row, Col, Modal } from "react-bootstrap";
-import AddStockForm from "./AddStockForm";
+import AddAssetForm from "./AddAssetForm";
 
-class AddStockModal extends Component {
+class AddAssetModal extends Component {
   constructor() {
     super();
     this.state = { investment: null };
@@ -45,7 +45,7 @@ class AddStockModal extends Component {
                     </Modal.Title>
                   </Modal.Header>
                   <Modal.Body>
-                    <AddStockForm
+                    <AddAssetForm
                       sendFormData={(e) => this.receiveFormData(e)}
                     />
                   </Modal.Body>
@@ -59,4 +59,4 @@ class AddStockModal extends Component {
   }
 }
 
-export default AddStockModal;
+export default AddAssetModal;

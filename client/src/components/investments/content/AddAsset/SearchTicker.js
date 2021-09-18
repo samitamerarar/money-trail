@@ -4,7 +4,7 @@ import { AsyncTypeahead } from "react-bootstrap-typeahead";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 
-import { searchStock } from "../../actions/yahooActions";
+import { searchStock } from "../../../../actions/yahooActions";
 
 export const SearchTicker = (props) => {
   const [isLoading, setIsLoading] = useState(false);
