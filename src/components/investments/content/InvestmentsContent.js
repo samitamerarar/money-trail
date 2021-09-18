@@ -2,16 +2,19 @@ import React, { useState, useEffect } from "react";
 import { Row, Col, Container, Button } from "react-bootstrap";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { getInvestments, addInvestment } from "../../actions/investmentAction";
-import { getTickerData } from "../../actions/yahooActions";
+import {
+  getInvestments,
+  addInvestment,
+} from "../../../actions/investmentAction";
+import { getTickerData } from "../../../actions/yahooActions";
 
-import PortfolioTable from "./PortfolioTable/PortfolioTable";
-import AddStockModal from "./AddStock/AddStockModal";
+import AssetsTable from "./AssetsTable/AssetsTable";
+import AddAssetModal from "./AddAsset/AddAsset";
 
 import ScaleLoader from "react-spinners/ScaleLoader";
 import ClimbingBoxLoader from "react-spinners/ClimbingBoxLoader";
 
-export const PortfolioDashboard = (props) => {
+export const InvestmentsContent = (props) => {
   const [isOpenModal, setIsOpenModal] = useState(false);
   const [isComponentLoading, setIsComponentLoading] = useState(false);
   const [APIFetchDone, setAPIFetchDone] = useState(false);
@@ -91,13 +94,18 @@ export const PortfolioDashboard = (props) => {
 
     // Calculate additionals fields
     mergedArray.forEach((e) => {
-      e["changeFromPurchasePercent"] = (e.regularMarketPrice - e.priceOfShare) / e.priceOfShare;
+      e["changeFromPurchasePercent"] =
+        (e.regularMarketPrice - e.priceOfShare) / e.priceOfShare;
       e["sizeOfPosition"] = e.regularMarketPrice * e.numberOfShares;
-      e["positionProfitOrLoss"] = (e.regularMarketPrice - e.priceOfShare) * e.numberOfShares;
+      e["positionProfitOrLoss"] =
+        (e.regularMarketPrice - e.priceOfShare) * e.numberOfShares;
     });
 
     // sum the size of position
-    const sumOfPosition = mergedArray.reduce((n, { sizeOfPosition }) => n + sizeOfPosition, 0);
+    const sumOfPosition = mergedArray.reduce(
+      (n, { sizeOfPosition }) => n + sizeOfPosition,
+      0
+    );
 
     mergedArray.forEach((e) => {
       e["positionExposure"] = e.sizeOfPosition / sumOfPosition;
@@ -182,9 +190,6 @@ export const PortfolioDashboard = (props) => {
         <Col>
           <Container>
             <Row className="mt-3">
-              <h4>Investments</h4>
-            </Row>
-            <Row className="mt-3">
               <Col style={{ paddingLeft: "2px" }}>
                 <p className="grey-text text-darken-1">
                   You have <b>{mergedData.length}</b> assets.
@@ -213,7 +218,7 @@ export const PortfolioDashboard = (props) => {
             <>
               {mergedData.length > 0 ? (
                 <Container style={{ padding: "0px" }} fluid>
-                  <PortfolioTable tableData={mergedData} />
+                  <AssetsTable tableData={mergedData} />
                 </Container>
               ) : (
                 <Container className="mt-5">
@@ -233,7 +238,7 @@ export const PortfolioDashboard = (props) => {
           )}
         </Col>
       </Row>
-      <AddStockModal
+      <AddAssetModal
         show={isOpenModal}
         onHide={() => closeModal()}
         handleSubmit={(e) => handleSubmit(e)}
@@ -242,7 +247,7 @@ export const PortfolioDashboard = (props) => {
   );
 };
 
-PortfolioDashboard.propTypes = {
+InvestmentsContent.propTypes = {
   auth: PropTypes.object.isRequired,
   investments: PropTypes.object.isRequired,
   yahooFinance: PropTypes.object.isRequired,
@@ -261,4 +266,4 @@ export default connect(mapStateToProps, {
   getTickerData,
   getInvestments,
   addInvestment,
-})(PortfolioDashboard);
+})(InvestmentsContent);

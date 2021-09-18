@@ -1,8 +1,8 @@
 import {
-  ADD_USER_TRANSACTION,
-  DELETE_USER_TRANSACTION,
-  GET_USER_TRANSACTIONS,
-  USER_TRANSACTIONS_LOADING,
+  ADD_TRANSACTION,
+  DELETE_TRANSACTION,
+  GET_TRANSACTIONS,
+  TRANSACTIONS_LOADING,
 } from "../actions/types";
 
 const initialState = {
@@ -10,27 +10,27 @@ const initialState = {
   transactionsLoading: false,
 };
 
-export default function userTransactionReducer(state = initialState, action) {
+export default function transactionReducer(state = initialState, action) {
   switch (action.type) {
-    case ADD_USER_TRANSACTION:
+    case ADD_TRANSACTION:
       return {
         ...state,
         transactions: [action.payload, ...state.transactions],
       };
-    case DELETE_USER_TRANSACTION:
+    case DELETE_TRANSACTION:
       return {
         ...state,
         transactions: state.transactions.filter(
           (txn) => txn._id !== action.payload
         ),
       };
-    case GET_USER_TRANSACTIONS:
+    case GET_TRANSACTIONS:
       return {
         ...state,
         transactions: action.payload,
         transactionsLoading: false,
       };
-    case USER_TRANSACTIONS_LOADING:
+    case TRANSACTIONS_LOADING:
       return {
         ...state,
         transactionsLoading: true,

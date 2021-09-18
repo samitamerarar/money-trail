@@ -5,6 +5,7 @@ import {
   SEARCH_DATA_LOADING,
 } from "../actions/types";
 
+const isEmpty = require("is-empty");
 const initialState = {
   searchData: [],
   searchDataLoading: false,
@@ -20,11 +21,13 @@ export default function yahooReducer(state = initialState, action) {
         tickerDataLoading: true,
       };
     case GET_TICKER_DATA: {
-      return {
-        ...state,
-        tickerData: [action.payload, ...state.tickerData],
-        tickerDataLoading: false,
-      };
+      if (!isEmpty(action.payload)) {
+        return {
+          ...state,
+          tickerData: [action.payload, ...state.tickerData],
+          tickerDataLoading: false,
+        };
+      }
     }
     case SEARCH_DATA_LOADING:
       return {
@@ -32,11 +35,15 @@ export default function yahooReducer(state = initialState, action) {
         searchDataLoading: true,
       };
     case GET_SEARCH_DATA: {
-      return {
-        ...state,
-        searchData: [action.payload],
-        searchDataLoading: false,
-      };
+      if (!isEmpty(action.payload)) {
+        {
+          return {
+            ...state,
+            searchData: [action.payload],
+            searchDataLoading: false,
+          };
+        }
+      }
     }
 
     default:

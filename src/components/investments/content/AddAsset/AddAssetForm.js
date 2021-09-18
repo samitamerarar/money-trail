@@ -9,9 +9,9 @@ import {
   Tooltip,
   OverlayTrigger,
 } from "react-bootstrap";
-import SearchTicker from "../SearchTicker";
+import SearchTicker from "./SearchTicker";
 
-const AddStockForm = (props) => {
+const AddAssetForm = (props) => {
   // Form
   const [form, setForm] = useState({});
   const [errors, setErrors] = useState({});
@@ -493,4 +493,4 @@ const AddStockForm = (props) => {
   );
 };
 
-export default AddStockForm;
+export default AddAssetForm;

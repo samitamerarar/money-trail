@@ -1,18 +1,18 @@
 import axios from "axios";
 import {
-  ADD_USER_TRANSACTION,
-  DELETE_USER_TRANSACTION,
-  GET_USER_TRANSACTIONS,
-  USER_TRANSACTIONS_LOADING,
+  ADD_TRANSACTION,
+  DELETE_TRANSACTION,
+  GET_TRANSACTIONS,
+  TRANSACTIONS_LOADING,
 } from "./types";
 
 // Add transaction
-export const addUserTransaction = (data) => (dispatch) => {
+export const addTransaction = (data) => (dispatch) => {
   axios
     .post("api/transactions/add", data)
     .then((res) =>
       dispatch({
-        type: ADD_USER_TRANSACTION,
+        type: ADD_TRANSACTION,
         payload: res.data,
       })
     )
@@ -20,13 +20,13 @@ export const addUserTransaction = (data) => (dispatch) => {
 };
 
 // Delete transaction
-export const deleteUserTransaction = (txnData) => (dispatch) => {
+export const deleteTransaction = (txnData) => (dispatch) => {
   const id = txnData.id;
   axios
     .delete(`api/transactions/${id}`)
     .then((res) =>
       dispatch({
-        type: DELETE_USER_TRANSACTION,
+        type: DELETE_TRANSACTION,
         payload: id,
       })
     )
@@ -34,27 +34,27 @@ export const deleteUserTransaction = (txnData) => (dispatch) => {
 };
 
 // Get all transactions
-export const getUserTransactions = () => (dispatch) => {
-  dispatch(setUserTransactionsLoading());
+export const getTransactions = () => (dispatch) => {
+  dispatch(setTransactionsLoading());
   axios
     .get("api/transactions", {})
     .then((res) =>
       dispatch({
-        type: GET_USER_TRANSACTIONS,
+        type: GET_TRANSACTIONS,
         payload: res.data,
       })
     )
     .catch((err) =>
       dispatch({
-        type: GET_USER_TRANSACTIONS,
+        type: GET_TRANSACTIONS,
         payload: null,
       })
     );
 };
 
 // Transactions loading
-export const setUserTransactionsLoading = () => {
+export const setTransactionsLoading = () => {
   return {
-    type: USER_TRANSACTIONS_LOADING,
+    type: TRANSACTIONS_LOADING,
   };
 };

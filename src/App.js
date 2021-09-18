@@ -14,7 +14,7 @@ import Register from "./components/auth/Register";
 import Login from "./components/auth/Login";
 import PrivateRoute from "./components/private-route/PrivateRoute";
 import TransactionsDashboard from "./components/transactions/TransactionsDashboard";
-import PortfolioDashboard from "./components/portfolio/PortfolioDashboard";
+import InvestmentsContainer from "./components/investments/InvestmentsContainer";
 import ManageCategories from "./components/settings/categories/ManageCategories";
 import Placeholder from "./components/Placeholder";
 
@@ -48,8 +48,8 @@ class App extends Component {
             <Switch>
               <PrivateRoute
                 exact
-                path="/portfolio"
-                component={PortfolioDashboard}
+                path="/investments"
+                component={InvestmentsContainer}
               />
               <PrivateRoute
                 exact

@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { addUserTransaction } from "../../../actions/transactionActions";
+import { addTransaction } from "../../../actions/transactionActions";
 import EditTxnModal from "./EditTxnModal";
 
 import MUIDataTable, { ExpandButton } from "mui-datatables";
@@ -28,7 +28,7 @@ class Transactions extends Component {
 
   handleSubmit = (newCategory) => {
     if (this.state.selectedTxn && newCategory) {
-      this.props.addUserTransaction({
+      this.props.addTransaction({
         id: this.state.selectedTxn.id,
         name: this.state.selectedTxn.name,
         amount: this.state.selectedTxn.amount,
@@ -171,11 +171,11 @@ class Transactions extends Component {
 }
 
 Transactions.propTypes = {
-  addUserTransaction: PropTypes.func.isRequired,
+  addTransaction: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
-  userTransactions: state.userTransactions,
+  transactions: state.transactions,
 });
 
-export default connect(mapStateToProps, { addUserTransaction })(Transactions);
+export default connect(mapStateToProps, { addTransaction })(Transactions);

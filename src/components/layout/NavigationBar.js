@@ -24,8 +24,8 @@ class NavigationBar extends Component {
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
           <Navbar.Collapse id="responsive-navbar-nav">
             <Nav className="mr-auto">
-              <Nav.Link as={Link} to="/portfolio">
-                Portfolio
+              <Nav.Link as={Link} to="/investments">
+                Investments
               </Nav.Link>
               <Nav.Link as={Link} to="/transactions">
                 Transactions

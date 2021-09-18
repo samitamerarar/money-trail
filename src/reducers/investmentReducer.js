@@ -43,13 +43,15 @@ export default function shopReducer(state = initialState, action) {
       };
     }
 
-    case GET_INVESTMENTS:
+    case GET_INVESTMENTS: {
       return {
         ...state,
         investmentsList: [...action.payload],
 
         investmentsLoading: false,
       };
+    }
+
     case DELETE_INVESTMENT: {
       // When we DELETE an investment, we want to mark it as justDeleted
       // So we know we have to remove it from the portfolio table data
