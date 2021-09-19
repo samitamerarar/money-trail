@@ -13,7 +13,7 @@ import Landing from "./components/layout/Landing";
 import Register from "./components/auth/Register";
 import Login from "./components/auth/Login";
 import PrivateRoute from "./components/private-route/PrivateRoute";
-import TransactionsDashboard from "./components/transactions/TransactionsDashboard";
+import TransactionsContainer from "./components/transactions/TransactionsContainer";
 import InvestmentsContainer from "./components/investments/InvestmentsContainer";
 import ManageCategories from "./components/settings/categories/ManageCategories";
 import Placeholder from "./components/Placeholder";
@@ -54,7 +54,7 @@ class App extends Component {
               <PrivateRoute
                 exact
                 path="/transactions"
-                component={TransactionsDashboard}
+                component={TransactionsContainer}
               />
               <PrivateRoute
                 exact
