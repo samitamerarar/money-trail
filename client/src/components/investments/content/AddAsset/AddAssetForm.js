@@ -61,7 +61,7 @@ const AddAssetForm = (props) => {
     // shares errors
     if (!shares || shares > 999999 || shares <= 0)
       newErrors.shares = "must be a valid number!";
-    // shares errors
+    // date errors
     if (!date) newErrors.date = "must have a date!";
     // sector errors
     if (!sector || sector === "") newErrors.sector = "select a sector!";
