@@ -560,7 +560,7 @@ export const columnsDesktop = [
     },
   },
   {
-    label: "Purchase Price",
+    label: "Purchase Price / share",
     name: "priceOfShare",
     options: {
       viewColumns: false,

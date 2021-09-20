@@ -6,8 +6,9 @@ import {
   deleteInvestment,
 } from "../../../../../actions/investmentAction";
 
-import { Button, Col, Container, Row, Modal } from "react-bootstrap";
+import { Button, Col, Container, Row, Modal, Tab, Tabs } from "react-bootstrap";
 import EditStockForm from "./EditStockForm";
+import EditStockFormAdd from "./EditStockFormAdd";
 
 export const EditStock = (props) => {
   const [showEdit, setShowEdit] = useState(false);
@@ -76,11 +77,25 @@ export const EditStock = (props) => {
           <Modal.Title>Edit {data.symbol}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <p>This will override existing data!</p>
-          <EditStockForm
-            previousData={data}
-            sendFormData={(e) => receiveFormData(e)}
-          />
+          <Tabs
+            defaultActiveKey="add-up"
+            id="uncontrolled-tab-example"
+            className="mb-3">
+            <Tab eventKey="add-up" title="Add Up">
+              <p>Entered values will sum up with your previous data!</p>
+              <EditStockFormAdd
+                previousData={data}
+                sendFormData={(e) => receiveFormData(e)}
+              />
+            </Tab>
+            <Tab eventKey="modify" title="Modify">
+              <p>This will override existing data!</p>
+              <EditStockForm
+                previousData={data}
+                sendFormData={(e) => receiveFormData(e)}
+              />
+            </Tab>
+          </Tabs>
         </Modal.Body>
       </Modal>
 
