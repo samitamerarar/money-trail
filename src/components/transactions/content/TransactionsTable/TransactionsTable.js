@@ -20,13 +20,18 @@ class TransactionsTable extends Component {
       responsive: "standard",
       selectableRows: "none",
       expandableRowsHeader: false,
-      elevation: 1,
+      elevation: 0,
       print: false,
       download: false,
       pagination: true,
       filter: false,
       viewColumns: false,
       search: true,
+      rowsPerPage: 5,
+      rowsPerPageOptions: [],
+      onRowClick: (rowData, rowMeta) => {
+        console.log(rowData);
+      },
     };
 
     const columnsDesktop = [
@@ -47,24 +52,34 @@ class TransactionsTable extends Component {
           }),
           customBodyRender: (value, tableMeta, updateValue) => {
             return (
-              <Card>
-                <Card.Body>
-                  <Row className="mb-1" style={{ fontSize: "1em" }}>
-                    <Col>{tableMeta.rowData[1]}</Col>
-                    <Col className="d-flex justify-content-end">
-                      {tableMeta.rowData[3]}
-                    </Col>
-                  </Row>
-                  <Row style={{ fontSize: "0.9em" }}>
-                    <Col>
-                      <span className="text-muted">{tableMeta.rowData[2]}</span>
-                    </Col>
-                    <Col className="d-flex justify-content-end">
-                      <span className="text-muted">{tableMeta.rowData[4]}</span>
-                    </Col>
-                  </Row>
-                </Card.Body>
-              </Card>
+              <div>
+                <Card className="pl-3 pr-3" style={{ border: "0px" }}>
+                  <Card
+                    className="mt-2 transaction"
+                    style={{ borderRadius: "24px 8px" }}>
+                    <Card.Body style={{ padding: "0.85rem" }}>
+                      <Row className="mb-1" style={{ fontSize: "1em" }}>
+                        <Col>{tableMeta.rowData[1]}</Col>
+                        <Col className="d-flex justify-content-end">
+                          {tableMeta.rowData[3]}
+                        </Col>
+                      </Row>
+                      <Row style={{ fontSize: "0.9em" }}>
+                        <Col>
+                          <span className="text-muted">
+                            {tableMeta.rowData[2]}
+                          </span>
+                        </Col>
+                        <Col className="d-flex justify-content-end">
+                          <span className="text-muted">
+                            {tableMeta.rowData[4]}
+                          </span>
+                        </Col>
+                      </Row>
+                    </Card.Body>
+                  </Card>
+                </Card>
+              </div>
             );
           },
         },
@@ -105,6 +120,10 @@ class TransactionsTable extends Component {
     const themeDesktop = createTheme({
       overrides: {
         MuiTableCell: {
+          root: {
+            borderBottom: "none",
+            padding: "0px",
+          },
           head: {
             //backgroundColor: "#F5F5F5 !important",
             fontWeight: "550",
