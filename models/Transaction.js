@@ -10,16 +10,16 @@ const TransactionSchema = new Schema({
     type: String,
     required: false,
   },
-  name: {
+  merchant: {
     type: String,
-    required: true,
-  },
-  amount: {
-    type: Number,
     required: true,
   },
   category: {
     type: String,
+    required: false,
+  },
+  amount: {
+    type: Number,
     required: true,
   },
   date: {

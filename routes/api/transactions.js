@@ -34,18 +34,18 @@ router.post(
         if (txn) {
           txn.userId = req.user.id;
           txn.id = req.body.id;
-          txn.name = req.body.name;
-          txn.amount = req.body.amount;
+          txn.merchant = req.body.merchant;
           txn.category = req.body.category;
+          txn.amount = req.body.amount;
           txn.date = req.body.date;
           txn.save().then((txn) => res.json(txn));
         } else {
           const newTxn = new Transaction({
             userId: req.user.id,
             id: req.body.id,
-            name: req.body.name,
-            amount: req.body.amount,
+            merchant: req.body.merchant,
             category: req.body.category,
+            amount: req.body.amount,
             date: req.body.date,
           });
           newTxn.save().then((txn) => res.json(txn));

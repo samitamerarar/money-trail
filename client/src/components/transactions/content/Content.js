@@ -7,13 +7,22 @@ import {
   addInvestment,
 } from "../../../actions/investmentAction";
 
+import "keen-slider/keen-slider.min.css";
+import { useKeenSlider } from "keen-slider/react";
+
 // import AddAssetModal from "./AddAsset/AddAsset";
 
-import ScaleLoader from "react-spinners/ScaleLoader";
-import ClimbingBoxLoader from "react-spinners/ClimbingBoxLoader";
 import TransactionsTable from "./TransactionsTable/TransactionsTable";
 
 export const Content = (props) => {
+  const [currentSlide, setCurrentSlide] = React.useState(0);
+  const [sliderRef, slider] = useKeenSlider({
+    initial: 0,
+    slideChanged(s) {
+      setCurrentSlide(s.details().relativeSlide);
+    },
+  });
+
   const [isOpenModal, setIsOpenModal] = useState(false);
   const [isComponentLoading, setIsComponentLoading] = useState(false);
   const [APIFetchDone, setAPIFetchDone] = useState(false);
@@ -26,6 +35,30 @@ export const Content = (props) => {
       merchant: "This is along but very longgggg merchant name",
       category: "Transactions for Fun",
       amount: "500$",
+      date: Date.now(),
+    },
+    {
+      merchant: "marchant5",
+      category: "clothes",
+      amount: "2",
+      date: Date.now(),
+    },
+    {
+      merchant: "marchant5",
+      category: "clothes",
+      amount: "2",
+      date: Date.now(),
+    },
+    {
+      merchant: "marchant5",
+      category: "clothes",
+      amount: "2",
+      date: Date.now(),
+    },
+    {
+      merchant: "marchant5",
+      category: "clothes",
+      amount: "2",
       date: Date.now(),
     },
     {
@@ -64,8 +97,38 @@ export const Content = (props) => {
             </Row>
           </Container>
 
-          <Container style={{ padding: "0px" }} fluid>
-            <TransactionsTable tableData={tableData} />
+          <Container style={{ padding: "0px" }}>
+            <Row>
+              <Col md="3">hi</Col>
+              <Col md="9" style={{ padding: "0px" }}>
+                <div ref={sliderRef} className="keen-slider">
+                  <div className="keen-slider__slide number-slide1">
+                    <TransactionsTable tableData={tableData} />
+                  </div>
+                  <div className="keen-slider__slide number-slide2">
+                    <TransactionsTable tableData={tableData} />
+                  </div>
+                </div>
+
+                {slider && (
+                  <div className="dots">
+                    {[...Array(slider.details().size).keys()].map((idx) => {
+                      return (
+                        <button
+                          key={idx}
+                          onClick={() => {
+                            slider.moveToSlideRelative(idx);
+                          }}
+                          className={
+                            "dot" + (currentSlide === idx ? " active" : "")
+                          }
+                        />
+                      );
+                    })}
+                  </div>
+                )}
+              </Col>
+            </Row>
           </Container>
         </Col>
       </Row>
