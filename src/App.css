@@ -40,3 +40,7 @@
   background: #f6f6f6;
   cursor: pointer;
 }
+
+.transaction:active {
+  background: #e9e9e9;
+}
