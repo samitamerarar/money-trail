@@ -43,25 +43,39 @@ class ManageCategories extends Component {
 
     let manageCategoriesTabs = (
       <Nav
-        fill
         variant="pills"
         defaultActiveKey="Food"
         onSelect={this.handleSelect}
         className="mt-3 flex-column">
         <Nav.Item>
-          <Nav.Link eventKey="Food">Food</Nav.Link>
+          <Nav.Link eventKey="Food">All</Nav.Link>
         </Nav.Item>
         <Nav.Item>
-          <Nav.Link eventKey="Personal Spending">Personal Spending</Nav.Link>
+          <Nav.Link eventKey="Medical">Fun</Nav.Link>
         </Nav.Item>
         <Nav.Item>
-          <Nav.Link eventKey="Entertainment">Entertainment</Nav.Link>
+          <Nav.Link eventKey="Medical">Food</Nav.Link>
         </Nav.Item>
         <Nav.Item>
-          <Nav.Link eventKey="Transportation">Transportation</Nav.Link>
+          <Nav.Link eventKey="Entertainment">Amenities</Nav.Link>
         </Nav.Item>
         <Nav.Item>
-          <Nav.Link eventKey="Healthcare">Healthcare</Nav.Link>
+          <Nav.Link eventKey="Automobile">Automobile</Nav.Link>
+        </Nav.Item>
+        <Nav.Item>
+          <Nav.Link eventKey="Medical">Smartphone</Nav.Link>
+        </Nav.Item>
+        <Nav.Item>
+          <Nav.Link eventKey="Medical">Electronics</Nav.Link>
+        </Nav.Item>
+        <Nav.Item>
+          <Nav.Link eventKey="Medical">Medical</Nav.Link>
+        </Nav.Item>
+        <Nav.Item>
+          <Nav.Link eventKey="Medical">Personal</Nav.Link>
+        </Nav.Item>
+        <Nav.Item>
+          <Nav.Link eventKey="Medical">Other</Nav.Link>
         </Nav.Item>
       </Nav>
     );

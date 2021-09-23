@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Row, Col, Container, Button } from "react-bootstrap";
+import { Row, Col, Container, Button, Image, Nav } from "react-bootstrap";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import {
@@ -13,6 +13,16 @@ import { useKeenSlider } from "keen-slider/react";
 // import AddAssetModal from "./AddAsset/AddAsset";
 
 import TransactionsTable from "./TransactionsTable/TransactionsTable";
+import all from "../assets/all.png";
+import amenities from "../assets/amenities.png";
+import automobile from "../assets/automobile.png";
+import clothing from "../assets/clothing.png";
+import electronics from "../assets/electronics.png";
+import food from "../assets/food.png";
+import fun from "../assets/fun.png";
+import medical from "../assets/medical.png";
+import other from "../assets/other.png";
+import personalcare from "../assets/personalcare.png";
 
 export const Content = (props) => {
   const [currentSlide, setCurrentSlide] = React.useState(0);
@@ -99,7 +109,52 @@ export const Content = (props) => {
 
           <Container style={{ padding: "0px" }}>
             <Row>
-              <Col md="3">hi</Col>
+              <Col md="3">
+                <Row>
+                  <Image
+                    style={{ opacity: "0.75" }}
+                    src={amenities}
+                    rounded
+                    fluid
+                    className="p-5"
+                  />
+                </Row>
+                <Row>
+                  <Nav
+                    variant="pills"
+                    defaultActiveKey="All"
+                    //onSelect={this.handleSelect}
+                    className="mt-3 ">
+                    <Nav.Item>
+                      <Nav.Link eventKey="All">All</Nav.Link>
+                    </Nav.Item>
+                    <Nav.Item>
+                      <Nav.Link eventKey="Amenities">Amenities</Nav.Link>
+                    </Nav.Item>
+                    <Nav.Item>
+                      <Nav.Link eventKey="Automobile">Automobile</Nav.Link>
+                    </Nav.Item>
+                    <Nav.Item>
+                      <Nav.Link eventKey="Electronics">Electronics</Nav.Link>
+                    </Nav.Item>
+                    <Nav.Item>
+                      <Nav.Link eventKey="Food">Food</Nav.Link>
+                    </Nav.Item>
+                    <Nav.Item>
+                      <Nav.Link eventKey="Fun">Fun</Nav.Link>
+                    </Nav.Item>
+                    <Nav.Item>
+                      <Nav.Link eventKey="Medical">Medical</Nav.Link>
+                    </Nav.Item>
+                    <Nav.Item>
+                      <Nav.Link eventKey="Personal">Personal</Nav.Link>
+                    </Nav.Item>
+                    <Nav.Item>
+                      <Nav.Link eventKey="Other">Other</Nav.Link>
+                    </Nav.Item>
+                  </Nav>
+                </Row>
+              </Col>
               <Col md="9" style={{ padding: "0px" }}>
                 <div ref={sliderRef} className="keen-slider">
                   <div className="keen-slider__slide number-slide1">
