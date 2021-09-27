@@ -12,19 +12,52 @@ import { useKeenSlider } from "keen-slider/react";
 
 // import AddAssetModal from "./AddAsset/AddAsset";
 
-import TransactionsTable from "./TransactionsTable/TransactionsTable";
-import all from "../assets/all.png";
-import amenities from "../assets/amenities.png";
-import automobile from "../assets/automobile.png";
-import clothing from "../assets/clothing.png";
-import electronics from "../assets/electronics.png";
-import food from "../assets/food.png";
-import fun from "../assets/fun.png";
-import medical from "../assets/medical.png";
-import other from "../assets/other.png";
-import personalcare from "../assets/personalcare.png";
+import CategoryImage from "./CategoryImage";
+import { TableContainer } from "./TableContainer";
+
+const tableData = [
+  {
+    merchant: "This is along but very longgggg merchant name",
+    category: "fun",
+    amount: "500$",
+    date: Date.now(),
+  },
+  {
+    merchant: "marchant5",
+    category: "clothing",
+    amount: "2",
+    date: Date.now(),
+  },
+  {
+    merchant: "marchant5",
+    category: "personal",
+    amount: "2",
+    date: Date.now(),
+  },
+  {
+    merchant: "marchant5",
+    category: "clothing",
+    amount: "2",
+    date: Date.now(),
+  },
+  {
+    merchant: "marchant5",
+    category: "amenities",
+    amount: "2",
+    date: Date.now(),
+  },
+  {
+    merchant: "marchant5",
+    category: "other",
+    amount: "2",
+    date: Date.now(),
+  },
+];
 
 export const Content = (props) => {
+  const [category, setCategory] = useState("all");
+  const [dataTable, setDataTable] = useState([]);
+
   const [currentSlide, setCurrentSlide] = React.useState(0);
   const [sliderRef, slider] = useKeenSlider({
     initial: 0,
@@ -40,51 +73,23 @@ export const Content = (props) => {
   const openModal = () => setIsOpenModal(true);
   const closeModal = () => setIsOpenModal(false);
 
-  const tableData = [
-    {
-      merchant: "This is along but very longgggg merchant name",
-      category: "Transactions for Fun",
-      amount: "500$",
-      date: Date.now(),
-    },
-    {
-      merchant: "marchant5",
-      category: "clothes",
-      amount: "2",
-      date: Date.now(),
-    },
-    {
-      merchant: "marchant5",
-      category: "clothes",
-      amount: "2",
-      date: Date.now(),
-    },
-    {
-      merchant: "marchant5",
-      category: "clothes",
-      amount: "2",
-      date: Date.now(),
-    },
-    {
-      merchant: "marchant5",
-      category: "clothes",
-      amount: "2",
-      date: Date.now(),
-    },
-    {
-      merchant: "marchant5",
-      category: "clothes",
-      amount: "2",
-      date: Date.now(),
-    },
-  ];
-
   // add investment to database
   const handleSubmit = (data) => {
     if (data) {
       // props.addInvestment(data);
     }
   };
+
+  // Tabs handling
+  const handleSelect = (category) => {
+    setCategory(category);
+  };
+
+  useEffect(() => {
+    if (category !== "all")
+      setDataTable(tableData.filter((e) => e.category === category));
+    else setDataTable(tableData);
+  }, [category]);
 
   return (
     <Container fluid>
@@ -111,77 +116,49 @@ export const Content = (props) => {
             <Row>
               <Col md="3">
                 <Row>
-                  <Image
-                    style={{ opacity: "0.75" }}
-                    src={amenities}
-                    rounded
-                    fluid
-                    className="p-5"
-                  />
+                  <CategoryImage image={category} />
                 </Row>
                 <Row>
                   <Nav
                     variant="pills"
-                    defaultActiveKey="All"
-                    //onSelect={this.handleSelect}
+                    defaultActiveKey="all"
+                    onSelect={handleSelect}
                     className="mt-3 ">
                     <Nav.Item>
-                      <Nav.Link eventKey="All">All</Nav.Link>
+                      <Nav.Link eventKey="all">All</Nav.Link>
                     </Nav.Item>
                     <Nav.Item>
-                      <Nav.Link eventKey="Amenities">Amenities</Nav.Link>
+                      <Nav.Link eventKey="automobile">Automobile</Nav.Link>
                     </Nav.Item>
                     <Nav.Item>
-                      <Nav.Link eventKey="Automobile">Automobile</Nav.Link>
+                      <Nav.Link eventKey="clothing">Clothing</Nav.Link>
                     </Nav.Item>
                     <Nav.Item>
-                      <Nav.Link eventKey="Electronics">Electronics</Nav.Link>
+                      <Nav.Link eventKey="food">Food</Nav.Link>
                     </Nav.Item>
                     <Nav.Item>
-                      <Nav.Link eventKey="Food">Food</Nav.Link>
+                      <Nav.Link eventKey="fun">Fun</Nav.Link>
                     </Nav.Item>
                     <Nav.Item>
-                      <Nav.Link eventKey="Fun">Fun</Nav.Link>
+                      <Nav.Link eventKey="electronics">Electronics</Nav.Link>
                     </Nav.Item>
                     <Nav.Item>
-                      <Nav.Link eventKey="Medical">Medical</Nav.Link>
+                      <Nav.Link eventKey="amenities">Amenities</Nav.Link>
                     </Nav.Item>
                     <Nav.Item>
-                      <Nav.Link eventKey="Personal">Personal</Nav.Link>
+                      <Nav.Link eventKey="personal">Personal</Nav.Link>
                     </Nav.Item>
                     <Nav.Item>
-                      <Nav.Link eventKey="Other">Other</Nav.Link>
+                      <Nav.Link eventKey="medical">Medical</Nav.Link>
+                    </Nav.Item>
+                    <Nav.Item>
+                      <Nav.Link eventKey="z">Other</Nav.Link>
                     </Nav.Item>
                   </Nav>
                 </Row>
               </Col>
               <Col md="9" style={{ padding: "0px" }}>
-                <div ref={sliderRef} className="keen-slider">
-                  <div className="keen-slider__slide number-slide1">
-                    <TransactionsTable tableData={tableData} />
-                  </div>
-                  <div className="keen-slider__slide number-slide2">
-                    <TransactionsTable tableData={tableData} />
-                  </div>
-                </div>
-
-                {slider && (
-                  <div className="dots">
-                    {[...Array(slider.details().size).keys()].map((idx) => {
-                      return (
-                        <button
-                          key={idx}
-                          onClick={() => {
-                            slider.moveToSlideRelative(idx);
-                          }}
-                          className={
-                            "dot" + (currentSlide === idx ? " active" : "")
-                          }
-                        />
-                      );
-                    })}
-                  </div>
-                )}
+                <TableContainer tableData={dataTable} />
               </Col>
             </Row>
           </Container>

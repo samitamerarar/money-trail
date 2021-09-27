@@ -142,12 +142,14 @@ class TransactionsTable extends Component {
         <Col style={{ padding: "5px" }}>
           <Container style={{ padding: "0px" }}>
             <MuiThemeProvider theme={themeDesktop}>
-              <MUIDataTable
-                title={"September"}
-                data={tableData}
-                columns={columnsDesktop}
-                options={options}
-              />
+              {tableData.length > 0 && (
+                <MUIDataTable
+                  title={"September"}
+                  data={tableData}
+                  columns={columnsDesktop}
+                  options={options}
+                />
+              )}
             </MuiThemeProvider>
           </Container>
         </Col>
