@@ -7,6 +7,8 @@ import {
   addInvestment,
 } from "../../../actions/investmentAction";
 
+import moment from "moment";
+
 import "keen-slider/keen-slider.min.css";
 import { useKeenSlider } from "keen-slider/react";
 
@@ -20,37 +22,37 @@ const tableData = [
     merchant: "This is along but very longgggg merchant name",
     category: "fun",
     amount: "500$",
-    date: Date.now(),
+    date: moment().subtract(7, "months").format("DD/MM/YYYY"),
   },
   {
     merchant: "marchant5",
     category: "clothing",
     amount: "2",
-    date: Date.now(),
+    date: moment().subtract(24, "months").format("DD/MM/YYYY"),
   },
   {
     merchant: "marchant5",
     category: "personal",
     amount: "2",
-    date: Date.now(),
+    date: moment().subtract(1, "months").format("DD/MM/YYYY"),
   },
   {
     merchant: "marchant5",
     category: "clothing",
     amount: "2",
-    date: Date.now(),
+    date: moment().subtract(3, "months").format("DD/MM/YYYY"),
   },
   {
     merchant: "marchant5",
     category: "amenities",
     amount: "2",
-    date: Date.now(),
+    date: moment().subtract(2, "months").format("DD/MM/YYYY"),
   },
   {
     merchant: "marchant5",
     category: "other",
     amount: "2",
-    date: Date.now(),
+    date: moment().subtract(1, "months").format("DD/MM/YYYY"),
   },
 ];
 
@@ -85,6 +87,7 @@ export const Content = (props) => {
     setCategory(category);
   };
 
+  // filter data by Category
   useEffect(() => {
     if (category !== "all")
       setDataTable(tableData.filter((e) => e.category === category));
