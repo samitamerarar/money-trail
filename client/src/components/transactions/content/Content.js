@@ -8,10 +8,6 @@ import {
 } from "../../../actions/investmentAction";
 
 import moment from "moment";
-
-import "keen-slider/keen-slider.min.css";
-import { useKeenSlider } from "keen-slider/react";
-
 // import AddAssetModal from "./AddAsset/AddAsset";
 
 import CategoryImage from "./CategoryImage";
@@ -52,6 +48,36 @@ const tableData = [
     merchant: "marchant5",
     category: "other",
     amount: "2",
+    date: moment().add(1, "months").format("DD/MM/YYYY"),
+  },
+  {
+    merchant: "marchant5",
+    category: "other",
+    amount: "2",
+    date: moment().subtract(1, "months").format("DD/MM/YYYY"),
+  },
+  {
+    merchant: "marchant5",
+    category: "other",
+    amount: "2",
+    date: moment().subtract(1, "months").format("DD/MM/YYYY"),
+  },
+  {
+    merchant: "marchant5",
+    category: "other",
+    amount: "2",
+    date: moment().subtract(1, "months").format("DD/MM/YYYY"),
+  },
+  {
+    merchant: "marchant5",
+    category: "other",
+    amount: "2",
+    date: moment().subtract(1, "months").format("DD/MM/YYYY"),
+  },
+  {
+    merchant: "marchant5",
+    category: "other",
+    amount: "2",
     date: moment().subtract(1, "months").format("DD/MM/YYYY"),
   },
 ];
@@ -59,14 +85,6 @@ const tableData = [
 export const Content = (props) => {
   const [category, setCategory] = useState("all");
   const [dataTable, setDataTable] = useState([]);
-
-  const [currentSlide, setCurrentSlide] = React.useState(0);
-  const [sliderRef, slider] = useKeenSlider({
-    initial: 0,
-    slideChanged(s) {
-      setCurrentSlide(s.details().relativeSlide);
-    },
-  });
 
   const [isOpenModal, setIsOpenModal] = useState(false);
   const [isComponentLoading, setIsComponentLoading] = useState(false);
@@ -155,13 +173,13 @@ export const Content = (props) => {
                       <Nav.Link eventKey="medical">Medical</Nav.Link>
                     </Nav.Item>
                     <Nav.Item>
-                      <Nav.Link eventKey="z">Other</Nav.Link>
+                      <Nav.Link eventKey="other">Other</Nav.Link>
                     </Nav.Item>
                   </Nav>
                 </Row>
               </Col>
               <Col md="9" style={{ padding: "0px" }}>
-                <TableContainer tableData={dataTable} />
+                <TableContainer tableData={dataTable} category={category} />
               </Col>
             </Row>
           </Container>

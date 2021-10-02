@@ -35,10 +35,12 @@ export const CategoryImage = (props) => {
       setCategoryImage(images.filter((i) => i.indexOf(props.image) !== -1));
   }, [props.image]);
 
+  console.log(categoryImage);
+
   return (
     <Image
       style={{ opacity: "0.75" }}
-      src={categoryImage[0]}
+      src={categoryImage.length > 0 ? categoryImage[0] : other}
       rounded
       fluid
       className="p-5"
