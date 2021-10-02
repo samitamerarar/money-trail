@@ -3,6 +3,8 @@ import { Row, Col, Container, Card } from "react-bootstrap";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 
+import CustomScroller from "react-custom-scroller";
+
 import MUIDataTable from "mui-datatables";
 import { MuiThemeProvider } from "@material-ui/core/styles";
 import { createTheme } from "@material-ui/core/styles";
@@ -15,15 +17,30 @@ class TransactionsTable extends Component {
   render() {
     const { tableData } = this.props;
 
+    const months = [
+      "January",
+      "February",
+      "March",
+      "April",
+      "May",
+      "June",
+      "July",
+      "August",
+      "September",
+      "October",
+      "November",
+      "December",
+    ];
+
     const options = {
       filter: true,
-      responsive: "standard",
+      responsive: "scroll",
       selectableRows: "none",
       expandableRowsHeader: false,
-      elevation: 0,
+      elevation: 1,
       print: false,
       download: false,
-      pagination: true,
+      pagination: false,
       filter: false,
       viewColumns: false,
       search: true,
@@ -53,9 +70,13 @@ class TransactionsTable extends Component {
           customBodyRender: (value, tableMeta, updateValue) => {
             return (
               <div>
-                <Card className="pl-3 pr-3" style={{ border: "0px" }}>
+                <Card
+                  style={{
+                    border: "0px",
+                    padding: "6px",
+                  }}>
                   <Card
-                    className="mt-2 transaction"
+                    className="transaction"
                     style={{ borderRadius: "24px 8px" }}>
                     <Card.Body style={{ padding: "0.85rem" }}>
                       <Row className="mb-1" style={{ fontSize: "1em" }}>
@@ -142,14 +163,17 @@ class TransactionsTable extends Component {
         <Col style={{ padding: "5px" }}>
           <Container style={{ padding: "0px" }}>
             <MuiThemeProvider theme={themeDesktop}>
-              {tableData.length > 0 && (
-                <MUIDataTable
-                  title={"September"}
-                  data={tableData}
-                  columns={columnsDesktop}
-                  options={options}
-                />
-              )}
+              <MUIDataTable
+                title={
+                  months[parseInt(this.props.month)] +
+                  " - " +
+                  this.props.category +
+                  " transactions"
+                }
+                data={tableData}
+                columns={columnsDesktop}
+                options={options}
+              />
             </MuiThemeProvider>
           </Container>
         </Col>

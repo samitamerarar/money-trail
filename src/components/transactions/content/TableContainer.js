@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Row, Col, Container, Button, Image, Nav } from "react-bootstrap";
+import Flicking from "@egjs/react-flicking";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import {
@@ -9,20 +10,11 @@ import {
 
 import moment from "moment";
 
-import "keen-slider/keen-slider.min.css";
-import { useKeenSlider } from "keen-slider/react";
-
 import TransactionsTable from "./TransactionsTable/TransactionsTable";
 
 export const TableContainer = (props) => {
   const [dataTableByDate, setDataTableByDate] = useState(new Map());
-  const [currentSlide, setCurrentSlide] = useState(0);
-  const [sliderRef, slider] = useKeenSlider({
-    initial: 0,
-    slideChanged(s) {
-      setCurrentSlide(s.details().relativeSlide);
-    },
-  });
+  const [flickingContent, setFlickingContent] = useState([]);
 
   useEffect(() => {
     // start by inserting today month and year
@@ -50,39 +42,39 @@ export const TableContainer = (props) => {
     setDataTableByDate(mapYear);
   }, [props.tableData]);
 
-  let buffer = [];
-  if (dataTableByDate.size > 0) {
-    if (dataTableByDate.has("2021")) {
-      dataTableByDate.get("2021").forEach((val, key) => {
-        buffer.push(
-          <div className="keen-slider__slide">
-            <TransactionsTable tableData={val} />
-          </div>
-        );
-      });
+  useEffect(() => {
+    let buffer = [];
+    if (dataTableByDate.size > 0) {
+      if (dataTableByDate.has("2021")) {
+        dataTableByDate.get("2021").forEach((val, key) => {
+          buffer.push(
+            <div style={{ width: "98%" }}>
+              <Container>
+                <Row>
+                  <Col>
+                    <TransactionsTable
+                      tableData={val}
+                      category={props.category}
+                      month={key}
+                    />
+                  </Col>
+                </Row>
+              </Container>
+            </div>
+          );
+        });
+      }
     }
-  }
+
+    setFlickingContent(buffer);
+  }, [props.category, dataTableByDate]);
 
   return (
     <>
-      <div ref={sliderRef} className="keen-slider">
-        {buffer}
-      </div>
-
-      {slider && (
-        <div className="dots">
-          {[...Array(slider.details().size).keys()].map((idx) => {
-            return (
-              <button
-                key={idx}
-                onClick={() => {
-                  slider.moveToSlideRelative(idx);
-                }}
-                className={"dot" + (currentSlide === idx ? " active" : "")}
-              />
-            );
-          })}
-        </div>
+      {flickingContent.length > 0 && (
+        <Flicking renderOnlyVisible={true} align="prev" horizontal="false">
+          {flickingContent}
+        </Flicking>
       )}
     </>
   );
