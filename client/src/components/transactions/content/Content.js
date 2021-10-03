@@ -3,82 +3,112 @@ import { Row, Col, Container, Button, Image, Nav } from "react-bootstrap";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import {
-  getInvestments,
-  addInvestment,
-} from "../../../actions/investmentAction";
+  getTransactions,
+  addTransaction,
+} from "../../../actions/transactionActions";
 
 import moment from "moment";
-// import AddAssetModal from "./AddAsset/AddAsset";
 
 import CategoryImage from "./CategoryImage";
 import { TableContainer } from "./TableContainer";
+import AddTransactionModal from "./AddTransaction";
 
 const tableData = [
   {
     merchant: "This is along but very longgggg merchant name",
     category: "fun",
     amount: "500$",
-    date: moment().subtract(7, "months").format("DD/MM/YYYY"),
+    date: moment("10/05/2021").format("DD/MM/YYYY"),
   },
   {
     merchant: "marchant5",
     category: "clothing",
     amount: "2",
-    date: moment().subtract(24, "months").format("DD/MM/YYYY"),
+    date: moment("10/02/2021").format("DD/MM/YYYY"),
   },
   {
     merchant: "marchant5",
     category: "personal",
     amount: "2",
-    date: moment().subtract(1, "months").format("DD/MM/YYYY"),
+    date: moment("10/31/2021").format("DD/MM/YYYY"),
   },
   {
     merchant: "marchant5",
     category: "clothing",
     amount: "2",
-    date: moment().subtract(3, "months").format("DD/MM/YYYY"),
+    date: moment("10/11/2021").format("DD/MM/YYYY"),
   },
   {
     merchant: "marchant5",
     category: "amenities",
     amount: "2",
-    date: moment().subtract(2, "months").format("DD/MM/YYYY"),
+    date: moment("09/06/2021").format("DD/MM/YYYY"),
   },
   {
     merchant: "marchant5",
     category: "other",
     amount: "2",
-    date: moment().add(1, "months").format("DD/MM/YYYY"),
+    date: moment("09/21/2021").format("DD/MM/YYYY"),
   },
   {
     merchant: "marchant5",
     category: "other",
     amount: "2",
-    date: moment().subtract(1, "months").format("DD/MM/YYYY"),
+    date: moment("09/15/2021").format("DD/MM/YYYY"),
   },
   {
     merchant: "marchant5",
     category: "other",
     amount: "2",
-    date: moment().subtract(1, "months").format("DD/MM/YYYY"),
+    date: moment("12/15/2021").format("DD/MM/YYYY"),
   },
   {
     merchant: "marchant5",
     category: "other",
     amount: "2",
-    date: moment().subtract(1, "months").format("DD/MM/YYYY"),
+    date: moment("12/10/2021").format("DD/MM/YYYY"),
   },
   {
     merchant: "marchant5",
     category: "other",
     amount: "2",
-    date: moment().subtract(1, "months").format("DD/MM/YYYY"),
+    date: moment("12/21/2021").format("DD/MM/YYYY"),
   },
   {
     merchant: "marchant5",
     category: "other",
     amount: "2",
-    date: moment().subtract(1, "months").format("DD/MM/YYYY"),
+    date: moment("12/21/2021").format("DD/MM/YYYY"),
+  },
+  {
+    merchant: "marchant5",
+    category: "other",
+    amount: "2",
+    date: moment("12/21/2021").format("DD/MM/YYYY"),
+  },
+  {
+    merchant: "marchant5",
+    category: "other",
+    amount: "2",
+    date: moment("12/21/2021").format("DD/MM/YYYY"),
+  },
+  {
+    merchant: "marchant5",
+    category: "other",
+    amount: "2",
+    date: moment("12/21/2021").format("DD/MM/YYYY"),
+  },
+  {
+    merchant: "marchant5",
+    category: "other",
+    amount: "2",
+    date: moment("12/21/2021").format("DD/MM/YYYY"),
+  },
+  {
+    merchant: "marchant5",
+    category: "other",
+    amount: "2",
+    date: moment("12/02/2021").format("DD/MM/YYYY"),
   },
 ];
 
@@ -96,12 +126,13 @@ export const Content = (props) => {
   // add investment to database
   const handleSubmit = (data) => {
     if (data) {
-      // props.addInvestment(data);
+      console.log(props);
+      //props.addTransaction(data);
     }
   };
 
-  // Tabs handling
-  const handleSelect = (category) => {
+  // set Category from child component
+  const setSelectedCategory = (category) => {
     setCategory(category);
   };
 
@@ -119,94 +150,58 @@ export const Content = (props) => {
           <Container>
             <Row className="mt-3">
               <Col style={{ paddingLeft: "2px" }}>
-                <p className="grey-text text-darken-1">
-                  You have <b>{tableData.length}</b> assets.
-                </p>
+                <p className="grey-text text-darken-1">Net worth: 1000$</p>
               </Col>
               <Col
                 className="d-flex justify-content-end"
                 style={{ paddingRight: "2px" }}>
-                {/* <Button variant="primary" onClick={(e) => openModal()}>
-                  Add Asset
-                </Button> */}
+                <Button variant="primary" onClick={(e) => openModal()}>
+                  + Transaction
+                </Button>
               </Col>
             </Row>
           </Container>
 
           <Container style={{ padding: "0px" }}>
-            <Row>
+            <Row className="mt-3">
               <Col md="3">
-                <Row>
+                <Row className="justify-content-center">
                   <CategoryImage image={category} />
-                </Row>
-                <Row>
-                  <Nav
-                    variant="pills"
-                    defaultActiveKey="all"
-                    onSelect={handleSelect}
-                    className="mt-3 ">
-                    <Nav.Item>
-                      <Nav.Link eventKey="all">All</Nav.Link>
-                    </Nav.Item>
-                    <Nav.Item>
-                      <Nav.Link eventKey="automobile">Automobile</Nav.Link>
-                    </Nav.Item>
-                    <Nav.Item>
-                      <Nav.Link eventKey="clothing">Clothing</Nav.Link>
-                    </Nav.Item>
-                    <Nav.Item>
-                      <Nav.Link eventKey="food">Food</Nav.Link>
-                    </Nav.Item>
-                    <Nav.Item>
-                      <Nav.Link eventKey="fun">Fun</Nav.Link>
-                    </Nav.Item>
-                    <Nav.Item>
-                      <Nav.Link eventKey="electronics">Electronics</Nav.Link>
-                    </Nav.Item>
-                    <Nav.Item>
-                      <Nav.Link eventKey="amenities">Amenities</Nav.Link>
-                    </Nav.Item>
-                    <Nav.Item>
-                      <Nav.Link eventKey="personal">Personal</Nav.Link>
-                    </Nav.Item>
-                    <Nav.Item>
-                      <Nav.Link eventKey="medical">Medical</Nav.Link>
-                    </Nav.Item>
-                    <Nav.Item>
-                      <Nav.Link eventKey="other">Other</Nav.Link>
-                    </Nav.Item>
-                  </Nav>
                 </Row>
               </Col>
               <Col md="9" style={{ padding: "0px" }}>
-                <TableContainer tableData={dataTable} category={category} />
+                <TableContainer
+                  tableData={dataTable}
+                  category={category}
+                  setCategory={setSelectedCategory}
+                />
               </Col>
             </Row>
           </Container>
         </Col>
       </Row>
-      {/* <AddAssetModal
+      <AddTransactionModal
         show={isOpenModal}
         onHide={() => closeModal()}
         handleSubmit={(e) => handleSubmit(e)}
-      /> */}
+      />
     </Container>
   );
 };
 
 Content.propTypes = {
   auth: PropTypes.object.isRequired,
-  investments: PropTypes.object.isRequired,
-  addInvestment: PropTypes.func.isRequired,
-  getInvestments: PropTypes.func.isRequired,
+  transactions: PropTypes.object.isRequired,
+  addTransaction: PropTypes.func.isRequired,
+  getTransactions: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   auth: state.auth,
-  investments: state.investments,
+  transactions: state.transactions,
 });
 
 export default connect(mapStateToProps, {
-  getInvestments,
-  addInvestment,
+  getTransactions,
+  addTransaction,
 })(Content);

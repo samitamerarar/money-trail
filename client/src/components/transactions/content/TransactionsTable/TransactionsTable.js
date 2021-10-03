@@ -165,7 +165,7 @@ class TransactionsTable extends Component {
             <MuiThemeProvider theme={themeDesktop}>
               <MUIDataTable
                 title={
-                  months[parseInt(this.props.month)] +
+                  months[parseInt(this.props.month) - 1] +
                   " - " +
                   this.props.category +
                   " transactions"

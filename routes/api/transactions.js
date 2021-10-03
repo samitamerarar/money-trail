@@ -38,6 +38,7 @@ router.post(
           txn.category = req.body.category;
           txn.amount = req.body.amount;
           txn.date = req.body.date;
+          txn.type = req.body.type;
           txn.save().then((txn) => res.json(txn));
         } else {
           const newTxn = new Transaction({
@@ -47,6 +48,7 @@ router.post(
             category: req.body.category,
             amount: req.body.amount,
             date: req.body.date,
+            type: req.body.type,
           });
           newTxn.save().then((txn) => res.json(txn));
         }

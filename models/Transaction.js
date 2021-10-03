@@ -26,6 +26,10 @@ const TransactionSchema = new Schema({
     type: String,
     required: true,
   },
+  type: {
+    type: String,
+    required: true,
+  },
 });
 
 module.exports = Transaction = mongoose.model("transaction", TransactionSchema);

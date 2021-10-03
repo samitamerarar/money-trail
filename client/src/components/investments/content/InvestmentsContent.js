@@ -199,7 +199,7 @@ export const InvestmentsContent = (props) => {
                 className="d-flex justify-content-end"
                 style={{ paddingRight: "2px" }}>
                 <Button variant="primary" onClick={(e) => openModal()}>
-                  Add Asset
+                  + Asset
                 </Button>
               </Col>
             </Row>
