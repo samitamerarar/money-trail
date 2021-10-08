@@ -11,6 +11,7 @@ import {
 import moment from "moment";
 
 import TransactionsTable from "./TransactionsTable/TransactionsTable";
+import { Browser, CreditCard } from "react-kawaii";
 
 export const TableContainer = (props) => {
   const [dataTableByDate, setDataTableByDate] = useState(new Map());
@@ -18,12 +19,7 @@ export const TableContainer = (props) => {
   const [flickingContent2, setFlickingContent2] = useState([]);
 
   useEffect(() => {
-    // start by inserting today month and year
     const mapYear = new Map();
-    mapYear.set(
-      moment().format("YYYY"),
-      new Map([[moment().format("MM"), []]])
-    );
 
     // insert transactions year
     props.tableData.forEach((e) => {
@@ -59,37 +55,62 @@ export const TableContainer = (props) => {
     });
 
     // sort each year map
-    setDataTableByDate(
-      new Map([...mapYear.entries()].sort((e1, e2) => e2[0] > e1[0]))
+    const sortedByYear = new Map(
+      [...mapYear.entries()].sort((e1, e2) => e2[0] > e1[0])
     );
+    setDataTableByDate(sortedByYear);
+
+    // populate the year dropdown filter
+    props.setYears(Array.from(sortedByYear.keys()));
   }, [props.tableData, props.category]);
 
   useEffect(() => {
+    let noRecordsFound = (
+      <Container className="mt-5">
+        <Row
+          className="justify-content-center m-3"
+          style={{ textAlign: "center" }}>
+          You don't have any transactions here.
+        </Row>
+        <Row className="justify-content-center">
+          <CreditCard size={75} mood="happy" color="#83D1FB" />
+        </Row>
+      </Container>
+    );
+
     let buffer = [];
     if (dataTableByDate.size > 0) {
-      if (dataTableByDate.has("2021")) {
-        dataTableByDate.get("2021").forEach((val, key) => {
-          buffer.push(
-            <div style={{ width: "98%" }}>
-              <Container>
-                <Row>
-                  <Col>
-                    <TransactionsTable
-                      tableData={val}
-                      category={props.category}
-                      month={key}
-                    />
-                  </Col>
-                </Row>
-              </Container>
-            </div>
-          );
+      if (dataTableByDate.has(props.year)) {
+        dataTableByDate.get(props.year).forEach((val, key) => {
+          if (val.length > 0) {
+            buffer.push(
+              <div style={{ width: "98%" }}>
+                <Container>
+                  <Row>
+                    <Col>
+                      <TransactionsTable
+                        tableData={val}
+                        category={props.category}
+                        month={key}
+                      />
+                    </Col>
+                  </Row>
+                </Container>
+              </div>
+            );
+          } else {
+            buffer.push(noRecordsFound);
+          }
         });
+      } else {
+        buffer.push(noRecordsFound);
       }
+    } else {
+      buffer.push(noRecordsFound);
     }
 
     setFlickingContent(buffer);
-  }, [dataTableByDate]);
+  }, [dataTableByDate, props.year]);
 
   useEffect(() => {
     let buffer = [];

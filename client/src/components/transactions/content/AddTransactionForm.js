@@ -134,7 +134,6 @@ const AddTransactionForm = (props) => {
             onChange={(e) => setField("category", e.target.value)}
             isInvalid={!!errors.category}>
             <option value="">Select a category...</option>
-            <option value="all">All</option>
             <option value="automobile">Automobile</option>
             <option value="clothing">Clothing</option>
             <option value="food">Food</option>
