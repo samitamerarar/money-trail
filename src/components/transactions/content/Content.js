@@ -88,15 +88,15 @@ const tableData = [
   },
   {
     merchant: "marchant5",
-    category: "other",
+    category: "medical",
     amount: "2",
-    date: moment("12/21/2021").format("DD/MM/YYYY"),
+    date: moment("12/21/2019").format("DD/MM/YYYY"),
   },
   {
     merchant: "marchant5",
-    category: "other",
+    category: "medical",
     amount: "2",
-    date: moment("12/21/2021").format("DD/MM/YYYY"),
+    date: moment("12/21/2029").format("DD/MM/YYYY"),
   },
   {
     merchant: "marchant5",
@@ -173,6 +173,8 @@ export const Content = (props) => {
                 <TableContainer
                   tableData={dataTable}
                   category={category}
+                  year={props.selectedYear}
+                  setYears={(e) => props.setYears(e)}
                   setCategory={setSelectedCategory}
                 />
               </Col>
