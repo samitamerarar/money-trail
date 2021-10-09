@@ -2,16 +2,15 @@ import React, { useState, useEffect } from "react";
 import { Row, Col, Container, Button, Image, Nav } from "react-bootstrap";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
+import CategoryImage from "./CategoryImage";
+import TableContainer from "./TableContainer";
+import AddTransactionModal from "./AddTransaction";
 import {
-  getTransactions,
   addTransaction,
+  getTransactions,
 } from "../../../actions/transactionActions";
 
 import moment from "moment";
-
-import CategoryImage from "./CategoryImage";
-import { TableContainer } from "./TableContainer";
-import AddTransactionModal from "./AddTransaction";
 
 const tableData = [
   {
@@ -96,7 +95,7 @@ const tableData = [
     merchant: "marchant5",
     category: "medical",
     amount: "2",
-    date: moment("12/21/2029").format("DD/MM/YYYY"),
+    date: moment("12/21/2021").format("DD/MM/YYYY"),
   },
   {
     merchant: "marchant5",
@@ -112,7 +111,7 @@ const tableData = [
   },
 ];
 
-export const Content = (props) => {
+export const TransactionsContent = (props) => {
   const [category, setCategory] = useState("all");
   const [dataTable, setDataTable] = useState([]);
 
@@ -126,8 +125,7 @@ export const Content = (props) => {
   // add investment to database
   const handleSubmit = (data) => {
     if (data) {
-      console.log(props);
-      //props.addTransaction(data);
+      props.addTransaction(data);
     }
   };
 
@@ -191,19 +189,19 @@ export const Content = (props) => {
   );
 };
 
-Content.propTypes = {
+TransactionsContent.propTypes = {
   auth: PropTypes.object.isRequired,
+  errors: PropTypes.object.isRequired,
   transactions: PropTypes.object.isRequired,
-  addTransaction: PropTypes.func.isRequired,
-  getTransactions: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   auth: state.auth,
+  errors: state.errors,
   transactions: state.transactions,
 });
 
 export default connect(mapStateToProps, {
   getTransactions,
   addTransaction,
-})(Content);
+})(TransactionsContent);

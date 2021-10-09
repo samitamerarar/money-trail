@@ -1,22 +1,24 @@
 import React, { useState, useEffect } from "react";
 import { Row, Col, Container, Button } from "react-bootstrap";
-import Flicking from "@egjs/react-flicking";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import {
-  getInvestments,
-  addInvestment,
-} from "../../../actions/investmentAction";
+import TransactionsTable from "./TransactionsTable/TransactionsTable";
+
+import Flicking, { ViewportSlot } from "@egjs/react-flicking";
+import { Pagination } from "@egjs/flicking-plugins";
+import "@egjs/flicking-plugins/dist/pagination.css";
+
+import { CreditCard } from "react-kawaii";
 
 import moment from "moment";
 
-import TransactionsTable from "./TransactionsTable/TransactionsTable";
-import { Browser, CreditCard } from "react-kawaii";
-
 export const TableContainer = (props) => {
   const [dataTableByDate, setDataTableByDate] = useState(new Map());
-  const [flickingContent, setFlickingContent] = useState([]);
-  const [flickingContent2, setFlickingContent2] = useState([]);
+  const [flickingTables, setFlickingTables] = useState([]);
+  const [flickingCategories, setFlickingCategories] = useState([]);
+
+  // Flicking pagination
+  const plugins = [new Pagination({ type: "bullet" })];
 
   useEffect(() => {
     const mapYear = new Map();
@@ -109,7 +111,7 @@ export const TableContainer = (props) => {
       buffer.push(noRecordsFound);
     }
 
-    setFlickingContent(buffer);
+    setFlickingTables(buffer);
   }, [dataTableByDate, props.year]);
 
   useEffect(() => {
@@ -134,7 +136,12 @@ export const TableContainer = (props) => {
             id={e.value}
             onClick={handleClick}
             className="m-1"
-            variant="info">
+            variant="info"
+            style={{
+              background: "#F2A65E",
+              boxShadow: "1px 1px 3px rgba(46, 46, 46, 0.62)",
+              borderColor: "#AD7743",
+            }}>
             {e.name}
           </Button>
         );
@@ -151,7 +158,7 @@ export const TableContainer = (props) => {
       }
     });
 
-    setFlickingContent2(buffer);
+    setFlickingCategories(buffer);
   }, [props.category]);
 
   // set the category on the Parent Component
@@ -162,16 +169,23 @@ export const TableContainer = (props) => {
   return (
     <>
       <div>
-        {flickingContent2.length > 0 && (
+        {flickingCategories.length > 0 && (
           <Flicking align="prev" bounce="2%">
-            {flickingContent2}
+            {flickingCategories}
           </Flicking>
         )}
       </div>
 
-      {flickingContent.length > 0 && (
-        <Flicking renderOnlyVisible={true} align="prev" horizontal="false">
-          {flickingContent}
+      {flickingTables.length > 0 && (
+        <Flicking
+          renderOnlyVisible={true}
+          align="prev"
+          horizontal="false"
+          plugins={plugins}>
+          {flickingTables}
+          <ViewportSlot>
+            <div className="flicking-pagination"></div>
+          </ViewportSlot>
         </Flicking>
       )}
     </>
