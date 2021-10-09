@@ -1,3 +1,4 @@
+import moment from "moment";
 import React, { useState, useRef } from "react";
 import { Form, Button, Container, Row, Col } from "react-bootstrap";
 
@@ -120,7 +121,9 @@ const AddTransactionForm = (props) => {
             type="date"
             name="date"
             isInvalid={!!errors.date}
-            onChange={(e) => setField("date", e.target.value)}
+            onChange={(e) => {
+              setField("date", moment(e.target.value).format("DD/MM/YYYY"));
+            }}
           />
           <Form.Control.Feedback type="invalid">
             {errors.date}
