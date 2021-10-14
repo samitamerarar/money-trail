@@ -15,7 +15,6 @@ import Login from "./components/auth/Login";
 import PrivateRoute from "./components/private-route/PrivateRoute";
 import TransactionsContainer from "./components/transactions/TransactionsContainer";
 import InvestmentsContainer from "./components/investments/InvestmentsContainer";
-import ManageCategories from "./components/settings/categories/ManageCategories";
 import Placeholder from "./components/Placeholder";
 
 // Check for token to keep user logged in
@@ -59,7 +58,7 @@ class App extends Component {
               <PrivateRoute
                 exact
                 path="/settings-categories"
-                component={ManageCategories}
+                component={Placeholder}
               />
               <PrivateRoute exact path="/manage" component={Placeholder} />
             </Switch>

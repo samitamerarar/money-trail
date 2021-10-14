@@ -17,6 +17,10 @@ export const TransactionsContainer = (props) => {
     if (yearsAvailable.length > 0) setYearFilter(yearsAvailable[0]);
   }, [yearsAvailable]);
 
+  useEffect(() => {
+    props.getTransactions();
+  }, []);
+
   const renderDropdownYears = () => {
     let items = [];
     yearsAvailable.forEach((year) => {

@@ -19,9 +19,22 @@ export const addTransaction = (data) => (dispatch) => {
     .catch((err) => console.log(err));
 };
 
+// Modify transaction
+export const editTransaction = (data) => (dispatch) => {
+  axios
+    .post("api/transactions/edit", data)
+    .then((res) =>
+      dispatch({
+        type: ADD_TRANSACTION,
+        payload: res.data,
+      })
+    )
+    .catch((err) => console.log(err));
+};
+
 // Delete transaction
 export const deleteTransaction = (txnData) => (dispatch) => {
-  const id = txnData.id;
+  const id = txnData;
   axios
     .delete(`api/transactions/${id}`)
     .then((res) =>

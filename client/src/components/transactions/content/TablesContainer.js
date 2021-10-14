@@ -12,7 +12,7 @@ import { CreditCard } from "react-kawaii";
 
 import moment from "moment";
 
-export const TableContainer = (props) => {
+export const TablesContainer = (props) => {
   const [dataTableByDate, setDataTableByDate] = useState(new Map());
   const [flickingTables, setFlickingTables] = useState([]);
   const [flickingCategories, setFlickingCategories] = useState([]);
@@ -192,7 +192,7 @@ export const TableContainer = (props) => {
   );
 };
 
-TableContainer.propTypes = {
+TablesContainer.propTypes = {
   auth: PropTypes.object.isRequired,
 };
 
@@ -200,4 +200,4 @@ const mapStateToProps = (state) => ({
   auth: state.auth,
 });
 
-export default connect(mapStateToProps, {})(TableContainer);
+export default connect(mapStateToProps, {})(TablesContainer);

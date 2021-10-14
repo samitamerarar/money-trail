@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Container, Row, Col, Modal } from "react-bootstrap";
 import AddTransactionForm from "./AddTransactionForm";
 
-class AddTransactionModal extends Component {
+class AddTransaction extends Component {
   constructor() {
     super();
     this.state = { transaction: null };
@@ -59,4 +59,4 @@ class AddTransactionModal extends Component {
   }
 }
 
-export default AddTransactionModal;
+export default AddTransaction;

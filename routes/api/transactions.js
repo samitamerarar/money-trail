@@ -20,20 +20,41 @@ router.get(
 );
 
 // @route POST api/transactions/add
-// @desc Add or Update transaction
+// @desc Add transaction
 // @access Private
 router.post(
   "/add",
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
-    Transaction.findOne({
+    const newTxn = new Transaction({
       userId: req.user.id,
-      id: req.body.id,
+      merchant: req.body.merchant,
+      category: req.body.category,
+      amount: req.body.amount,
+      date: req.body.date,
+      type: req.body.type,
+    });
+
+    newTxn
+      .save()
+      .then((txn) => res.json(txn))
+      .catch((err) => console.log(err)); // Mongo Error
+  }
+);
+
+// @route POST api/transactions/edit
+// @desc Update or Add transaction
+// @access Private
+router.post(
+  "/edit",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    Transaction.findOne({
+      userId: req.user._id,
+      _id: req.body.id,
     })
       .then((txn) => {
         if (txn) {
-          txn.userId = req.user.id;
-          txn.id = req.body.id;
           txn.merchant = req.body.merchant;
           txn.category = req.body.category;
           txn.amount = req.body.amount;
@@ -43,7 +64,6 @@ router.post(
         } else {
           const newTxn = new Transaction({
             userId: req.user.id,
-            id: req.body.id,
             merchant: req.body.merchant,
             category: req.body.category,
             amount: req.body.amount,
