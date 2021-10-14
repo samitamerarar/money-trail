@@ -1,11 +1,16 @@
 import moment from "moment";
-import React, { useState, useRef } from "react";
+import React, { useState } from "react";
 import { Form, Button, Container, Row, Col } from "react-bootstrap";
 
-const AddTransactionForm = (props) => {
+const EditTransactionForm = (props) => {
   // Form
   const [form, setForm] = useState({
-    type: "expense",
+    id: props.previousData.id,
+    merchant: props.previousData.merchant,
+    category: props.previousData.category,
+    amount: props.previousData.amount,
+    date: props.previousData.date,
+    type: props.previousData.type,
   });
   const [errors, setErrors] = useState({});
 
@@ -67,6 +72,7 @@ const AddTransactionForm = (props) => {
                 placeholder="Amount"
                 onChange={(e) => setField("amount", e.target.value)}
                 isInvalid={!!errors.amount}
+                defaultValue={props.previousData.amount}
               />
               <Form.Control.Feedback type="invalid">
                 {errors.amount}
@@ -83,7 +89,7 @@ const AddTransactionForm = (props) => {
                   label="Expense"
                   name="amount"
                   id="expense"
-                  defaultChecked={true}
+                  defaultChecked={props.previousData.type === "expense"}
                   onChange={(e) => setField("type", e.target.id)}
                 />
                 <Form.Check
@@ -92,6 +98,7 @@ const AddTransactionForm = (props) => {
                   label="Income"
                   name="amount"
                   id="income"
+                  defaultChecked={props.previousData.type === "income"}
                   onChange={(e) => setField("type", e.target.id)}
                 />
 
@@ -109,6 +116,7 @@ const AddTransactionForm = (props) => {
             type="text"
             onChange={(e) => setField("merchant", e.target.value)}
             isInvalid={!!errors.merchant}
+            defaultValue={props.previousData.merchant}
           />
           <Form.Control.Feedback type="invalid">
             {errors.merchant}
@@ -120,6 +128,9 @@ const AddTransactionForm = (props) => {
           <Form.Control
             type="date"
             name="date"
+            defaultValue={moment(props.previousData.date, "DD/MM/YYYY").format(
+              "YYYY-MM-DD"
+            )}
             isInvalid={!!errors.date}
             onChange={(e) => {
               setField("date", moment(e.target.value).format("DD/MM/YYYY"));
@@ -134,6 +145,7 @@ const AddTransactionForm = (props) => {
           <Form.Label>Category</Form.Label>
           <Form.Control
             as="select"
+            defaultValue={props.previousData.category}
             onChange={(e) => setField("category", e.target.value)}
             isInvalid={!!errors.category}>
             <option value="">Select a category...</option>
@@ -154,7 +166,7 @@ const AddTransactionForm = (props) => {
 
         <Col className="d-flex justify-content-end p-0">
           <Button type="submit" onClick={handleSubmit}>
-            Add Transaction
+            Edit Transaction
           </Button>
         </Col>
       </Form>
@@ -162,4 +174,4 @@ const AddTransactionForm = (props) => {
   );
 };
 
-export default AddTransactionForm;
+export default EditTransactionForm;

@@ -26,7 +26,7 @@ export const addInvestment = (data) => (dispatch) => {
     );
 };
 
-// Delete transaction
+// Delete investment
 export const deleteInvestment = (data) => (dispatch) => {
   dispatch(setInvestmentsLoading());
   const id = data.id;
