@@ -1,4 +1,5 @@
 const express = require("express");
+const app = express();
 const mongoose = require("mongoose");
 const passport = require("passport");
 
@@ -26,11 +27,10 @@ const corsOptions = {
     }
   },
 };
-app.use(cors(corsOptions));
 
-const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+app.use(cors(corsOptions));
 
 // DB Config
 const db = require("./config/keys").mongoURI;
@@ -54,8 +54,7 @@ app.use("/api/transactions", transactions);
 app.use("/api/investments", investments);
 app.use("/api/yahoo-finance", yahooFinance);
 
-const port = process.env.PORT || 8080; // Heroku Port
-// For heroku
+// For Heroku
 const path = require("path");
 if (process.env.NODE_ENV === "production") {
   // Serve any static files
@@ -66,4 +65,5 @@ if (process.env.NODE_ENV === "production") {
   });
 }
 
+const port = process.env.PORT || 8080; // Heroku Port
 app.listen(port, () => console.log(`Server up and running on port ${port} !`));
