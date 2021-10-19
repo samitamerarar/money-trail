@@ -8,6 +8,26 @@ const transactions = require("./routes/api/transactions");
 const investments = require("./routes/api/investments");
 const yahooFinance = require("./routes/api/yahoo-finance");
 
+// ** MIDDLEWARE ** //
+const whitelist = [
+  "http://localhost:3000",
+  "http://localhost:8080",
+  "https://my-money-trail.herokuapp.com",
+];
+const corsOptions = {
+  origin: function (origin, callback) {
+    console.log("** Origin of request " + origin);
+    if (whitelist.indexOf(origin) !== -1 || !origin) {
+      console.log("Origin acceptable");
+      callback(null, true);
+    } else {
+      console.log("Origin rejected");
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
+};
+app.use(cors(corsOptions));
+
 const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -34,12 +54,15 @@ app.use("/api/transactions", transactions);
 app.use("/api/investments", investments);
 app.use("/api/yahoo-finance", yahooFinance);
 
-const port = process.env.PORT || 5000; // Heroku Port
+const port = process.env.PORT || 8080; // Heroku Port
 // For heroku
+const path = require("path");
 if (process.env.NODE_ENV === "production") {
-  app.use(express.static("build"));
-  app.get("*", (req, res) => {
-    req.sendFile(path.resolve(__dirname, "client/build", "index.html"));
+  // Serve any static files
+  app.use(express.static(path.join(__dirname, "client/build")));
+  // Handle React routing, return all requests to React app
+  app.get("*", function (req, res) {
+    res.sendFile(path.join(__dirname, "client/build", "index.html"));
   });
 }
 
