@@ -35,4 +35,12 @@ app.use("/api/investments", investments);
 app.use("/api/yahoo-finance", yahooFinance);
 
 const port = process.env.PORT || 5000; // Heroku Port
+// For heroku
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static("build"));
+  app.get("*", (req, res) => {
+    req.sendFile(path.resolve(__dirname, "client/build", "index.html"));
+  });
+}
+
 app.listen(port, () => console.log(`Server up and running on port ${port} !`));
