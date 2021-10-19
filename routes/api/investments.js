@@ -3,7 +3,7 @@ const router = express.Router();
 const passport = require("passport");
 
 // Load investment model
-const Investment = require("../../models/investment");
+const Investment = require("../../models/Investment");
 
 // @route POST api/investments/add
 // @desc Add or Update investment
