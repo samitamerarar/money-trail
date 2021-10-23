@@ -47,7 +47,7 @@ export const TransactionsContent = (props) => {
   return (
     <Container fluid>
       <Row>
-        <Col>
+        <Col style={{ padding: "0px" }}>
           <Container>
             <Row className="mt-3">
               <Col style={{ paddingLeft: "2px" }}>
@@ -63,7 +63,7 @@ export const TransactionsContent = (props) => {
             </Row>
           </Container>
 
-          <Container style={{ padding: "0px" }}>
+          <Container style={{ padding: "5px" }}>
             <Row className="mt-3">
               <Col md="3">
                 <Row className="justify-content-center">
