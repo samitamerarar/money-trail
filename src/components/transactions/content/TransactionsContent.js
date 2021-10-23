@@ -34,10 +34,23 @@ export const TransactionsContent = (props) => {
     setCategory(category);
   };
 
+  console.log(netWorth);
+
   // filter data by Category
   useEffect(() => {
     const { transactions } = props.transactions;
     if (transactions.length > 0) {
+      setNetWorth(
+        Number(
+          transactions
+            .filter((e) => e.type === "income")
+            .reduce((prev, cur) => cur.amount + prev, 0) +
+            transactions
+              .filter((e) => e.type === "expense")
+              .reduce((prev, cur) => prev - cur.amount, 0)
+        ).toFixed(2)
+      );
+
       if (category !== "all")
         setDataTable(transactions.filter((e) => e.category === category));
       else setDataTable(transactions);
@@ -51,7 +64,9 @@ export const TransactionsContent = (props) => {
           <Container>
             <Row className="mt-3">
               <Col style={{ paddingLeft: "2px" }}>
-                <p className="grey-text text-darken-1">Net worth: 1000$</p>
+                <p className="grey-text text-darken-1">
+                  Net worth: {netWorth ? <>{netWorth}</> : <>0</>}$
+                </p>
               </Col>
               <Col
                 className="d-flex justify-content-end"

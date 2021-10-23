@@ -101,7 +101,13 @@ export const TransactionsTable = (props) => {
                     <Row className="mb-1" style={{ fontSize: "1em" }}>
                       <Col>{tableMeta.rowData[2]}</Col>
                       <Col className="d-flex justify-content-end">
-                        {tableMeta.rowData[4]}
+                        {tableMeta.rowData[6] === "income" ? (
+                          <div style={{ color: "green" }}>
+                            {tableMeta.rowData[4]}$
+                          </div>
+                        ) : (
+                          <>-{tableMeta.rowData[4]}$</>
+                        )}
                       </Col>
                     </Row>
                     <Row style={{ fontSize: "0.9em" }}>

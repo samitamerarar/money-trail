@@ -69,6 +69,7 @@ const EditTransactionForm = (props) => {
               <Form.Label>Amount</Form.Label>
               <Form.Control
                 type="number"
+                step=".01"
                 placeholder="Amount"
                 onChange={(e) => setField("amount", e.target.value)}
                 isInvalid={!!errors.amount}
