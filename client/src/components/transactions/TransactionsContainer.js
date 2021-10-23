@@ -50,17 +50,19 @@ export const TransactionsContainer = (props) => {
       <Container>
         <Row className="mt-3">
           <h4>Transactions</h4>
-          <Col
-            className="d-flex justify-content-end"
-            style={{ paddingRight: "2px" }}>
-            <DropdownButton
-              size="sm"
-              variant="secondary"
-              id="dropdown-item-button"
-              title={yearFilter}>
-              {renderDropdownYears()}
-            </DropdownButton>
-          </Col>
+          {yearsAvailable.length > 0 && (
+            <Col
+              className="d-flex justify-content-end"
+              style={{ paddingRight: "2px" }}>
+              <DropdownButton
+                size="sm"
+                variant="secondary"
+                id="dropdown-item-button"
+                title={yearFilter}>
+                {renderDropdownYears()}
+              </DropdownButton>
+            </Col>
+          )}
         </Row>
       </Container>
 

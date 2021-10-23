@@ -187,7 +187,7 @@ export const InvestmentsContent = (props) => {
   return (
     <Container fluid>
       <Row>
-        <Col>
+        <Col style={{ padding: "0px" }}>
           <Container>
             <Row className="mt-3">
               <Col style={{ paddingLeft: "2px" }}>

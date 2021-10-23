@@ -137,15 +137,27 @@ class AssetsTable extends Component {
       overrides: {
         MuiButton: {
           root: {
-            fontWeight: "600 !important",
+            fontWeight: "550",
+            fontSize: "0.75rem",
+            color: "#757575",
           },
         },
         MuiTableCell: {
           head: {
             backgroundColor: "#F5F5F5 !important",
+            fontWeight: "550",
+            fontSize: "0.75rem",
+            color: "#757575",
           },
           body: {
+            fontWeight: "550",
             borderLeft: "solid 0.5px #D3D3D3",
+            fontFamily: '"Segoe UI", Arial, Sans-serif',
+          },
+        },
+        MUIDataTableBodyCell: {
+          root: {
+            width: "65px",
           },
         },
         MUIDataTableSelectCell: {
@@ -170,7 +182,7 @@ class AssetsTable extends Component {
         MuiPaper: {
           root: {
             alignItems: "center",
-            width: "88vw",
+            margin: "-16px",
           },
         },
         MuiToolbar: { root: { display: "none" } },
