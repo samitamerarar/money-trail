@@ -2,6 +2,7 @@ import React, { useState, useRef } from "react";
 import { Form, Button, Container, Row, Col } from "react-bootstrap";
 
 const EditStockFormAdd = (props) => {
+  const [priceRendered, setPriceRendered] = useState();
   // Form
   const [form, setForm] = useState({
     symbolNameObj: { symbol: props.previousData.symbol },
@@ -81,7 +82,19 @@ const EditStockFormAdd = (props) => {
               <Form.Control
                 type="number"
                 placeholder="Price"
-                onChange={(e) => setField("price", e.target.value)}
+                onChange={(e) => {
+                  if (
+                    e.target.value.indexOf(".") === -1 ||
+                    e.target.value.indexOf(".") ===
+                      e.target.value.toString().length - 3 ||
+                    e.target.value.indexOf(".") ===
+                      e.target.value.toString().length - 2
+                  ) {
+                    setField("price", e.target.value);
+                    setPriceRendered(e.target.value);
+                  }
+                }}
+                value={priceRendered}
                 isInvalid={!!errors.price}
               />
               <Form.Control.Feedback type="invalid">
