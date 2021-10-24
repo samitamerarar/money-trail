@@ -35,7 +35,6 @@ class AddTransaction extends Component {
               <Col>
                 <Modal
                   {...this.props}
-                  size="lg"
                   aria-labelledby="contained-modal-title-vcenter"
                   //centered
                 >

@@ -3,6 +3,7 @@ import React, { useState, useRef } from "react";
 import { Form, Button, Container, Row, Col } from "react-bootstrap";
 
 const AddTransactionForm = (props) => {
+  const [amountRendered, setAmountRendered] = useState();
   // Form
   const [form, setForm] = useState({
     type: "expense",
@@ -66,7 +67,19 @@ const AddTransactionForm = (props) => {
                 type="number"
                 step=".01"
                 placeholder="Amount"
-                onChange={(e) => setField("amount", e.target.value)}
+                onChange={(e) => {
+                  if (
+                    e.target.value.indexOf(".") === -1 ||
+                    e.target.value.indexOf(".") ===
+                      e.target.value.toString().length - 3 ||
+                    e.target.value.indexOf(".") ===
+                      e.target.value.toString().length - 2
+                  ) {
+                    setField("amount", e.target.value);
+                    setAmountRendered(e.target.value);
+                  }
+                }}
+                value={amountRendered}
                 isInvalid={!!errors.amount}
               />
               <Form.Control.Feedback type="invalid">

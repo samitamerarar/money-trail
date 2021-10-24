@@ -103,10 +103,10 @@ export const TransactionsTable = (props) => {
                       <Col className="d-flex justify-content-end">
                         {tableMeta.rowData[6] === "income" ? (
                           <div style={{ color: "green" }}>
-                            {tableMeta.rowData[4]}$
+                            {tableMeta.rowData[4].toFixed(2)}$
                           </div>
                         ) : (
-                          <>-{tableMeta.rowData[4]}$</>
+                          <>-{tableMeta.rowData[4].toFixed(2)}$</>
                         )}
                       </Col>
                     </Row>
@@ -204,7 +204,16 @@ export const TransactionsTable = (props) => {
                 months[parseInt(props.month) - 1] +
                 " - " +
                 props.category +
-                " transactions"
+                " [total: " +
+                Number(
+                  tableData
+                    .filter((e) => e.type === "income")
+                    .reduce((prev, cur) => cur.amount + prev, 0) +
+                    tableData
+                      .filter((e) => e.type === "expense")
+                      .reduce((prev, cur) => prev - cur.amount, 0)
+                ).toFixed(2) +
+                "$]"
               }
               data={tableData}
               columns={columnsDesktop}
