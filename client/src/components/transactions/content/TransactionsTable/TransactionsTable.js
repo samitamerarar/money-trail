@@ -100,7 +100,7 @@ export const TransactionsTable = (props) => {
                   <Card.Body style={{ padding: "0.85rem" }}>
                     <Row className="mb-1" style={{ fontSize: "1em" }}>
                       <Col>{tableMeta.rowData[2]}</Col>
-                      <Col className="d-flex justify-content-end">
+                      <Col sm={1} className="d-flex justify-content-end">
                         {tableMeta.rowData[6] === "income" ? (
                           <div style={{ color: "green" }}>
                             {tableMeta.rowData[4].toFixed(2)}$
@@ -110,7 +110,7 @@ export const TransactionsTable = (props) => {
                         )}
                       </Col>
                     </Row>
-                    <Row style={{ fontSize: "0.9em" }}>
+                    <Row style={{ fontSize: "0.85em" }}>
                       <Col>
                         <span className="text-muted">
                           {tableMeta.rowData[3]}
@@ -174,21 +174,20 @@ export const TransactionsTable = (props) => {
     },
   ];
 
-  const themeDesktop = createTheme({
+  const theme = createTheme({
     overrides: {
+      MuiTypography: {
+        h6: {
+          fontFamily: "'Source Sans Pro', sans-serif",
+        },
+      },
       MuiTableCell: {
         root: {
           borderBottom: "none",
           padding: "0px",
         },
-        head: {
-          //backgroundColor: "#F5F5F5 !important",
-          fontWeight: "550",
-          fontSize: "0.75rem",
-          //color: "#757575",
-        },
         body: {
-          fontFamily: '"Segoe UI", Arial, Sans-serif',
+          fontFamily: "'Merriweather', sans-serif",
         },
       },
     },
@@ -198,7 +197,7 @@ export const TransactionsTable = (props) => {
     <Row className="mt-3">
       <Col style={{ padding: "5px" }}>
         <Container style={{ padding: "0px" }}>
-          <MuiThemeProvider theme={themeDesktop}>
+          <MuiThemeProvider theme={theme}>
             <MUIDataTable
               title={
                 months[parseInt(props.month) - 1] +
