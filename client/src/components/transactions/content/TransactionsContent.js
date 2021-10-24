@@ -34,8 +34,6 @@ export const TransactionsContent = (props) => {
     setCategory(category);
   };
 
-  console.log(netWorth);
-
   // filter data by Category
   useEffect(() => {
     const { transactions } = props.transactions;

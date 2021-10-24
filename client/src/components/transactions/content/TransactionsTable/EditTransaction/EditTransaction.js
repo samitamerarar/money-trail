@@ -44,7 +44,6 @@ class EditTransaction extends Component {
               <Col>
                 <Modal
                   {...this.props}
-                  size="lg"
                   aria-labelledby="contained-modal-title-vcenter"
                   //centered
                 >
@@ -55,7 +54,7 @@ class EditTransaction extends Component {
                   </Modal.Header>
                   <Modal.Body>
                     <Row className="mb-2">
-                      <Col className="d-flex ml-3">-</Col>
+                      <Col className="d-flex ml-3">✏️</Col>
                       <Col className="d-flex justify-content-end mr-3">
                         <Button
                           variant="danger"
