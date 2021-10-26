@@ -3,14 +3,14 @@ import { Row, Col, Container, Button, Image, Nav } from "react-bootstrap";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import CategoryImage from "./CategoryImage";
-import TablesContainer from "./TablesContainer";
+import Tables from "./Tables";
 import AddTransaction from "./AddTransaction/AddTransaction";
 import {
   addTransaction,
   getTransactions,
 } from "../../../actions/transactionActions";
 
-export const TransactionsContent = (props) => {
+export const Content = (props) => {
   const [category, setCategory] = useState("all");
   const [dataTable, setDataTable] = useState([]);
   const [netWorth, setNetWorth] = useState();
@@ -46,7 +46,9 @@ export const TransactionsContent = (props) => {
             transactions
               .filter((e) => e.type === "expense")
               .reduce((prev, cur) => prev - cur.amount, 0)
-        ).toFixed(2)
+        ).toLocaleString("en-US", {
+          maximumFractionDigits: 0,
+        })
       );
 
       if (category !== "all")
@@ -84,7 +86,7 @@ export const TransactionsContent = (props) => {
                 </Row>
               </Col>
               <Col md="9" style={{ padding: "0px" }}>
-                <TablesContainer
+                <Tables
                   tableData={dataTable}
                   category={category}
                   year={props.selectedYear}
@@ -106,7 +108,7 @@ export const TransactionsContent = (props) => {
   );
 };
 
-TransactionsContent.propTypes = {
+Content.propTypes = {
   auth: PropTypes.object.isRequired,
   errors: PropTypes.object.isRequired,
   transactions: PropTypes.object.isRequired,
@@ -121,4 +123,4 @@ const mapStateToProps = (state) => ({
 export default connect(mapStateToProps, {
   getTransactions,
   addTransaction,
-})(TransactionsContent);
+})(Content);

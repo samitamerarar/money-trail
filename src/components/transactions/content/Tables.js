@@ -12,7 +12,7 @@ import { CreditCard } from "react-kawaii";
 
 import moment from "moment";
 
-export const TablesContainer = (props) => {
+export const Tables = (props) => {
   const [dataTableByDate, setDataTableByDate] = useState(new Map());
   const [flickingTables, setFlickingTables] = useState([]);
   const [flickingCategories, setFlickingCategories] = useState([]);
@@ -52,13 +52,21 @@ export const TablesContainer = (props) => {
       // sort each month map
       mapYear.set(
         key,
-        new Map([...val.entries()].sort((e1, e2) => e2[0] > e1[0]))
+        new Map(
+          [...val.entries()].sort((e1, e2) => {
+            if (e2[0] > e1[0]) return 1;
+            else return -1;
+          })
+        )
       );
     });
 
     // sort each year map
     const sortedByYear = new Map(
-      [...mapYear.entries()].sort((e1, e2) => e2[0] > e1[0])
+      [...mapYear.entries()].sort((e1, e2) => {
+        if (e2[0] > e1[0]) return 1;
+        else return -1;
+      })
     );
     setDataTableByDate(sortedByYear);
 
@@ -192,7 +200,7 @@ export const TablesContainer = (props) => {
   );
 };
 
-TablesContainer.propTypes = {
+Tables.propTypes = {
   auth: PropTypes.object.isRequired,
 };
 
@@ -200,4 +208,4 @@ const mapStateToProps = (state) => ({
   auth: state.auth,
 });
 
-export default connect(mapStateToProps, {})(TablesContainer);
+export default connect(mapStateToProps, {})(Tables);

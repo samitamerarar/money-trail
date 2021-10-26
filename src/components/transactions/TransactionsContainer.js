@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Row, Container, Col, Button, DropdownButton } from "react-bootstrap";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import TransactionsContent from "./content/TransactionsContent";
+import Content from "./content/Content";
 import DropdownItem from "react-bootstrap/esm/DropdownItem";
 import {
   addTransaction,
@@ -66,7 +66,7 @@ export const TransactionsContainer = (props) => {
         </Row>
       </Container>
 
-      <TransactionsContent
+      <Content
         selectedYear={yearFilter}
         setYears={(e) => setYears(e)}
         state={props}
