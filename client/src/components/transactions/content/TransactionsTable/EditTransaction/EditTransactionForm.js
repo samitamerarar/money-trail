@@ -1,6 +1,6 @@
-import moment from "moment";
 import React, { useState } from "react";
 import { Form, Button, Container, Row, Col } from "react-bootstrap";
+import moment from "moment";
 
 const EditTransactionForm = (props) => {
   const [amountRendered, setAmountRendered] = useState();

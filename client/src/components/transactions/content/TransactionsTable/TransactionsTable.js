@@ -13,6 +13,8 @@ import {
   editTransaction,
 } from "../../../../actions/transactionActions";
 
+import moment from "moment";
+
 export const TransactionsTable = (props) => {
   const [isOpenModal, setIsOpenModal] = useState(false);
   const [rowData, setRowDate] = useState();
@@ -78,6 +80,20 @@ export const TransactionsTable = (props) => {
         type: rowData[6],
       });
     },
+    // Search ALL columns, including hidden fields that use display:false, viewColumns:false...
+    customSearch: (searchQuery, currentRow, columns) => {
+      let isFound = false;
+      currentRow.forEach((col, i) => {
+        if (
+          i > 1 && // remove _id from search
+          col &&
+          col.toString().toLowerCase().indexOf(searchQuery.toLowerCase()) >= 0
+        ) {
+          isFound = true;
+        }
+      });
+      return isFound;
+    },
   };
 
   const columnsDesktop = [
@@ -103,10 +119,21 @@ export const TransactionsTable = (props) => {
                       <Col sm={1} className="d-flex justify-content-end">
                         {tableMeta.rowData[6] === "income" ? (
                           <div style={{ color: "green" }}>
-                            {tableMeta.rowData[4].toFixed(2)}$
+                            {tableMeta.rowData[4].toLocaleString("en-US", {
+                              minimumFractionDigits: 2,
+                              maximumFractionDigits: 2,
+                            })}
+                            $
                           </div>
                         ) : (
-                          <>-{tableMeta.rowData[4].toFixed(2)}$</>
+                          <>
+                            -
+                            {tableMeta.rowData[4].toLocaleString("en-US", {
+                              minimumFractionDigits: 2,
+                              maximumFractionDigits: 2,
+                            })}
+                            $
+                          </>
                         )}
                       </Col>
                     </Row>
@@ -118,7 +145,9 @@ export const TransactionsTable = (props) => {
                       </Col>
                       <Col className="d-flex justify-content-end">
                         <span className="text-muted">
-                          {tableMeta.rowData[5]}
+                          {moment(tableMeta.rowData[5], "DD/MM/YYYY").format(
+                            "ddd Do MMM"
+                          )}
                         </span>
                       </Col>
                     </Row>
@@ -204,6 +233,16 @@ export const TransactionsTable = (props) => {
                 " - " +
                 props.category +
                 " [total: " +
+                (Number(
+                  tableData
+                    .filter((e) => e.type === "income")
+                    .reduce((prev, cur) => cur.amount + prev, 0) +
+                    tableData
+                      .filter((e) => e.type === "expense")
+                      .reduce((prev, cur) => prev - cur.amount, 0)
+                ) > 0
+                  ? "+"
+                  : "") +
                 Number(
                   tableData
                     .filter((e) => e.type === "income")
@@ -211,7 +250,11 @@ export const TransactionsTable = (props) => {
                     tableData
                       .filter((e) => e.type === "expense")
                       .reduce((prev, cur) => prev - cur.amount, 0)
-                ).toFixed(2) +
+                ).toLocaleString("en-US", {
+                  minimumFractionDigits: 2,
+                  maximumFractionDigits: 2,
+                  currencyDisplay: "code",
+                }) +
                 "$]"
               }
               data={tableData}
