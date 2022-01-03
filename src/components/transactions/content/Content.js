@@ -13,7 +13,8 @@ import {
 export const Content = (props) => {
   const [category, setCategory] = useState("all");
   const [dataTable, setDataTable] = useState([]);
-  const [netWorth, setNetWorth] = useState();
+  const [netWorth, setNetWorth] = useState(0);
+  const [showNetWorth, setShowNetWorth] = useState(false);
 
   const [isOpenModal, setIsOpenModal] = useState(false);
   const [isComponentLoading, setIsComponentLoading] = useState(false);
@@ -43,9 +44,9 @@ export const Content = (props) => {
           transactions
             .filter((e) => e.type === "income")
             .reduce((prev, cur) => cur.amount + prev, 0) +
-            transactions
-              .filter((e) => e.type === "expense")
-              .reduce((prev, cur) => prev - cur.amount, 0)
+          transactions
+            .filter((e) => e.type === "expense")
+            .reduce((prev, cur) => prev - cur.amount, 0)
         ).toLocaleString("en-US", {
           maximumFractionDigits: 0,
         })
@@ -64,9 +65,18 @@ export const Content = (props) => {
           <Container>
             <Row className="mt-3">
               <Col style={{ paddingLeft: "2px" }}>
-                <p className="grey-text text-darken-1">
+                {/* <p className="grey-text text-darken-1">
                   Net worth: {netWorth ? <>{netWorth}</> : <>0</>}$
-                </p>
+                </p> */}
+                {showNetWorth ?
+                  <Button variant="light" size="sm" onClick={(e) => setShowNetWorth(!showNetWorth)}>
+                    Hide net worth: {netWorth ? <>{netWorth}</> : <>0</>}$
+                  </Button>
+                  :
+                  <Button variant="light" size="sm" onClick={(e) => setShowNetWorth(!showNetWorth)}>
+                    Show net worth
+                  </Button>
+                }
               </Col>
               <Col
                 className="d-flex justify-content-end"
