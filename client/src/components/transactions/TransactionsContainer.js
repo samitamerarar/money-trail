@@ -1,93 +1,81 @@
-import React, { useEffect, useState } from "react";
-import { Row, Container, Col, Button, DropdownButton } from "react-bootstrap";
-import PropTypes from "prop-types";
-import { connect } from "react-redux";
-import Content from "./content/Content";
-import DropdownItem from "react-bootstrap/esm/DropdownItem";
-import {
-  addTransaction,
-  getTransactions,
-} from "../../actions/transactionActions";
+import React, { useEffect, useState } from 'react';
+import { Row, Container, Col, Button, DropdownButton } from 'react-bootstrap';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import Content from './content/Content';
+import DropdownItem from 'react-bootstrap/esm/DropdownItem';
+import { addTransaction, getTransactions } from '../../actions/transactionActions';
 
 export const TransactionsContainer = (props) => {
-  const [yearFilter, setYearFilter] = useState();
-  const [yearsAvailable, setYearsAvailable] = useState([]);
+    const [yearFilter, setYearFilter] = useState();
+    const [yearsAvailable, setYearsAvailable] = useState([]);
 
-  useEffect(() => {
-    if (yearsAvailable.length > 0) setYearFilter(yearsAvailable[0]);
-  }, [yearsAvailable]);
+    useEffect(() => {
+        if (yearsAvailable.length > 0) setYearFilter(yearsAvailable[0]);
+    }, [yearsAvailable]);
 
-  useEffect(() => {
-    props.getTransactions();
-  }, []);
+    useEffect(() => {
+        props.getTransactions();
+    }, []);
 
-  const renderDropdownYears = () => {
-    let items = [];
-    yearsAvailable.forEach((year) => {
-      items.push(
-        <DropdownItem
-          title={year}
-          onClick={(e) => {
-            e.preventDefault();
-            onDropdownSelected(e);
-          }}>
-          {year}
-        </DropdownItem>
-      );
-    });
+    const renderDropdownYears = () => {
+        let items = [];
+        yearsAvailable.forEach((year) => {
+            items.push(
+                <DropdownItem
+                    title={year}
+                    onClick={(e) => {
+                        e.preventDefault();
+                        onDropdownSelected(e);
+                    }}
+                >
+                    {year}
+                </DropdownItem>
+            );
+        });
 
-    return items;
-  };
+        return items;
+    };
 
-  const onDropdownSelected = (e) => {
-    setYearFilter(e.target.title);
-  };
+    const onDropdownSelected = (e) => {
+        setYearFilter(e.target.title);
+    };
 
-  const setYears = (e) => setYearsAvailable(e);
+    const setYears = (e) => setYearsAvailable(e);
 
-  return (
-    <Container fluid>
-      <Container>
-        <Row className="mt-3">
-          <h4>Transactions</h4>
-          {yearsAvailable.length > 0 && (
-            <Col
-              className="d-flex justify-content-end"
-              style={{ paddingRight: "2px" }}>
-              <DropdownButton
-                size="sm"
-                variant="secondary"
-                id="dropdown-item-button"
-                title={yearFilter}>
-                {renderDropdownYears()}
-              </DropdownButton>
-            </Col>
-          )}
-        </Row>
-      </Container>
+    return (
+        <Container fluid>
+            <Container>
+                <Row className="mt-3">
+                    <h4>Transactions</h4>
+                    {yearsAvailable.length > 0 && (
+                        <Col className="d-flex justify-content-end" style={{ paddingRight: '2px' }}>
+                            <DropdownButton size="sm" variant="secondary" id="dropdown-item-button" title={yearFilter}>
+                                {renderDropdownYears()}
+                            </DropdownButton>
+                        </Col>
+                    )}
+                </Row>
+            </Container>
 
-      <Content
-        selectedYear={yearFilter}
-        setYears={(e) => setYears(e)}
-        state={props}
-      />
-    </Container>
-  );
+            <Content selectedYear={yearFilter} setYears={(e) => setYears(e)} state={props} />
+        </Container>
+    );
 };
 
 TransactionsContainer.propTypes = {
-  auth: PropTypes.object.isRequired,
-  errors: PropTypes.object.isRequired,
-  transactions: PropTypes.object.isRequired,
+    auth: PropTypes.object.isRequired,
+    errors: PropTypes.object.isRequired,
+    transactions: PropTypes.object.isRequired
 };
 
 const mapStateToProps = (state) => ({
-  auth: state.auth,
-  errors: state.errors,
-  transactions: state.transactions,
+    auth: state.auth,
+    errors: state.errors,
+    transactions: state.transactions
 });
 
 export default connect(mapStateToProps, {
-  getTransactions,
-  addTransaction,
+    getTransactions,
+    addTransaction
 })(TransactionsContainer);
