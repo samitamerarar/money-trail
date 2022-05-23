@@ -42,23 +42,24 @@ export const deleteTransaction = (txnData) => (dispatch) => {
 };
 
 // Get all transactions
-export const getTransactions = () => (dispatch) => {
-    dispatch(setTransactionsLoading());
-    axios
-        .get('api/transactions', {})
-        .then((res) =>
-            dispatch({
-                type: GET_TRANSACTIONS,
-                payload: res.data
-            })
-        )
-        .catch((err) =>
-            dispatch({
-                type: GET_TRANSACTIONS,
-                payload: null
-            })
-        );
-};
+export const getTransactions = () =>
+    async function (dispatch) {
+        dispatch(setTransactionsLoading());
+        const response = await axios
+            .get('api/transactions', {})
+            .then((res) =>
+                dispatch({
+                    type: GET_TRANSACTIONS,
+                    payload: res.data
+                })
+            )
+            .catch((err) =>
+                dispatch({
+                    type: GET_TRANSACTIONS,
+                    payload: null
+                })
+            );
+    };
 
 // Transactions loading
 export const setTransactionsLoading = () => {

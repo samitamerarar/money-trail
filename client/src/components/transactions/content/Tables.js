@@ -139,8 +139,7 @@ export const Tables = (props) => {
                             background: '#F2A65E',
                             boxShadow: '1px 1px 3px rgba(46, 46, 46, 0.62)',
                             borderColor: '#AD7743'
-                        }}
-                    >
+                        }}>
                         {e.name}
                     </Button>
                 );
