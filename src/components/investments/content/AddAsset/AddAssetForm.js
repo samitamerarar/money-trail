@@ -135,8 +135,7 @@ const AddAssetForm = (props) => {
                                         variant="info"
                                         ref={targetSectorsDrivers}
                                         onClick={() => setShowSectorsDrivers(!showSectorsDrivers)}
-                                        size="sm"
-                                    >
+                                        size="sm">
                                         <small>Toggle Sec. Drivers</small>
                                     </Button>
                                     <Overlay target={targetSectorsDrivers.current} show={showSectorsDrivers} placement="left">
@@ -201,8 +200,7 @@ const AddAssetForm = (props) => {
                                                 If you don't know what the fees are, either read the ETF investment prospectus (if applicable) or call the
                                                 company that issued the ETF or other fund type as you have the right to know how they are charging you.
                                             </Tooltip>
-                                        }
-                                    >
+                                        }>
                                         {({ ref, ...triggerHandler }) => (
                                             <Button variant="warning" ref={ref} {...triggerHandler} className="d-inline-flex align-items-center" size="sm">
                                                 Info
@@ -233,8 +231,7 @@ const AddAssetForm = (props) => {
                                             <Tooltip id="button-tooltip-2">
                                                 Invest in what you understand as it will really help you with your investment research.
                                             </Tooltip>
-                                        }
-                                    >
+                                        }>
                                         {({ ref, ...triggerHandler }) => (
                                             <Button variant="warning" ref={ref} {...triggerHandler} className="d-inline-flex align-items-center" size="sm">
                                                 Info
@@ -268,8 +265,7 @@ const AddAssetForm = (props) => {
                                                 Buffett) and others like expensive stocks like Amazon as they are growing quickly ("Growth Investors"). We are
                                                 all different. Just know what style you prefer.
                                             </Tooltip>
-                                        }
-                                    >
+                                        }>
                                         {({ ref, ...triggerHandler }) => (
                                             <Button variant="warning" ref={ref} {...triggerHandler} className="d-inline-flex align-items-center" size="sm">
                                                 Info
@@ -302,8 +298,7 @@ const AddAssetForm = (props) => {
                                                 website of the ETF company (i.e., Vanguard.com). If you want access to the annual report for a stock, go to that
                                                 company's website and search for "Annual Report".
                                             </Tooltip>
-                                        }
-                                    >
+                                        }>
                                         {({ ref, ...triggerHandler }) => (
                                             <Button variant="warning" ref={ref} {...triggerHandler} className="d-inline-flex align-items-center" size="sm">
                                                 Info
@@ -336,8 +331,7 @@ const AddAssetForm = (props) => {
                                                 Make sure that this investment is in your retirement account if you have room in your retirement account and if
                                                 your country has retirement savings account benefits (for tax savings purposes).
                                             </Tooltip>
-                                        }
-                                    >
+                                        }>
                                         {({ ref, ...triggerHandler }) => (
                                             <Button variant="warning" ref={ref} {...triggerHandler} className="d-inline-flex align-items-center" size="sm">
                                                 Info
@@ -360,13 +354,11 @@ const AddAssetForm = (props) => {
                                     <Overlay target={targetRisk.current} show={showRisk} placement="left">
                                         {(props) => (
                                             <Tooltip {...props}>
-                                                There are 2 standard types of investment risk classes. 1 risk class is simply called more-risky and the other
-                                                investment class is called less-risky. The less risky class consists of investments that are more likely going
-                                                to hold their value like government bonds or corporate bonds with a rating of A or above as well as money in
-                                                your bank account or large cap stock funds or value stock funds – meaning funds stocks that are not expensive.
-                                                Less risky means funds only and not individual stocks or corporate bonds. Everything else is more-risky,
-                                                including individual stocks and individual corporate bonds and any bond fund with a rating below A. Commodities
-                                                and reits are also classified as more-risky.
+                                                Less risky consists of investments that are more likely going to hold their value like government bonds or
+                                                corporate bonds with a rating of A or above as well as money in your bank account or large cap stock funds or
+                                                value stock funds – meaning funds stocks that are not expensive. Less risky means funds only and not individual
+                                                stocks or corporate bonds. Everything else is more risky, including individual stocks and individual corporate
+                                                bonds and any bond fund with a rating below A. Commodities and reits are also classified as more-risky.
                                             </Tooltip>
                                         )}
                                     </Overlay>

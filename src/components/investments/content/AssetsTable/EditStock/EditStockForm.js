@@ -132,8 +132,7 @@ const EditStockForm = (props) => {
                                 variant="info"
                                 ref={targetSectorsDrivers}
                                 onClick={() => setShowSectorsDrivers(!showSectorsDrivers)}
-                                size="sm"
-                            >
+                                size="sm">
                                 <small>Toggle Sec. Drivers</small>
                             </Button>
                             <Overlay target={targetSectorsDrivers.current} show={showSectorsDrivers} placement="left">
@@ -163,8 +162,7 @@ const EditStockForm = (props) => {
                         as="select"
                         defaultValue={props.previousData.sector}
                         onChange={(e) => setField('sector', e.target.value)}
-                        isInvalid={!!errors.sector}
-                    >
+                        isInvalid={!!errors.sector}>
                         <option value="">Select a sector...</option>
                         <option value="Consumer Discretionary">Consumer Discretionary</option>
                         <option value="Consumer Staples">Consumer Staples</option>
@@ -192,12 +190,11 @@ const EditStockForm = (props) => {
                             <Overlay target={targetRisk.current} show={showRisk} placement="left">
                                 {(props) => (
                                     <Tooltip {...props}>
-                                        There are 2 standard types of investment risk classes. 1 risk class is simply called more-risky and the other investment
-                                        class is called less-risky. The less risky class consists of investments that are more likely going to hold their value
-                                        like government bonds or corporate bonds with a rating of A or above as well as money in your bank account or large cap
-                                        stock funds or value stock funds – meaning funds stocks that are not expensive. Less risky means funds only and not
-                                        individual stocks or corporate bonds. Everything else is more-risky, including individual stocks and individual
-                                        corporate bonds and any bond fund with a rating below A. Commodities and reits are also classified as more-risky.
+                                        Less risky consists of investments that are more likely going to hold their value like government bonds or corporate
+                                        bonds with a rating of A or above as well as money in your bank account or large cap stock funds or value stock funds –
+                                        meaning funds stocks that are not expensive. Less risky means funds only and not individual stocks or corporate bonds.
+                                        Everything else is more risky, including individual stocks and individual corporate bonds and any bond fund with a
+                                        rating below A. Commodities and reits are also classified as more-risky.
                                     </Tooltip>
                                 )}
                             </Overlay>
@@ -208,8 +205,7 @@ const EditStockForm = (props) => {
                         as="select"
                         defaultValue={props.previousData.risk}
                         onChange={(e) => setField('risk', e.target.value)}
-                        isInvalid={!!errors.risk}
-                    >
+                        isInvalid={!!errors.risk}>
                         <option value="">Select the risk...</option>
                         <option value="More risky">More risky</option>
                         <option value="Less risky">Less risky</option>
