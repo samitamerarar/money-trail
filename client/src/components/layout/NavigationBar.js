@@ -30,12 +30,15 @@ class NavigationBar extends Component {
                             <Nav.Link as={Link} to="/transactions">
                                 Transactions
                             </Nav.Link>
+                            <Nav.Link as={Link} to="/statistics">
+                                Statistics
+                            </Nav.Link>
 
-                            <NavDropdown title="Settings" id="basic-nav-dropdown">
+                            {/* <NavDropdown title="Settings" id="basic-nav-dropdown">
                                 <NavDropdown.Item as={Link} to="/settings-categories">
                                     Manage Categories
                                 </NavDropdown.Item>
-                            </NavDropdown>
+                            </NavDropdown> */}
                         </Nav>
 
                         <Nav>

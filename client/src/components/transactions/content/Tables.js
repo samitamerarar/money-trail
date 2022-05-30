@@ -12,7 +12,7 @@ import { CreditCard } from 'react-kawaii';
 
 import moment from 'moment';
 
-import Loading from '../Loading';
+import Loading from '../../layout/Loading';
 
 export const Tables = (props) => {
     const [dataTablesByDate, setDataTablesByDate] = useState(new Map());
@@ -180,7 +180,7 @@ export const Tables = (props) => {
             </div>
 
             {isComponentLoading ? (
-                <Loading />
+                <Loading loadingwhat="transactions" />
             ) : (
                 <>
                     {flickingTables.length > 0 ? (
