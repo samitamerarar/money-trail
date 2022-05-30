@@ -12,14 +12,32 @@ import { CreditCard } from 'react-kawaii';
 
 import moment from 'moment';
 
+import Loading from '../Loading';
+
 export const Tables = (props) => {
-    const [dataTableByDate, setDataTableByDate] = useState(new Map());
+    const [dataTablesByDate, setDataTablesByDate] = useState(new Map());
     const [flickingTables, setFlickingTables] = useState([]);
     const [flickingCategories, setFlickingCategories] = useState([]);
+
+    const [isComponentLoading, setIsComponentLoading] = useState(true);
+    const [renderIsDone, setRenderIsDone] = useState(false);
+
+    // Control UI Loading (called second)
+    useEffect(() => {
+        setIsComponentLoading(false);
+    }, [renderIsDone]);
+
+    // Control UI Loading (called first)
+    useEffect(() => {
+        setRenderIsDone(!renderIsDone);
+    }, [flickingTables]);
 
     // Flicking pagination
     const plugins = [new Pagination({ type: 'bullet' })];
 
+    /*
+     * Create a sorted Map of years of a sorted Map of months
+     */
     useEffect(() => {
         const mapYear = new Map();
 
@@ -64,56 +82,46 @@ export const Tables = (props) => {
                 else return -1;
             })
         );
-        setDataTableByDate(sortedByYear);
+        setDataTablesByDate(sortedByYear);
 
         // populate the year dropdown filter
-        props.setYears(Array.from(sortedByYear.keys()));
+        props.setYears([...sortedByYear.keys()]);
     }, [props.tableData, props.category]);
 
+    /*
+     * Create a Table for each month based on the only selected year
+     */
     useEffect(() => {
-        let noRecordsFound = (
-            <Container className="mt-5">
-                <Row className="justify-content-center m-3" style={{ textAlign: 'center' }}>
-                    You don't have any transactions here.
-                </Row>
-                <Row className="justify-content-center">
-                    <CreditCard size={75} mood="happy" color="#83D1FB" />
-                </Row>
-            </Container>
-        );
-
-        let buffer = [];
-        if (dataTableByDate.size > 0) {
-            if (dataTableByDate.has(props.year)) {
-                dataTableByDate.get(props.year).forEach((val, key) => {
-                    if (val.length > 0) {
-                        buffer.push(
-                            <div style={{ width: '98%' }}>
-                                <Container>
-                                    <Row>
-                                        <Col>
-                                            <TransactionsTable tableData={val} category={props.category} month={key} />
-                                        </Col>
-                                    </Row>
-                                </Container>
-                            </div>
-                        );
-                    } else {
-                        buffer.push(noRecordsFound);
-                    }
-                });
-            } else {
-                buffer.push(noRecordsFound);
-            }
-        } else {
-            buffer.push(noRecordsFound);
+        setIsComponentLoading(true);
+        let tables = [];
+        let index = 0;
+        if (dataTablesByDate.size > 0 && dataTablesByDate.has(props.year)) {
+            dataTablesByDate.get(props.year).forEach((dataTable, key) => {
+                if (dataTable.length > 0) {
+                    tables.push(
+                        <div key={index} style={{ width: '98%' }}>
+                            <Container>
+                                <Row>
+                                    <Col>
+                                        <TransactionsTable dataTable={dataTable} category={props.category} month={key} />
+                                    </Col>
+                                </Row>
+                            </Container>
+                        </div>
+                    );
+                    index++;
+                }
+            });
         }
 
-        setFlickingTables(buffer);
-    }, [dataTableByDate, props.year]);
+        setFlickingTables([...tables]);
+    }, [dataTablesByDate, props.year]);
 
+    /*
+     * Create Category Buttons filters
+     */
     useEffect(() => {
-        let buffer = [];
+        let categoriesJSX = [];
         const categories = [
             { name: 'All', value: 'all' },
             { name: 'Automobile', value: 'automobile' },
@@ -129,8 +137,9 @@ export const Tables = (props) => {
 
         categories.forEach((e) => {
             if (e.value === props.category) {
-                buffer.push(
+                categoriesJSX.push(
                     <Button
+                        key={e.value}
                         id={e.value}
                         onClick={handleClick}
                         className="m-1"
@@ -144,15 +153,15 @@ export const Tables = (props) => {
                     </Button>
                 );
             } else {
-                buffer.push(
-                    <Button id={e.value} onClick={handleClick} className="m-1" variant="light">
+                categoriesJSX.push(
+                    <Button key={e.value} id={e.value} onClick={handleClick} className="m-1" variant="light">
                         {e.name}
                     </Button>
                 );
             }
         });
 
-        setFlickingCategories(buffer);
+        setFlickingCategories(categoriesJSX);
     }, [props.category]);
 
     // set the category on the Parent Component
@@ -170,13 +179,28 @@ export const Tables = (props) => {
                 )}
             </div>
 
-            {flickingTables.length > 0 && (
-                <Flicking renderOnlyVisible={true} align="prev" horizontal="false" plugins={plugins}>
-                    {flickingTables}
-                    <ViewportSlot>
-                        <div className="flicking-pagination"></div>
-                    </ViewportSlot>
-                </Flicking>
+            {isComponentLoading ? (
+                <Loading />
+            ) : (
+                <>
+                    {flickingTables.length > 0 ? (
+                        <Flicking renderOnlyVisible={true} align="prev" horizontal="false" plugins={plugins}>
+                            {flickingTables}
+                            <ViewportSlot>
+                                <div className="flicking-pagination"></div>
+                            </ViewportSlot>
+                        </Flicking>
+                    ) : (
+                        <Container key="00" className="mt-5">
+                            <Row className="justify-content-center m-3" style={{ textAlign: 'center' }}>
+                                You don't have any transactions here.
+                            </Row>
+                            <Row className="justify-content-center">
+                                <CreditCard size={75} mood="happy" color="#83D1FB" />
+                            </Row>
+                        </Container>
+                    )}
+                </>
             )}
         </>
     );

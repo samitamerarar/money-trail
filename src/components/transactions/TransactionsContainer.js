@@ -1,45 +1,42 @@
 import React, { useEffect, useState } from 'react';
-import { Row, Container, Col, Button, DropdownButton } from 'react-bootstrap';
+import { Row, Container, Col, DropdownButton } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Content from './content/Content';
 import DropdownItem from 'react-bootstrap/esm/DropdownItem';
 import { addTransaction, getTransactions } from '../../actions/transactionActions';
 
-import ScaleLoader from 'react-spinners/ScaleLoader';
+import Loading from './Loading';
 
 export const TransactionsContainer = (props) => {
-    const [yearFilter, setYearFilter] = useState();
+    const [yearFilter, setYearFilter] = useState(new Date().getFullYear());
     const [yearsAvailable, setYearsAvailable] = useState([]);
 
-    const [isComponentLoading, setIsComponentLoading] = useState(false);
-    const [APIFetchDone, setAPIFetchDone] = useState(false);
+    const [isComponentLoading, setIsComponentLoading] = useState(true);
 
-    /**
-     * Control UI Loading.
-     */
     useEffect(() => {
-        setIsComponentLoading(false);
-    }, [APIFetchDone]);
+        setIsComponentLoading(props.transactions.transactionsLoading);
+    }, [props.transactions.transactionsLoading]);
+
+    useEffect(() => {
+        setIsComponentLoading(true);
+        props.getTransactions();
+    }, []);
 
     useEffect(() => {
         if (yearsAvailable.length > 0) setYearFilter(yearsAvailable[0]);
     }, [yearsAvailable]);
-
-    useEffect(() => {
-        setIsComponentLoading(true);
-        props.getTransactions().then(() => setAPIFetchDone(!APIFetchDone));
-    }, []);
 
     const renderDropdownYears = () => {
         let items = [];
         yearsAvailable.forEach((year) => {
             items.push(
                 <DropdownItem
+                    key={year}
                     title={year}
                     onClick={(e) => {
                         e.preventDefault();
-                        onDropdownSelected(e);
+                        onYearDropdownSelect(e);
                     }}>
                     {year}
                 </DropdownItem>
@@ -49,21 +46,18 @@ export const TransactionsContainer = (props) => {
         return items;
     };
 
-    const onDropdownSelected = (e) => {
+    const onYearDropdownSelect = (e) => {
         setYearFilter(e.target.title);
     };
 
-    const setYears = (e) => setYearsAvailable(e);
+    const setYears = (e) => {
+        setYearsAvailable(e);
+    };
 
     return (
         <>
             {isComponentLoading ? (
-                <Container className="mt-5">
-                    <Row className="justify-content-center m-3">Loading transactions...</Row>
-                    <Row className="justify-content-center">
-                        <ScaleLoader color={'#007bff'} speedMultiplier={1} />
-                    </Row>
-                </Container>
+                <Loading />
             ) : (
                 <Container fluid>
                     <Container>
