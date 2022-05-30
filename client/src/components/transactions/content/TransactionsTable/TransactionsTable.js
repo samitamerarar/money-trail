@@ -14,11 +14,11 @@ import moment from 'moment';
 
 export const TransactionsTable = (props) => {
     const [isOpenModal, setIsOpenModal] = useState(false);
-    const [rowData, setRowDate] = useState();
+    const [rowData, setRowData] = useState();
 
     const openModal = (data) => {
         setIsOpenModal(true);
-        setRowDate(data);
+        setRowData(data);
     };
     const closeModal = () => setIsOpenModal(false);
 
@@ -36,13 +36,13 @@ export const TransactionsTable = (props) => {
         }
     };
 
-    const { tableData } = props;
+    const { dataTable } = props;
 
     const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
     const options = {
         filter: true,
-        responsive: 'scroll',
+        responsive: 'standard',
         selectableRows: 'none',
         expandableRowsHeader: false,
         elevation: 1,
@@ -93,8 +93,7 @@ export const TransactionsTable = (props) => {
                                 style={{
                                     border: '0px',
                                     padding: '6px'
-                                }}
-                            >
+                                }}>
                                 <Card className="transaction" style={{ borderRadius: '24px 8px' }}>
                                     <Card.Body style={{ padding: '0.85rem' }}>
                                         <Row className="mb-1" style={{ fontSize: '1em' }}>
@@ -211,14 +210,14 @@ export const TransactionsTable = (props) => {
                                 props.category +
                                 ' [total: ' +
                                 (Number(
-                                    tableData.filter((e) => e.type === 'income').reduce((prev, cur) => cur.amount + prev, 0) +
-                                        tableData.filter((e) => e.type === 'expense').reduce((prev, cur) => prev - cur.amount, 0)
+                                    dataTable.filter((e) => e.type === 'income').reduce((prev, cur) => cur.amount + prev, 0) +
+                                        dataTable.filter((e) => e.type === 'expense').reduce((prev, cur) => prev - cur.amount, 0)
                                 ) > 0
                                     ? '+'
                                     : '') +
                                 Number(
-                                    tableData.filter((e) => e.type === 'income').reduce((prev, cur) => cur.amount + prev, 0) +
-                                        tableData.filter((e) => e.type === 'expense').reduce((prev, cur) => prev - cur.amount, 0)
+                                    dataTable.filter((e) => e.type === 'income').reduce((prev, cur) => cur.amount + prev, 0) +
+                                        dataTable.filter((e) => e.type === 'expense').reduce((prev, cur) => prev - cur.amount, 0)
                                 ).toLocaleString('en-US', {
                                     minimumFractionDigits: 2,
                                     maximumFractionDigits: 2,
@@ -226,7 +225,7 @@ export const TransactionsTable = (props) => {
                                 }) +
                                 '$]'
                             }
-                            data={tableData}
+                            data={dataTable}
                             columns={columnsDesktop}
                             options={options}
                         />

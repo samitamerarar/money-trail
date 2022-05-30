@@ -1,13 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { Row, Col, Container, Button, Image, Nav } from 'react-bootstrap';
+import { Row, Col, Container, Button } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import CategoryImage from './CategoryImage';
 import Tables from './Tables';
 import AddTransaction from './AddTransaction/AddTransaction';
-import { addTransaction, getTransactions } from '../../../actions/transactionActions';
-
-import ScaleLoader from 'react-spinners/ScaleLoader';
+import { addTransaction } from '../../../actions/transactionActions';
 
 export const Content = (props) => {
     const [category, setCategory] = useState('all');
@@ -16,15 +14,6 @@ export const Content = (props) => {
     const [showNetWorth, setShowNetWorth] = useState(false);
 
     const [isOpenModal, setIsOpenModal] = useState(false);
-    const [isComponentLoading, setIsComponentLoading] = useState(false);
-    const [renderIsDone, setRenderIsDone] = useState(false);
-
-    /**
-     * Control UI Loading.
-     */
-    useEffect(() => {
-        setIsComponentLoading(false);
-    }, [renderIsDone]);
 
     const openModal = () => setIsOpenModal(true);
     const closeModal = () => setIsOpenModal(false);
@@ -38,11 +27,12 @@ export const Content = (props) => {
 
     // set Category from child component
     const setSelectedCategory = (category) => {
-        setIsComponentLoading(true);
         setCategory(category);
     };
 
-    // filter data by Category
+    /*
+     * Filter data by the selected Category
+     */
     useEffect(() => {
         const { transactions } = props.transactions;
         if (transactions.length > 0) {
@@ -58,71 +48,56 @@ export const Content = (props) => {
             if (category !== 'all') setDataTable(transactions.filter((e) => e.category === category));
             else setDataTable(transactions);
         } else setDataTable(transactions);
-        setRenderIsDone(!renderIsDone);
     }, [props.transactions, category]);
 
     return (
-        <>
-            {isComponentLoading ? (
-                <Container className="mt-5">
-                    <Row className="justify-content-center m-3">Loading transactions...</Row>
-                    <Row className="justify-content-center">
-                        <ScaleLoader color={'#007bff'} speedMultiplier={1} />
-                    </Row>
-                </Container>
-            ) : (
-                <Container fluid>
-                    <Row>
-                        <Col style={{ padding: '0px' }}>
-                            <Container>
-                                <Row className="mt-3">
-                                    <Col style={{ paddingLeft: '2px' }}>
-                                        {/* <p className="grey-text text-darken-1">
-                  Net worth: {netWorth ? <>{netWorth}</> : <>0</>}$
-                </p> */}
-                                        {showNetWorth ? (
-                                            <Button variant="light" size="sm" onClick={(e) => setShowNetWorth(!showNetWorth)}>
-                                                Hide net worth: {netWorth ? <>{netWorth}</> : <>0</>}$
-                                            </Button>
-                                        ) : (
-                                            <Button variant="light" size="sm" onClick={(e) => setShowNetWorth(!showNetWorth)}>
-                                                Show net worth
-                                            </Button>
-                                        )}
-                                    </Col>
-                                    <Col className="d-flex justify-content-end" style={{ paddingRight: '2px' }}>
-                                        <Button variant="primary" onClick={(e) => openModal()}>
-                                            + Transaction
-                                        </Button>
-                                    </Col>
-                                </Row>
-                            </Container>
+        <Container fluid>
+            <Row>
+                <Col style={{ padding: '0px' }}>
+                    <Container>
+                        <Row className="mt-3 align-items-center">
+                            <Col style={{ paddingLeft: '2px' }}>
+                                {showNetWorth ? (
+                                    <Button variant="light" size="sm" onClick={(e) => setShowNetWorth(!showNetWorth)}>
+                                        Hide net worth: {netWorth ? <>{netWorth}</> : <>0</>}$
+                                    </Button>
+                                ) : (
+                                    <Button variant="light" size="sm" onClick={(e) => setShowNetWorth(!showNetWorth)}>
+                                        Show net worth
+                                    </Button>
+                                )}
+                            </Col>
+                            <Col className="d-flex justify-content-end" style={{ paddingRight: '2px' }}>
+                                <Button variant="primary" onClick={(e) => openModal()}>
+                                    + Transaction
+                                </Button>
+                            </Col>
+                        </Row>
+                    </Container>
 
-                            <Container style={{ padding: '5px' }}>
-                                <Row className="mt-3">
-                                    <Col md="3">
-                                        <Row className="justify-content-center">
-                                            <CategoryImage image={category} />
-                                        </Row>
-                                    </Col>
-                                    <Col md="9" style={{ padding: '0px' }}>
-                                        <Tables
-                                            tableData={dataTable}
-                                            category={category}
-                                            year={props.selectedYear}
-                                            setYears={(e) => props.setYears(e)}
-                                            setCategory={setSelectedCategory}
-                                        />
-                                    </Col>
+                    <Container style={{ padding: '5px' }}>
+                        <Row className="mt-3">
+                            <Col md="3">
+                                <Row className="justify-content-center">
+                                    <CategoryImage image={category} />
                                 </Row>
-                            </Container>
-                        </Col>
-                    </Row>
+                            </Col>
+                            <Col md="9" style={{ padding: '0px' }}>
+                                <Tables
+                                    tableData={dataTable}
+                                    category={category}
+                                    year={props.selectedYear}
+                                    setYears={(e) => props.setYears(e)}
+                                    setCategory={setSelectedCategory}
+                                />
+                            </Col>
+                        </Row>
+                    </Container>
+                </Col>
+            </Row>
 
-                    <AddTransaction show={isOpenModal} onHide={() => closeModal()} handleSubmit={(e) => handleSubmit(e)} />
-                </Container>
-            )}
-        </>
+            <AddTransaction show={isOpenModal} onHide={() => closeModal()} handleSubmit={(e) => handleSubmit(e)} />
+        </Container>
     );
 };
 
@@ -139,6 +114,5 @@ const mapStateToProps = (state) => ({
 });
 
 export default connect(mapStateToProps, {
-    getTransactions,
     addTransaction
 })(Content);
