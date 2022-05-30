@@ -5,8 +5,7 @@ import { connect } from 'react-redux';
 import Content from './content/Content';
 import DropdownItem from 'react-bootstrap/esm/DropdownItem';
 import { addTransaction, getTransactions } from '../../actions/transactionActions';
-
-import Loading from './Loading';
+import Loading from '../layout/Loading';
 
 export const TransactionsContainer = (props) => {
     const [yearFilter, setYearFilter] = useState(new Date().getFullYear());
@@ -55,28 +54,22 @@ export const TransactionsContainer = (props) => {
     };
 
     return (
-        <>
-            {isComponentLoading ? (
-                <Loading />
-            ) : (
-                <Container fluid>
-                    <Container>
-                        <Row className="mt-3">
-                            <h4>Transactions</h4>
-                            {yearsAvailable.length > 0 && (
-                                <Col className="d-flex justify-content-end" style={{ paddingRight: '2px' }}>
-                                    <DropdownButton size="sm" variant="secondary" id="dropdown-item-button" title={yearFilter}>
-                                        {renderDropdownYears()}
-                                    </DropdownButton>
-                                </Col>
-                            )}
-                        </Row>
-                    </Container>
+        <Container fluid>
+            <Container>
+                <Row className="mt-3">
+                    <h4>Transactions</h4>
+                    {yearsAvailable.length > 0 && (
+                        <Col className="d-flex justify-content-end" style={{ paddingRight: '2px' }}>
+                            <DropdownButton size="sm" variant="secondary" id="dropdown-item-button" title={yearFilter}>
+                                {renderDropdownYears()}
+                            </DropdownButton>
+                        </Col>
+                    )}
+                </Row>
+            </Container>
 
-                    <Content selectedYear={yearFilter} setYears={(e) => setYears(e)} state={props} />
-                </Container>
-            )}
-        </>
+            {isComponentLoading ? <Loading loadingwhat="transactions" /> : <Content selectedYear={yearFilter} setYears={(e) => setYears(e)} state={props} />}
+        </Container>
     );
 };
 

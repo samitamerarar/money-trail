@@ -15,6 +15,7 @@ import Login from './components/auth/Login';
 import PrivateRoute from './components/private-route/PrivateRoute';
 import TransactionsContainer from './components/transactions/TransactionsContainer';
 import InvestmentsContainer from './components/investments/InvestmentsContainer';
+import StatisticsContainer from './components/statistics/StatisticsContainer';
 import Placeholder from './components/Placeholder';
 
 // Check for token to keep user logged in
@@ -47,6 +48,7 @@ class App extends Component {
                         <Switch>
                             <PrivateRoute exact path="/investments" component={InvestmentsContainer} />
                             <PrivateRoute exact path="/transactions" component={TransactionsContainer} />
+                            <PrivateRoute exact path="/statistics" component={StatisticsContainer} />
                             <PrivateRoute exact path="/settings-categories" component={Placeholder} />
                             <PrivateRoute exact path="/manage" component={Placeholder} />
                         </Switch>
