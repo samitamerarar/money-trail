@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { getTransactions } from '../../actions/transactionActions';
 import Loading from '../layout/Loading';
+import StatisticsContent from './StatisticsContent';
 
 export const StatisticsContainer = (props) => {
     const [isComponentLoading, setIsComponentLoading] = useState(true);
@@ -28,6 +29,8 @@ export const StatisticsContainer = (props) => {
                             <h4>Statistics</h4>
                         </Row>
                     </Container>
+
+                    <StatisticsContent />
                 </Container>
             )}
         </>
