@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Row, Container, Col, Tab, Nav } from 'react-bootstrap';
+import { Row, Container, Col, Tab, Nav, Tabs } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import CashFlow from './CashFlow';
@@ -9,33 +9,17 @@ export const StatisticsContent = (props) => {
     const [isComponentLoading, setIsComponentLoading] = useState(true);
 
     return (
-        <Container className="p-0">
+        <Container className="p-0 mt-3">
             <Row>
-                <Col>
-                    <Tab.Container defaultActiveKey="first">
-                        <Row className="mt-3 align-items-center">
-                            <Col sm={3}>
-                                <Nav variant="pills" className="flex-column">
-                                    <Nav.Item>
-                                        <Nav.Link eventKey="first">Cash Flow</Nav.Link>
-                                    </Nav.Item>
-                                    <Nav.Item>
-                                        <Nav.Link eventKey="second">Spending Categories</Nav.Link>
-                                    </Nav.Item>
-                                </Nav>
-                            </Col>
-                            <Col className="p-0" sm={9}>
-                                <Tab.Content style={{ height: '100px' }}>
-                                    <Tab.Pane eventKey="first">
-                                        <CashFlow />
-                                    </Tab.Pane>
-                                    <Tab.Pane eventKey="second">
-                                        <SpendingCategories />
-                                    </Tab.Pane>
-                                </Tab.Content>
-                            </Col>
-                        </Row>
-                    </Tab.Container>
+                <Col className="p-0">
+                    <Tabs defaultActiveKey="first">
+                        <Tab eventKey="first" title="Cash Flow">
+                            <CashFlow />
+                        </Tab>
+                        <Tab eventKey="second" title="Spending Categories">
+                            <SpendingCategories />
+                        </Tab>
+                    </Tabs>
                 </Col>
             </Row>
         </Container>
