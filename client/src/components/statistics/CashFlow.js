@@ -2,46 +2,119 @@ import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Row, Container, Col, Tab, Nav } from 'react-bootstrap';
-import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend } from 'chart.js';
 import { Bar } from 'react-chartjs-2';
+import ChartDataLabels from 'chartjs-plugin-datalabels';
 
 export const CashFlow = (props) => {
     const [isComponentLoading, setIsComponentLoading] = useState(true);
 
     const options = {
         responsive: true,
+        maintainAspectRatio: false,
         plugins: {
-            legend: {
-                position: 'bottom'
-            },
             title: {
+                display: false,
+                text: 'Title'
+            },
+            legend: {
+                display: false
+            },
+            tooltip: {
+                enabled: false
+            },
+            datalabels: {
                 display: true,
-                text: 'Chart.js Bar Chart'
+                color: 'rgb(102,102,102)',
+                anchor: 'end',
+                clip: true
+            }
+        },
+        borderRadius: 8,
+        barPercentage: 1.25,
+        scales: {
+            xAxis: {
+                display: false
+            },
+            yAxis: {
+                display: false,
+                grace: '5%'
             }
         }
     };
 
-    const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'July', 'July', 'July', 'July'];
+    const labels = ['January', 'prev month'];
 
     const data = {
         labels,
         datasets: [
             {
                 label: 'Expenses',
-                data: [1, 2, 6, 8],
-                backgroundColor: 'rgba(219, 68, 55, 1)'
+                data: [3, 4],
+                backgroundColor: '#df584d',
+                datalabels: {
+                    // align: 'right',
+                    // offset: '-150',
+                    labels: {
+                        title: {
+                            font: { size: '14', lineHeight: '1.4' },
+                            formatter: (value, context) => {
+                                return ['Spent', '', '', ''];
+                            }
+                        },
+                        value: {
+                            font: { weight: 'bold', size: '15' },
+                            formatter: (value, context) => {
+                                return ['', value + '0,000$', '', ''];
+                            }
+                        }
+                    }
+                }
             },
             {
                 label: 'Income',
-                data: [44, 2, 62, 8],
-                backgroundColor: 'rgba(61, 194, 105, 1)'
+                data: [5, 2],
+                backgroundColor: '#50c878',
+                datalabels: {
+                    // align: 'left',
+                    // offset: '-150',
+                    labels: {
+                        title: {
+                            font: { size: '14', lineHeight: '1.4' },
+                            formatter: (value, context) => {
+                                return ['Earned', '', '', ''];
+                            }
+                        },
+                        value: {
+                            font: { weight: 'bold', size: '15' },
+                            formatter: (value, context) => {
+                                return ['', value + '0,000$', '', ''];
+                            }
+                        }
+                    }
+                }
             }
         ]
     };
 
     return (
-        <Container>
-            <Bar options={options} data={data} />
+        <Container className="p-0 mt-3">
+            <Row style={{ color: 'rgb(102,102,102)' }}>
+                <Col className="text-left pl-4">
+                    <h5>December cash flow</h5>
+                    <h4 style={{ lineHeight: '50%' }} className="font-weight-bold">
+                        20,000$
+                    </h4>
+                </Col>
+                <Col className="text-right pr-4">
+                    <h5>November cash flow</h5>
+                    <h4 style={{ lineHeight: '50%' }} className="font-weight-bold">
+                        20,000$
+                    </h4>
+                </Col>
+            </Row>
+            <Container className="p-0">
+                <Bar style={{ height: '50vh' }} plugins={[ChartDataLabels]} options={options} data={data} />
+            </Container>
         </Container>
     );
 };
