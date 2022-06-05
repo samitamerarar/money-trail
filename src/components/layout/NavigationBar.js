@@ -7,12 +7,25 @@ import { logoutUser } from '../../actions/authActions';
 
 export const NavigationBar = (props) => {
     const [expanded, setExpanded] = useState(false);
+    const [isComponentLoading, setIsComponentLoading] = useState(false);
 
     // Logout
     const onLogoutClick = (e) => {
         e.preventDefault();
+        collapseNav();
         props.logoutUser();
     };
+
+    // Prevents lag while collapsing navbar, this calls the [isComponentLoading] useEffect
+    const collapseNav = () => {
+        setIsComponentLoading(!isComponentLoading);
+    };
+    useEffect(() => {
+        // Set timeout to prevents further lag while collapsing navbar
+        setTimeout(() => {
+            setExpanded(false);
+        }, 300);
+    }, [isComponentLoading]);
 
     const { user } = props.auth;
     const { isAuthenticated } = props.auth;
@@ -26,13 +39,13 @@ export const NavigationBar = (props) => {
                 <Navbar.Toggle aria-controls="responsive-navbar-nav" onClick={() => setExpanded(!expanded)} />
                 <Navbar.Collapse id="responsive-navbar-nav">
                     <Nav className="mr-auto">
-                        <Nav.Link as={Link} onClick={() => setExpanded(false)} to="/investments">
+                        <Nav.Link as={Link} onClick={collapseNav} to="/investments">
                             Investments
                         </Nav.Link>
-                        <Nav.Link as={Link} onClick={() => setExpanded(false)} to="/transactions">
+                        <Nav.Link as={Link} onClick={collapseNav} to="/transactions">
                             Transactions
                         </Nav.Link>
-                        <Nav.Link as={Link} onClick={() => setExpanded(false)} to="/statistics">
+                        <Nav.Link as={Link} onClick={collapseNav} to="/statistics">
                             Statistics
                         </Nav.Link>
 
@@ -46,17 +59,12 @@ export const NavigationBar = (props) => {
                     <Nav>
                         {isAuthenticated ? (
                             <NavDropdown title={user.name.split(' ')[0]} id="basic-nav-dropdown">
-                                <NavDropdown.Item as={Link} onClick={() => setExpanded(false)} to="/manage">
+                                <NavDropdown.Item as={Link} onClick={collapseNav} to="/manage">
                                     Manage
                                 </NavDropdown.Item>
 
                                 <NavDropdown.Divider />
-                                <NavDropdown.Item
-                                    href=""
-                                    onClick={(e) => {
-                                        setExpanded(false);
-                                        onLogoutClick(e);
-                                    }}>
+                                <NavDropdown.Item href="" onClick={onLogoutClick}>
                                     Logout
                                 </NavDropdown.Item>
                             </NavDropdown>
