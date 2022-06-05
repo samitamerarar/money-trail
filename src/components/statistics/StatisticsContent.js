@@ -24,7 +24,7 @@ export const StatisticsContent = (props) => {
                                     </Nav.Item>
                                 </Nav>
                             </Col>
-                            <Col sm={9}>
+                            <Col className="p-0" sm={9}>
                                 <Tab.Content style={{ height: '100px' }}>
                                     <Tab.Pane eventKey="first">
                                         <CashFlow />
