@@ -124,7 +124,7 @@ export const CashFlow = (props) => {
 
     return (
         <Container className="p-0 mt-3">
-            <Row style={{ color: 'rgb(102,102,102)' }}>
+            <Row className="m-0" style={{ color: 'rgb(102,102,102)' }}>
                 <Col className="text-left pl-4">
                     <h5>{currentMonthName} cash flow</h5>
                     <h4 style={{ lineHeight: '50%' }} className="font-weight-bold">
