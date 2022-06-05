@@ -5,8 +5,34 @@ import { Row, Container, Col, Tab, Nav } from 'react-bootstrap';
 import { Bar } from 'react-chartjs-2';
 import ChartDataLabels from 'chartjs-plugin-datalabels';
 
+import { getExpenseOfMonth, getIncomeOfMonth, getCashFlowOfMonth, monthNames } from './helper.js';
+
+const currentMonth = new Date().getMonth() + 1;
+const currentMonthName = monthNames[new Date().getMonth()];
+const currentYear = new Date().getFullYear();
+
+const previousMonthDate = new Date();
+previousMonthDate.setMonth(new Date().getMonth() - 1);
+const previousMonth = previousMonthDate.getMonth() + 1;
+const previousMonthName = monthNames[previousMonthDate.getMonth()];
+const previousYear = previousMonthDate.getFullYear();
+
 export const CashFlow = (props) => {
     const [isComponentLoading, setIsComponentLoading] = useState(true);
+
+    const getExpenseData = () => {
+        const currentMonthExpenseTotal = getExpenseOfMonth(currentMonth, currentYear, props.transactions.transactions);
+        const prevMonthExpenseTotal = getExpenseOfMonth(previousMonth, previousYear, props.transactions.transactions);
+
+        return [currentMonthExpenseTotal, prevMonthExpenseTotal];
+    };
+
+    const getIncomeData = () => {
+        const currentMonthIncomeTotal = getIncomeOfMonth(currentMonth, currentYear, props.transactions.transactions);
+        const prevMonthIncomeTotal = getIncomeOfMonth(previousMonth, previousYear, props.transactions.transactions);
+
+        return [currentMonthIncomeTotal, prevMonthIncomeTotal];
+    };
 
     const options = {
         responsive: true,
@@ -37,19 +63,19 @@ export const CashFlow = (props) => {
             },
             yAxis: {
                 display: false,
-                grace: '5%'
+                grace: '20%'
             }
         }
     };
 
-    const labels = ['January', 'prev month'];
+    const labels = [currentMonthName, previousMonthName];
 
     const data = {
         labels,
         datasets: [
             {
-                label: 'Expenses',
-                data: [3, 4],
+                label: 'Expense',
+                data: getExpenseData(),
                 backgroundColor: '#df584d',
                 datalabels: {
                     // align: 'right',
@@ -64,7 +90,7 @@ export const CashFlow = (props) => {
                         value: {
                             font: { weight: 'bold', size: '15' },
                             formatter: (value, context) => {
-                                return ['', value + '0,000$', '', ''];
+                                return ['', Number(value).toLocaleString('en-US') + '$', '', ''];
                             }
                         }
                     }
@@ -72,7 +98,7 @@ export const CashFlow = (props) => {
             },
             {
                 label: 'Income',
-                data: [5, 2],
+                data: getIncomeData(),
                 backgroundColor: '#50c878',
                 datalabels: {
                     // align: 'left',
@@ -87,7 +113,7 @@ export const CashFlow = (props) => {
                         value: {
                             font: { weight: 'bold', size: '15' },
                             formatter: (value, context) => {
-                                return ['', value + '0,000$', '', ''];
+                                return ['', Number(value).toLocaleString('en-US') + '$', '', ''];
                             }
                         }
                     }
@@ -100,15 +126,15 @@ export const CashFlow = (props) => {
         <Container className="p-0 mt-3">
             <Row style={{ color: 'rgb(102,102,102)' }}>
                 <Col className="text-left pl-4">
-                    <h5>December cash flow</h5>
+                    <h5>{currentMonthName} cash flow</h5>
                     <h4 style={{ lineHeight: '50%' }} className="font-weight-bold">
-                        20,000$
+                        {Number(getCashFlowOfMonth(currentMonth, currentYear, props.transactions.transactions)).toLocaleString('en-US') + '$'}
                     </h4>
                 </Col>
                 <Col className="text-right pr-4">
-                    <h5>November cash flow</h5>
+                    <h5>{previousMonthName} cash flow</h5>
                     <h4 style={{ lineHeight: '50%' }} className="font-weight-bold">
-                        20,000$
+                        {Number(getCashFlowOfMonth(previousMonth, previousYear, props.transactions.transactions)).toLocaleString('en-US') + '$'}
                     </h4>
                 </Col>
             </Row>
