@@ -8,7 +8,7 @@ import MonthPicker from './MonthPicker.js';
 
 import { getExpenseOfMonth, getIncomeOfMonth, getCashFlowOfMonth, monthNames } from './helper.js';
 
-export const CashFlow = ({ transactions, currentDate, prevDate }) => {
+export const CashFlow = ({ transactions, currentDate, prevDate, redraw }) => {
     const [isComponentLoading, setIsComponentLoading] = useState(true);
     const [chartDefinition, setChartDefinition] = useState({});
     const [firstChartDate, setFirstChartDate] = useState({ year: currentDate.year, month: currentDate.month });
@@ -17,7 +17,7 @@ export const CashFlow = ({ transactions, currentDate, prevDate }) => {
 
     useEffect(() => {
         setChartDefinition(createChartDefinition());
-    }, [firstChartDate, secondChartDate]);
+    }, [firstChartDate, secondChartDate, redraw]);
 
     const setFirstChartDateFromDatePicker = ({ year, month }) => {
         setFirstChartDate({ year, month });
@@ -149,7 +149,7 @@ export const CashFlow = ({ transactions, currentDate, prevDate }) => {
             </Row>
             <Container className="p-0">
                 {chartDefinition.data && chartDefinition.options && (
-                    <Bar style={{ height: '50vh' }} plugins={[ChartDataLabels]} options={chartDefinition.options} data={chartDefinition.data} />
+                    <Bar style={{ height: '50vh' }} plugins={[ChartDataLabels]} options={chartDefinition.options} data={chartDefinition.data} redraw={true} />
                 )}
             </Container>
 
