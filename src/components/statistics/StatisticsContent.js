@@ -5,6 +5,14 @@ import { connect } from 'react-redux';
 import CashFlow from './CashFlow';
 import SpendingCategories from './SpendingCategories';
 
+const currentMonth = new Date().getMonth() + 1;
+const currentYear = new Date().getFullYear();
+
+const prevMonthDate = new Date();
+prevMonthDate.setMonth(new Date().getMonth() - 1);
+const prevMonth = prevMonthDate.getMonth() + 1;
+const prevYear = prevMonthDate.getFullYear();
+
 export const StatisticsContent = (props) => {
     const [isComponentLoading, setIsComponentLoading] = useState(true);
 
@@ -12,12 +20,12 @@ export const StatisticsContent = (props) => {
         <Container className="p-0 mt-3">
             <Row>
                 <Col className="p-0">
-                    <Tabs defaultActiveKey="first">
+                    <Tabs defaultActiveKey="second">
                         <Tab eventKey="first" title="Cash Flow">
-                            <CashFlow />
+                            <CashFlow currentDate={{ month: currentMonth, year: currentYear }} prevDate={{ month: prevMonth, year: prevYear }} />
                         </Tab>
                         <Tab eventKey="second" title="Spending Categories">
-                            <SpendingCategories />
+                            <SpendingCategories currentDate={{ month: currentMonth, year: currentYear }} />
                         </Tab>
                     </Tabs>
                 </Col>

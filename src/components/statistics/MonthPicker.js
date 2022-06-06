@@ -5,7 +5,7 @@ import 'react-month-picker/css/month-picker.css';
 
 import { monthNames, monthNamesShort } from './helper.js';
 
-const CashFlowMonthPicker = ({ range, setChartDate, defaultDate }) => {
+const MonthPicker = ({ range, setChartDate, defaultDate }) => {
     const [isVisible, setVisibility] = useState(false);
     const [monthYear, setMonthYear] = useState(defaultDate);
 
@@ -21,8 +21,6 @@ const CashFlowMonthPicker = ({ range, setChartDate, defaultDate }) => {
     const handleOnChange = (year, month) => {
         setMonthYear({ year, month });
         setChartDate({ year, month });
-        console.log(year);
-        console.log(month);
         setVisibility(false);
     };
 
@@ -51,4 +49,4 @@ const CashFlowMonthPicker = ({ range, setChartDate, defaultDate }) => {
     );
 };
 
-export default CashFlowMonthPicker;
+export default MonthPicker;
