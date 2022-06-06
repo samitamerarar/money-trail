@@ -15,17 +15,22 @@ const prevYear = prevMonthDate.getFullYear();
 
 export const StatisticsContent = (props) => {
     const [isComponentLoading, setIsComponentLoading] = useState(true);
+    const [refreshChart, setRefreshChart] = useState(true);
 
     return (
         <Container className="p-0 mt-3">
             <Row>
                 <Col className="p-0">
-                    <Tabs defaultActiveKey="second">
+                    <Tabs defaultActiveKey="first" onSelect={() => setRefreshChart(!refreshChart)}>
                         <Tab eventKey="first" title="Cash Flow">
-                            <CashFlow currentDate={{ month: currentMonth, year: currentYear }} prevDate={{ month: prevMonth, year: prevYear }} />
+                            <CashFlow
+                                currentDate={{ month: currentMonth, year: currentYear }}
+                                prevDate={{ month: prevMonth, year: prevYear }}
+                                redraw={refreshChart}
+                            />
                         </Tab>
                         <Tab eventKey="second" title="Spending Categories">
-                            <SpendingCategories currentDate={{ month: currentMonth, year: currentYear }} />
+                            <SpendingCategories currentDate={{ month: currentMonth, year: currentYear }} redraw={refreshChart} />
                         </Tab>
                     </Tabs>
                 </Col>

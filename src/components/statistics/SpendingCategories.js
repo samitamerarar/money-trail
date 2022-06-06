@@ -9,7 +9,7 @@ import DoughnutLabel from 'chartjs-plugin-doughnutlabel-rebourne';
 import { getExpenseOfMonthCategory, getExpenseOfMonth, monthNames } from './helper.js';
 import MonthPicker from './MonthPicker.js';
 
-export const SpendingCategories = ({ transactions, currentDate }) => {
+export const SpendingCategories = ({ transactions, currentDate, redraw }) => {
     const [isComponentLoading, setIsComponentLoading] = useState(true);
     const [chartDefinition, setChartDefinition] = useState({});
     const [monthExpense, setMonthExpense] = useState(0);
@@ -22,7 +22,7 @@ export const SpendingCategories = ({ transactions, currentDate }) => {
 
     useEffect(() => {
         setChartDefinition(createChartDefinition());
-    }, [monthExpense]);
+    }, [monthExpense, redraw]);
 
     const setChartDateFromDatePicker = ({ year, month }) => {
         setChartDate({ year, month });
@@ -46,14 +46,22 @@ export const SpendingCategories = ({ transactions, currentDate }) => {
                     position: 'bottom'
                 },
                 tooltip: {
-                    enabled: false
+                    enabled: true,
+                    callbacks: {
+                        label: function (tooltipItem) {
+                            const category = tooltipItem.label;
+                            const percent = Math.round((tooltipItem.raw / monthExpense) * 100);
+                            return ` ${tooltipItem.formattedValue}$ (${percent}%) ${category}`;
+                        }
+                    }
                 },
                 datalabels: {
                     textAlign: 'center',
                     color: 'white',
                     formatter: (value, context) => {
                         const category = context.chart.data.labels[context.dataIndex];
-                        return value > 0 ? `${value}$ (${Math.round((value / monthExpense) * 100)}%)\n ${category}` : '';
+                        const percent = Math.round((value / monthExpense) * 100);
+                        return percent > 2 ? `${value}$ (${percent}%)\n ${category}` : '';
                     }
                 },
                 doughnutlabel: {
@@ -122,6 +130,7 @@ export const SpendingCategories = ({ transactions, currentDate }) => {
                             plugins={[ChartDataLabels, DoughnutLabel]}
                             data={chartDefinition.data}
                             options={chartDefinition.options}
+                            redraw={true}
                         />
                     )}
                 </Col>
