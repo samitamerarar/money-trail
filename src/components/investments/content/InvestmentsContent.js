@@ -3,13 +3,13 @@ import { Row, Col, Container, Button } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { getInvestments, addInvestment } from '../../../actions/investmentAction';
-import { getTickerData } from '../../../actions/yahooActions';
+import { getTickerData, getHistoricalData } from '../../../actions/yahooActions';
 
-import AssetsTable from './AssetsTable/AssetsTable';
 import AddAssetModal from './AddAsset/AddAsset';
 
 import ScaleLoader from 'react-spinners/ScaleLoader';
 import ClimbingBoxLoader from 'react-spinners/ClimbingBoxLoader';
+import InvestmentsTabs from './InvestmentsTabs';
 
 export const InvestmentsContent = (props) => {
     const [isOpenModal, setIsOpenModal] = useState(false);
@@ -54,6 +54,7 @@ export const InvestmentsContent = (props) => {
             if (!found) {
                 setIsComponentLoading(true);
                 props.getTickerData(e).then(() => setAPIFetchDone(!APIFetchDone));
+                props.getHistoricalData({ symbol: e.symbol, minDate: e.purchaseDate }).then(() => setAPIFetchDone(!APIFetchDone));
             }
         });
 
@@ -175,10 +176,10 @@ export const InvestmentsContent = (props) => {
     return (
         <Container fluid>
             <Row>
-                <Col style={{ padding: '0px' }}>
+                <Col className="p-0">
                     <Container>
                         <Row className="mt-3">
-                            <Col style={{ paddingLeft: '2px' }}>
+                            <Col className="pl-1">
                                 <p className="grey-text text-darken-1">
                                     You have <b>{mergedData.length}</b> assets.
                                 </p>
@@ -201,12 +202,12 @@ export const InvestmentsContent = (props) => {
                     ) : (
                         <>
                             {mergedData.length > 0 ? (
-                                <Container style={{ padding: '0px' }} fluid>
-                                    <AssetsTable tableData={mergedData} />
+                                <Container className="p-0">
+                                    <InvestmentsTabs tableData={mergedData} />
                                 </Container>
                             ) : (
                                 <Container className="mt-5">
-                                    <Row className="justify-content-center m-3" style={{ textAlign: 'center' }}>
+                                    <Row className="justify-content-center text-center m-3">
                                         You don't have any Asset.
                                         <br />
                                         Time to invest!
@@ -230,6 +231,7 @@ InvestmentsContent.propTypes = {
     investments: PropTypes.object.isRequired,
     yahooFinance: PropTypes.object.isRequired,
     getTickerData: PropTypes.func.isRequired,
+    getHistoricalData: PropTypes.func.isRequired,
     addInvestment: PropTypes.func.isRequired,
     getInvestments: PropTypes.func.isRequired
 };
@@ -242,6 +244,7 @@ const mapStateToProps = (state) => ({
 
 export default connect(mapStateToProps, {
     getTickerData,
+    getHistoricalData,
     getInvestments,
     addInvestment
 })(InvestmentsContent);

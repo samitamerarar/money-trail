@@ -22,8 +22,7 @@ export const SearchTicker = (props) => {
                 options = options.filter((f) => !props.investments.investmentsList.some((e) => e.symbol === f.symbol));
 
                 // Remove not working ticker
-                // prettier-ignore
-                const reservedChars = [":", "/", "?", "#", "[", "]", "@", "!", "$", "&", "(", ")", "*", "+", ",", ";", "="];
+                const reservedChars = [':', '/', '?', '#', '[', ']', '@', '!', '$', '&', '(', ')', '*', '+', ',', ';', '='];
 
                 options = options.filter((f) => reservedChars.every((e) => f.symbol.indexOf(e) === -1));
 
