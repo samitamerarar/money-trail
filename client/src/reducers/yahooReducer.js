@@ -1,11 +1,13 @@
-import { GET_TICKER_DATA, TICKER_DATA_LOADING, GET_SEARCH_DATA, SEARCH_DATA_LOADING } from '../actions/types';
+import { GET_TICKER_DATA, TICKER_DATA_LOADING, GET_SEARCH_DATA, SEARCH_DATA_LOADING, GET_HISTORICAL_DATA, HISTORICAL_DATA_LOADING } from '../actions/types';
 
 const isEmpty = require('is-empty');
 const initialState = {
     searchData: [],
     searchDataLoading: false,
     tickerData: [],
-    tickerDataLoading: false
+    tickerDataLoading: false,
+    historicalData: [],
+    historicalDataLoading: false
 };
 
 export default function yahooReducer(state = initialState, action) {
@@ -36,6 +38,22 @@ export default function yahooReducer(state = initialState, action) {
                         ...state,
                         searchData: [action.payload],
                         searchDataLoading: false
+                    };
+                }
+            }
+        }
+        case HISTORICAL_DATA_LOADING:
+            return {
+                ...state,
+                historicalDataLoading: true
+            };
+        case GET_HISTORICAL_DATA: {
+            if (!isEmpty(action.payload)) {
+                {
+                    return {
+                        ...state,
+                        historicalData: [action.payload, ...state.historicalData],
+                        historicalDataLoading: false
                     };
                 }
             }

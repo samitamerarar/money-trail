@@ -76,4 +76,15 @@ router.get('/search', passport.authenticate('jwt', { session: false }), (req, re
         .catch((err) => console.log(err));
 });
 
+// @route GET api/yahoo-finance/historical
+// @desc Get a ticker symbol data
+// @access Private
+router.get('/historical', passport.authenticate('jwt', { session: false }), (req, res) => {
+    const queryOptions = JSON.parse(req.query.queryOptions);
+    yahooFinance
+        .historical(req.query.symbol, queryOptions, { validateResult: false })
+        .then((historicalData) => res.json({ symbol: req.query.symbol, purchaseDate: queryOptions.period1, data: historicalData }))
+        .catch((err) => console.log(err));
+});
+
 module.exports = router;
