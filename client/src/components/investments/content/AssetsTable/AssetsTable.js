@@ -193,7 +193,7 @@ class AssetsTable extends Component {
 
         return (
             <Row className="mt-3">
-                <Col style={{ padding: '5px' }}>
+                <Col className="p-1">
                     {isMobile ? (
                         // cant make it responsive with window width because of the theme
                         // so i need to use the library to check browser type
