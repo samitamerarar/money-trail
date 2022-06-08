@@ -2,8 +2,15 @@ import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Row, Container, Col } from 'react-bootstrap';
+import moment from 'moment';
+import 'chartjs-adapter-moment';
+import { Chart as ChartJS, LinearScale, PointElement, LineElement, Tooltip, Legend } from 'chart.js';
 import { Scatter } from 'react-chartjs-2';
+import zoomPlugin from 'chartjs-plugin-zoom';
+
 import { getHistoricalData } from '../../../../actions/yahooActions';
+
+ChartJS.register(LinearScale, PointElement, LineElement, Tooltip, Legend, zoomPlugin);
 
 export const AssetsChart = (props) => {
     const [isComponentLoading, setIsComponentLoading] = useState(true);
@@ -18,7 +25,6 @@ export const AssetsChart = (props) => {
     }, []);
 
     useEffect(() => {
-        console.log(props);
         setChartDefinition(createChartDefinition());
     }, [props.yahooFinance.historicalData]);
 
@@ -26,10 +32,10 @@ export const AssetsChart = (props) => {
         const datasets = [];
 
         props.yahooFinance.historicalData.forEach((e) => {
-            const data = [];
             const label = e.symbol;
-            e.data.forEach((xy) => {
-                data.push({ x: xy.date, y: xy.high });
+            const data = [{ x: moment(e.purchaseDate), y: Number(e.purchasePrice) }];
+            e.data.forEach((xy, index) => {
+                if (index > 0) data.push({ x: moment(xy.date), y: xy.high });
             });
             const showLine = true;
             const fill = true;
@@ -50,22 +56,32 @@ export const AssetsChart = (props) => {
                 }
             },
             scales: {
-                y: {
-                    // beginAtZero: true
-                },
-                xAxes: [
-                    {
-                        type: 'time',
-                        time: {
-                            unit: 'day',
-                            unitStepSize: 1,
-                            displayFormats: {
-                                day: 'MMM DD',
-                                week: 'MMM DD'
-                            }
-                        }
+                x: {
+                    type: 'time',
+                    time: {
+                        unit: 'week'
                     }
-                ]
+                },
+                y: {}
+            },
+            plugins: {
+                zoom: {
+                    pan: {
+                        enabled: true,
+                        mode: 'xy'
+                    },
+                    zoom: {
+                        wheel: {
+                            enabled: true
+                        },
+                        enabled: true,
+                        mode: 'xy'
+                    },
+                    limits: {
+                        x: { min: new Date('1995-12-17T03:24:00'), max: new Date('2022-12-17T03:24:00') },
+                        y: { min: 0, max: 3000 }
+                    }
+                }
             }
         };
 

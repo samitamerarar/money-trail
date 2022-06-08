@@ -64,7 +64,8 @@ export const getHistoricalData = (data) => {
             .get('api/yahoo-finance/historical', {
                 params: {
                     symbol: data.symbol,
-                    queryOptions: queryOptions
+                    queryOptions: queryOptions,
+                    purchasePrice: data.purchasePrice
                 }
             })
             .then((res) =>
