@@ -83,7 +83,9 @@ router.get('/historical', passport.authenticate('jwt', { session: false }), (req
     const queryOptions = JSON.parse(req.query.queryOptions);
     yahooFinance
         .historical(req.query.symbol, queryOptions, { validateResult: false })
-        .then((historicalData) => res.json({ symbol: req.query.symbol, purchaseDate: queryOptions.period1, data: historicalData }))
+        .then((historicalData) =>
+            res.json({ symbol: req.query.symbol, purchaseDate: queryOptions.period1, purchasePrice: req.query.purchasePrice, data: historicalData })
+        )
         .catch((err) => console.log(err));
 });
 
