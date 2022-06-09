@@ -18,7 +18,7 @@ export const InvestmentsTabs = ({ tableData }) => {
                             <AssetsTable tableData={tableData} />
                         </Tab>
                         <Tab eventKey="second" title="Historical Data">
-                            <AssetsChart chartData={tableData} />
+                            <AssetsChart chartData={tableData} redraw={refreshChart} />
                         </Tab>
                     </Tabs>
                 </Col>

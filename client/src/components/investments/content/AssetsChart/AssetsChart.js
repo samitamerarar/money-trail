@@ -18,16 +18,8 @@ export const AssetsChart = (props) => {
     const chartRef = useRef(null);
 
     useEffect(() => {
-        // const queryOptions = { period1: '2021-02-01' /* ... */ };
-        // props.yahooFinance.tickerData.forEach((e) => {
-        //     const symbol = 'TSLA';
-        //     props.getHistoricalData({ symbol, queryOptions });
-        // });
-    }, []);
-
-    useEffect(() => {
         setChartDefinition(createChartDefinition());
-    }, [props.yahooFinance.historicalData]);
+    }, [props.yahooFinance.historicalData, props.redraw]);
 
     const buildDatasets = () => {
         const datasets = [];
@@ -40,11 +32,13 @@ export const AssetsChart = (props) => {
             });
             const showLine = true;
             const fill = true;
-            const borderColor = '#5E716A';
+            const ticker = label.concat('ÿÿÿ').substring(0, 3);
+            const borderColor =
+                '#' + Number(ticker.charCodeAt(0)).toString(16) + Number(ticker.charCodeAt(1)).toString(16) + Number(ticker.charCodeAt(2)).toString(16);
 
             datasets.push({ label, data, showLine, fill, borderColor });
         });
-        console.log(datasets);
+
         return datasets;
     };
 
@@ -64,7 +58,14 @@ export const AssetsChart = (props) => {
                         unit: 'week'
                     }
                 },
-                y: {}
+                y: {
+                    ticks: {
+                        // prevents decimals
+                        callback: function (val, index) {
+                            return Math.floor(val) === val ? val : '';
+                        }
+                    }
+                }
             },
             plugins: {
                 zoom: {
@@ -109,7 +110,7 @@ export const AssetsChart = (props) => {
         <Container className="p-0 mt-3">
             <Container className="p-0">
                 {chartDefinition.data && chartDefinition.options && (
-                    <Scatter ref={chartRef} style={{ height: '50vh' }} data={chartDefinition.data} options={chartDefinition.options} />
+                    <Scatter ref={chartRef} style={{ height: '50vh' }} data={chartDefinition.data} options={chartDefinition.options} redraw={true} />
                 )}
             </Container>
             <Row className="m-0 mt-4"></Row>
