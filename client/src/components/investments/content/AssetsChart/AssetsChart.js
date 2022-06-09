@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Row, Container, Col } from 'react-bootstrap';
@@ -15,6 +15,7 @@ ChartJS.register(LinearScale, PointElement, LineElement, Tooltip, Legend, zoomPl
 export const AssetsChart = (props) => {
     const [isComponentLoading, setIsComponentLoading] = useState(true);
     const [chartDefinition, setChartDefinition] = useState({});
+    const chartRef = useRef(null);
 
     useEffect(() => {
         // const queryOptions = { period1: '2021-02-01' /* ... */ };
@@ -39,7 +40,7 @@ export const AssetsChart = (props) => {
             });
             const showLine = true;
             const fill = true;
-            const borderColor = 'rgba(0, 200, 0, 1)';
+            const borderColor = '#5E716A';
 
             datasets.push({ label, data, showLine, fill, borderColor });
         });
@@ -50,6 +51,7 @@ export const AssetsChart = (props) => {
     const createChartDefinition = () => {
         const options = {
             responsive: true,
+            maintainAspectRatio: false,
             plugins: {
                 legend: {
                     position: 'top'
@@ -74,12 +76,23 @@ export const AssetsChart = (props) => {
                         wheel: {
                             enabled: true
                         },
-                        enabled: true,
+                        pinch: {
+                            enabled: true
+                        },
                         mode: 'xy'
                     },
                     limits: {
-                        x: { min: new Date('1995-12-17T03:24:00'), max: new Date('2022-12-17T03:24:00') },
-                        y: { min: 0, max: 3000 }
+                        x: { min: 'original', max: 'original', minRange: 2628000000 * 2 }, // 2 months in ms
+                        y: { min: 'original', max: 'original', minRange: 200 } // 200$
+                    }
+                },
+                legend: {
+                    onClick: (evt, item, legend) => {
+                        // overrides default behaviour
+                        // call original function
+                        ChartJS.defaults.plugins.legend.onClick(evt, item, legend);
+                        // then reset zoom
+                        chartRef.current.resetZoom();
                     }
                 }
             }
@@ -94,10 +107,11 @@ export const AssetsChart = (props) => {
 
     return (
         <Container className="p-0 mt-3">
-            <Row className="m-0">
-                <Col>{chartDefinition.data && chartDefinition.options && <Scatter data={chartDefinition.data} options={chartDefinition.options} />}</Col>
-            </Row>
-
+            <Container className="p-0">
+                {chartDefinition.data && chartDefinition.options && (
+                    <Scatter ref={chartRef} style={{ height: '50vh' }} data={chartDefinition.data} options={chartDefinition.options} />
+                )}
+            </Container>
             <Row className="m-0 mt-4"></Row>
         </Container>
     );
