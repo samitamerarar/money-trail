@@ -180,15 +180,22 @@ export const AssetsChart = (props) => {
                             max: 'original',
                             minRange:
                                 // if current scale is bigger than 2 months put it at 2 months, else at current scale minus 1 day
-                                chartRef.current.scales.x.max - chartRef.current.scales.x.min > 2628000000 * 2
-                                    ? 2628000000 * 2
-                                    : chartRef.current.scales.x.max - chartRef.current.scales.x.min - 86400000
+                                chartRef && chartRef.current && chartRef.current.scales
+                                    ? chartRef.current.scales.x.max - chartRef.current.scales.x.min > 2628000000 * 2
+                                        ? 2628000000 * 2
+                                        : chartRef.current.scales.x.max - chartRef.current.scales.x.min - 86400000
+                                    : false
                         },
                         y: {
                             min: 'original',
                             max: 'original',
                             // if current scale is bigger than 200$ put it at 200$, else at current scale
-                            minRange: chartRef.current.scales.y.max > 200 ? 200 : chartRef.current.scales.y.max
+                            minRange:
+                                chartRef && chartRef.current && chartRef.current.scales
+                                    ? chartRef.current.scales.y.max > 200
+                                        ? 200
+                                        : chartRef.current.scales.y.max
+                                    : false
                         }
                     }
                 },
