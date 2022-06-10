@@ -13,7 +13,6 @@ import { getHistoricalData } from '../../../../actions/yahooActions';
 ChartJS.register(LinearScale, PointElement, LineElement, Tooltip, Legend, zoomPlugin);
 
 export const AssetsChart = (props) => {
-    const [isComponentLoading, setIsComponentLoading] = useState(true);
     const [chartDefinition, setChartDefinition] = useState({});
     const [ignoreUserAssetsCount, setIgnoreUserAssetsCount] = useState(false);
     const [stackAssets, setStackAssets] = useState(false);
@@ -45,6 +44,7 @@ export const AssetsChart = (props) => {
             const label = 'All Assets';
             const showLine = true;
             const fill = true;
+            const borderColor = '#323232';
             let data = [];
             props.yahooFinance.historicalData.forEach((e) => {
                 const userAssetDetails = props.investments.investmentsList.find((f) => f.symbol === e.symbol);
@@ -55,34 +55,29 @@ export const AssetsChart = (props) => {
             });
 
             const sortedArray = data.sort((a, b) => new moment(a.x) - new moment(b.x));
-            const arrayWithSundaysOnly = sortedArray.map((f) => ({ x: getSunday(f.x), y: f.y }));
+            const arrayNoWeekend = sortedArray.filter((f) => !isWeekend(f.x));
 
+            // sum up when values are on the same day
             const arrayWithSummedValues = Object.values(
-                sortedArray.reduce((r, { x, y }) => {
+                arrayNoWeekend.reduce((r, { x, y }) => {
                     r[x] ??= { x, ytotal: 0 };
                     r[x].ytotal += y;
                     return r;
                 }, {})
             );
-
             arrayWithSummedValues.map((j) => {
                 j['y'] = j['ytotal'];
                 delete j['ytotal'];
             });
 
-            datasets.push({ label, data: arrayWithSummedValues, showLine, fill });
+            datasets.push({ label, data: arrayWithSummedValues, showLine, fill, borderColor });
         }
 
         return datasets;
     };
 
-    // sunday = 0, monday = 1...
-    const getSunday = (momentObject) => {
-        const dateObject = momentObject.toDate();
-        const day = dateObject.getDay(),
-            diff = dateObject.getDate() - day;
-        // + (day == 0 ? -6 : 1); // adjust when day is sunday if you want monday
-        return moment(dateObject.setDate(diff));
+    const isWeekend = (momentObject) => {
+        return momentObject.toDate().getDay() === 6 || momentObject.toDate().getDay() === 0;
     };
 
     const buildData = (asset, stockHistoricalData) => {
@@ -102,22 +97,34 @@ export const AssetsChart = (props) => {
 
     const handleTotalWealth = (e) => {
         setStackAssets(e.target.checked);
+        setIgnoreUserAssetsCount(false);
+    };
+
+    const drawLineOnChartOnHover = (chart) => {
+        if (chart.tooltip?._active?.length && stackAssets) {
+            let x = chart.tooltip._active[0].element.x;
+            let yAxis = chart.scales.y;
+            let ctx = chart.ctx;
+            ctx.save();
+            ctx.beginPath();
+            ctx.moveTo(x, yAxis.top);
+            ctx.lineTo(x, yAxis.bottom);
+            ctx.lineWidth = 1;
+            ctx.strokeStyle = '#F4B400';
+            ctx.stroke();
+            ctx.restore();
+        }
     };
 
     const createChartDefinition = () => {
         const options = {
             responsive: true,
             maintainAspectRatio: false,
-            plugins: {
-                legend: {
-                    position: 'top'
-                }
-            },
             scales: {
                 x: {
                     type: 'time',
                     time: {
-                        unit: 'week'
+                        unit: 'day'
                     }
                 },
                 y: {
@@ -129,7 +136,32 @@ export const AssetsChart = (props) => {
                     }
                 }
             },
+            interaction: {
+                intersect: stackAssets ? false : true,
+                mode: stackAssets ? 'index' : 'nearest'
+            },
             plugins: {
+                legend: {
+                    position: 'top'
+                },
+                tooltip: {
+                    callbacks: {
+                        title: (context) => {
+                            return moment(context[0].raw.x).format('MMMM Do, YYYY');
+                        },
+                        label: function (context) {
+                            let label = context.dataset.label || '';
+
+                            if (label) {
+                                label += ': ';
+                            }
+                            if (context.parsed.y !== null) {
+                                label += new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(context.parsed.y);
+                            }
+                            return label;
+                        }
+                    }
+                },
                 zoom: {
                     pan: {
                         enabled: true,
@@ -172,12 +204,27 @@ export const AssetsChart = (props) => {
         <Container className="p-0 mt-3">
             <Container className="p-0">
                 {chartDefinition.data && chartDefinition.options && (
-                    <Scatter ref={chartRef} style={{ height: '50vh' }} data={chartDefinition.data} options={chartDefinition.options} redraw={true} />
+                    <Scatter
+                        ref={chartRef}
+                        style={{ height: '50vh' }}
+                        data={chartDefinition.data}
+                        options={chartDefinition.options}
+                        plugins={[
+                            {
+                                afterDraw: (chart) => {
+                                    // to use with interaction.intersect = false
+                                    drawLineOnChartOnHover(chart);
+                                }
+                            }
+                        ]}
+                        redraw={true}
+                    />
                 )}
             </Container>
             <Row className="m-0 mt-4">
                 <Col className="text-center">
                     <Form.Check
+                        disabled={stackAssets}
                         type="switch"
                         id="assets-quantity"
                         label="Ignore Number of Shares"
