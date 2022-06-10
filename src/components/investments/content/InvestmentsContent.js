@@ -48,15 +48,12 @@ export const InvestmentsContent = (props) => {
      */
     useEffect(() => {
         const { investmentsList } = props.investments;
-
         investmentsList.forEach((e, i) => {
             const found = props.yahooFinance.tickerData.some((s) => s.symbol === e.symbol);
             if (!found) {
                 setIsComponentLoading(true);
                 props.getTickerData(e).then(() => setAPIFetchDone(!APIFetchDone));
-                props
-                    .getHistoricalData({ symbol: e.symbol, minDate: e.purchaseDate, purchasePrice: e.priceOfShare })
-                    .then(() => setAPIFetchDone(!APIFetchDone));
+                props.getHistoricalData({ symbol: e.symbol, minDate: e.purchaseDate }).then(() => setAPIFetchDone(!APIFetchDone));
             }
         });
 
