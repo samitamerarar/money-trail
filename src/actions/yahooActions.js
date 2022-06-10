@@ -59,7 +59,7 @@ export const getTickerData = (data) => {
 export const getHistoricalData = (data) => {
     return async (dispatch) => {
         dispatch(setHistoricalDataLoading());
-        const queryOptions = { period1: data.minDate, interval: '1wk' };
+        const queryOptions = { period1: data.minDate, interval: '1d' };
         const response = await axios
             .get('api/yahoo-finance/historical', {
                 params: {
