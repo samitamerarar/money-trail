@@ -133,7 +133,8 @@ export const AssetsChart = (props) => {
                         callback: function (val, index) {
                             return Math.floor(val) === val ? '$' + val : '';
                         }
-                    }
+                    },
+                    beginAtZero: true
                 }
             },
             interaction: {
@@ -141,9 +142,6 @@ export const AssetsChart = (props) => {
                 mode: stackAssets ? 'index' : 'nearest'
             },
             plugins: {
-                legend: {
-                    position: 'top'
-                },
                 tooltip: {
                     callbacks: {
                         title: (context) => {
@@ -172,22 +170,38 @@ export const AssetsChart = (props) => {
                             enabled: true
                         },
                         pinch: {
-                            enabled: true
+                            enabled: !stackAssets
                         },
-                        mode: 'xy'
+                        mode: 'x'
                     },
                     limits: {
-                        x: { min: 'original', max: 'original', minRange: 2628000000 * 2 }, // 2 months in ms
-                        y: { min: 'original', max: 'original', minRange: 200 } // 200$
+                        x: {
+                            min: 'original',
+                            max: 'original',
+                            minRange:
+                                // if current scale is bigger than 2 months put it at 2 months, else at current scale minus 1 day
+                                chartRef.current.scales.x.max - chartRef.current.scales.x.min > 2628000000 * 2
+                                    ? 2628000000 * 2
+                                    : chartRef.current.scales.x.max - chartRef.current.scales.x.min - 86400000
+                        },
+                        y: {
+                            min: 'original',
+                            max: 'original',
+                            // if current scale is bigger than 200$ put it at 200$, else at current scale
+                            minRange: chartRef.current.scales.y.max > 200 ? 200 : chartRef.current.scales.y.max
+                        }
                     }
                 },
                 legend: {
+                    position: 'top',
                     // overrides default behaviour
                     onClick: (evt, item, legend) => {
                         // reset zoom
                         chartRef.current.resetZoom();
-                        // then call original function
-                        ChartJS.defaults.plugins.legend.onClick(evt, item, legend);
+                        if (legend.chart.legend.legendItems.length > 1) {
+                            // then call original function
+                            ChartJS.defaults.plugins.legend.onClick(evt, item, legend);
+                        }
                     }
                 }
             }
