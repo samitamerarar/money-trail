@@ -183,7 +183,7 @@ export const InvestmentsContent = (props) => {
                                     You have <b>{mergedData.length}</b> assets.
                                 </p>
                             </Col>
-                            <Col className="d-flex justify-content-end" style={{ paddingRight: '2px' }}>
+                            <Col className="d-flex justify-content-end pr-1">
                                 <Button variant="primary" onClick={(e) => openModal()}>
                                     + Asset
                                 </Button>

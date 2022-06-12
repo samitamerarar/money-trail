@@ -53,10 +53,10 @@ export const Content = (props) => {
     return (
         <Container fluid>
             <Row>
-                <Col style={{ padding: '0px' }}>
+                <Col className="p-0">
                     <Container>
                         <Row className="mt-3 align-items-center">
-                            <Col style={{ paddingLeft: '2px' }}>
+                            <Col className="pl-1">
                                 {showNetWorth ? (
                                     <Button variant="light" size="sm" onClick={(e) => setShowNetWorth(!showNetWorth)}>
                                         Hide net worth: {netWorth ? <>{netWorth}</> : <>0</>}$
@@ -67,7 +67,7 @@ export const Content = (props) => {
                                     </Button>
                                 )}
                             </Col>
-                            <Col className="d-flex justify-content-end" style={{ paddingRight: '2px' }}>
+                            <Col className="d-flex justify-content-end pr-1">
                                 <Button variant="primary" onClick={(e) => openModal()}>
                                     + Transaction
                                 </Button>
@@ -75,14 +75,14 @@ export const Content = (props) => {
                         </Row>
                     </Container>
 
-                    <Container style={{ padding: '5px' }}>
+                    <Container className="p-2">
                         <Row className="mt-3">
                             <Col md="3">
                                 <Row className="justify-content-center">
                                     <CategoryImage image={category} />
                                 </Row>
                             </Col>
-                            <Col md="9" style={{ padding: '0px' }}>
+                            <Col md="9" className="p-0">
                                 <Tables
                                     tableData={dataTable}
                                     category={category}

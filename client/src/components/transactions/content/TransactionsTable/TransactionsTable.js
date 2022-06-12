@@ -89,13 +89,9 @@ export const TransactionsTable = (props) => {
                 customBodyRender: (value, tableMeta, updateValue) => {
                     return (
                         <div>
-                            <Card
-                                style={{
-                                    border: '0px',
-                                    padding: '6px'
-                                }}>
+                            <Card className="border-0 p-2">
                                 <Card className="transaction" style={{ borderRadius: '24px 8px' }}>
-                                    <Card.Body style={{ padding: '0.85rem' }}>
+                                    <Card.Body className="p-3">
                                         <Row className="mb-1" style={{ fontSize: '1em' }}>
                                             <Col>{tableMeta.rowData[2]}</Col>
                                             <Col sm={1} className="d-flex justify-content-end">
@@ -200,8 +196,8 @@ export const TransactionsTable = (props) => {
 
     return (
         <Row className="mt-3">
-            <Col style={{ padding: '5px' }}>
-                <Container style={{ padding: '0px' }}>
+            <Col className="p-2">
+                <Container className="p-0">
                     <MuiThemeProvider theme={theme}>
                         <MUIDataTable
                             title={

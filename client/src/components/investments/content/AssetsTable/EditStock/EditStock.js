@@ -47,10 +47,10 @@ export const EditStock = (props) => {
 
     return (
         <>
-            <Container style={{ padding: '0px' }}>
+            <Container className="p-0">
                 <Row>
                     <Col style={{ minWidth: 'max-content' }}>
-                        <Button onClick={handleShowEdit} style={{ marginRight: '0.9em' }} variant="outline-primary" size="sm">
+                        <Button onClick={handleShowEdit} variant="outline-primary" size="sm" className="mr-2">
                             Edit
                         </Button>
                         <Button onClick={handleShowDelete} variant="outline-danger" size="sm">
@@ -83,7 +83,7 @@ export const EditStock = (props) => {
                     <Modal.Title>Delete {data.symbol}</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <Row className="justify-content-center" style={{ textAlign: 'center' }}>
+                    <Row className="justify-content-center text-center">
                         <p>
                             This will remove <i>{data.name}</i> from your list!
                         </p>
@@ -94,7 +94,7 @@ export const EditStock = (props) => {
                         </p>
                     </Row>
 
-                    <Col className="d-flex justify-content-end" style={{ paddingRight: '2px' }}>
+                    <Col className="d-flex justify-content-end pr-1">
                         <Button onClick={deleteInvestment} variant="danger">
                             Delete Asset
                         </Button>
