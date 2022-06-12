@@ -19,7 +19,7 @@ export const InvestmentsContainer = (props) => {
 
             {!isEmpty(props.errors) ? (
                 <Container className="mt-5">
-                    <Row className="justify-content-center m-3" style={{ textAlign: 'center' }}>
+                    <Row className="justify-content-center m-3 text-center">
                         There is a problem with the server.
                         <br />
                         Try to refresh the page?

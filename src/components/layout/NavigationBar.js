@@ -32,7 +32,7 @@ export const NavigationBar = (props) => {
 
     return (
         <Navbar bg="dark" variant="dark" expand="lg" expanded={expanded}>
-            <Container style={{ padding: '0px' }}>
+            <Container className="p-0">
                 <Navbar.Brand as={Link} to="/">
                     Money Trail
                 </Navbar.Brand>

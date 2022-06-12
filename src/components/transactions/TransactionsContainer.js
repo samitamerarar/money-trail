@@ -59,7 +59,7 @@ export const TransactionsContainer = (props) => {
                 <Row className="mt-3">
                     <h4>Transactions</h4>
                     {yearsAvailable.length > 0 && (
-                        <Col className="d-flex justify-content-end" style={{ paddingRight: '2px' }}>
+                        <Col className="d-flex justify-content-end pr-1">
                             <DropdownButton size="sm" variant="secondary" id="dropdown-item-button" title={yearFilter}>
                                 {renderDropdownYears()}
                             </DropdownButton>

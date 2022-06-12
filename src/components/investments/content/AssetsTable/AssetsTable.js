@@ -201,7 +201,7 @@ class AssetsTable extends Component {
                             <MUIDataTable title={'Assets'} data={tableData} columns={columnsMobile} options={optionsMobile} components={components} />
                         </MuiThemeProvider>
                     ) : (
-                        <Container style={{ padding: '0px' }}>
+                        <Container className="p-0">
                             <MuiThemeProvider theme={themeDesktop}>
                                 <MUIDataTable title={'Assets'} data={tableData} columns={columnsDesktop} options={options} components={components} />
                             </MuiThemeProvider>

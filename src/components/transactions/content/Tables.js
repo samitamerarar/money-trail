@@ -192,9 +192,7 @@ export const Tables = (props) => {
                         </Flicking>
                     ) : (
                         <Container key="00" className="mt-5">
-                            <Row className="justify-content-center m-3" style={{ textAlign: 'center' }}>
-                                You don't have any transactions here.
-                            </Row>
+                            <Row className="justify-content-center text-center m-3">You don't have any transactions here.</Row>
                             <Row className="justify-content-center">
                                 <CreditCard size={75} mood="happy" color="#83D1FB" />
                             </Row>
