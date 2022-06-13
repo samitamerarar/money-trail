@@ -47,9 +47,9 @@
     background-color: #ffffff;
 }
 
-/* Fill the page with 100vh at least, 60px is the size of the footer */
+/* Fill the page with 100vh at least, 152px is the size of the footer */
 .minimum-height {
-    min-height: calc(100vh - 104px)
+    min-height: calc(100vh - 152px)
 }
 
 /* For Transactions Tables pagination on the bottom */
