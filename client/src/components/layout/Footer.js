@@ -13,8 +13,7 @@ export const Footer = (props) => {
             <Row>
                 <Col></Col>
                 <Col md={6}>
-                    <Row className="mt-3"></Row>
-                    <Row className="justify-content-center mt-2">
+                    <Row className="justify-content-center mt-3">
                         <Nav activeKey="/home">
                             <Nav.Link as={Link} to="/investments" className="text-light">
                                 Investments
