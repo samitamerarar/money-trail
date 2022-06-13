@@ -38,6 +38,7 @@ export const SpendingCategories = ({ transactions, currentDate, redraw }) => {
 
     const createChartDefinition = () => {
         const options = {
+            aspectRatio: 1,
             responsive: true,
             maintainAspectRatio: false,
             plugins: {

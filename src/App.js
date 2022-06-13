@@ -9,6 +9,7 @@ import { Provider } from 'react-redux';
 import store from './store';
 
 import NavigationBar from './components/layout/NavigationBar';
+import Footer from './components/layout/Footer';
 import Landing from './components/layout/Landing';
 import Register from './components/auth/Register';
 import Login from './components/auth/Login';
@@ -41,17 +42,20 @@ class App extends Component {
             <Provider store={store}>
                 <Router>
                     <div className="App">
-                        <NavigationBar />
-                        <Route exact path="/" component={Landing} />
-                        <Route exact path="/register" component={Register} />
-                        <Route exact path="/login" component={Login} />
-                        <Switch>
-                            <PrivateRoute exact path="/investments" component={InvestmentsContainer} />
-                            <PrivateRoute exact path="/transactions" component={TransactionsContainer} />
-                            <PrivateRoute exact path="/statistics" component={StatisticsContainer} />
-                            <PrivateRoute exact path="/settings-categories" component={Placeholder} />
-                            <PrivateRoute exact path="/manage" component={Placeholder} />
-                        </Switch>
+                        <div className="minimum-height">
+                            <NavigationBar />
+                            <Route exact path="/" component={Landing} />
+                            <Route exact path="/register" component={Register} />
+                            <Route exact path="/login" component={Login} />
+                            <Switch>
+                                <PrivateRoute exact path="/investments" component={InvestmentsContainer} />
+                                <PrivateRoute exact path="/transactions" component={TransactionsContainer} />
+                                <PrivateRoute exact path="/statistics" component={StatisticsContainer} />
+                                <PrivateRoute exact path="/settings-categories" component={Placeholder} />
+                                <PrivateRoute exact path="/manage" component={Placeholder} />
+                            </Switch>
+                        </div>
+                        <Footer />
                     </div>
                 </Router>
             </Provider>

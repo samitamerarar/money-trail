@@ -187,7 +187,9 @@ export const Tables = (props) => {
                         <Flicking renderOnlyVisible={true} align="prev" horizontal="false" plugins={plugins}>
                             {flickingTables}
                             <ViewportSlot>
-                                <div className="flicking-pagination"></div>
+                                <div className="m-5">
+                                    <div className="flicking-pagination"></div>
+                                </div>
                             </ViewportSlot>
                         </Flicking>
                     ) : (

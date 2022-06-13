@@ -43,6 +43,7 @@ export const CashFlow = ({ transactions, currentDate, prevDate, redraw }) => {
 
     const createChartDefinition = () => {
         const options = {
+            aspectRatio: 1,
             responsive: true,
             maintainAspectRatio: false,
             plugins: {
