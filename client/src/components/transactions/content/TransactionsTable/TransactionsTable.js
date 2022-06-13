@@ -42,7 +42,7 @@ export const TransactionsTable = (props) => {
 
     const options = {
         filter: true,
-        responsive: 'standard',
+        responsive: 'scroll',
         selectableRows: 'none',
         expandableRowsHeader: false,
         elevation: 1,
@@ -182,6 +182,11 @@ export const TransactionsTable = (props) => {
                     fontFamily: "'Source Sans Pro', sans-serif"
                 }
             },
+            MUIDataTable: {
+                responsiveScroll: {
+                    maxHeight: '52vh !important'
+                }
+            },
             MuiTableCell: {
                 root: {
                     borderBottom: 'none',
@@ -196,7 +201,7 @@ export const TransactionsTable = (props) => {
 
     return (
         <Row className="mt-3">
-            <Col className="p-2">
+            <Col className="p-1">
                 <Container className="p-0">
                     <MuiThemeProvider theme={theme}>
                         <MUIDataTable
