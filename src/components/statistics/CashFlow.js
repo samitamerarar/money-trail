@@ -7,8 +7,9 @@ import ChartDataLabels from 'chartjs-plugin-datalabels';
 import MonthPicker from './MonthPicker.js';
 
 import { getExpenseOfMonth, getIncomeOfMonth, getCashFlowOfMonth, monthNames } from './helper.js';
+import { isMobile } from 'react-device-detect';
 
-export const CashFlow = ({ transactions, currentDate, prevDate, redraw, size }) => {
+export const CashFlow = ({ transactions, currentDate, prevDate, redraw }) => {
     const [isComponentLoading, setIsComponentLoading] = useState(true);
     const [chartDefinition, setChartDefinition] = useState({});
     const [firstChartDate, setFirstChartDate] = useState({ year: currentDate.year, month: currentDate.month });
@@ -150,7 +151,13 @@ export const CashFlow = ({ transactions, currentDate, prevDate, redraw, size }) 
             </Row>
             <Container className="p-0">
                 {chartDefinition.data && chartDefinition.options && (
-                    <Bar style={{ height: size }} plugins={[ChartDataLabels]} options={chartDefinition.options} data={chartDefinition.data} redraw={true} />
+                    <Bar
+                        style={{ height: isMobile ? '35vh' : '50vh' }}
+                        plugins={[ChartDataLabels]}
+                        options={chartDefinition.options}
+                        data={chartDefinition.data}
+                        redraw={true}
+                    />
                 )}
             </Container>
 
