@@ -5,11 +5,12 @@ import { Row, Container, Col } from 'react-bootstrap';
 import { Doughnut } from 'react-chartjs-2';
 import ChartDataLabels from 'chartjs-plugin-datalabels';
 import DoughnutLabel from 'chartjs-plugin-doughnutlabel-rebourne';
-
-import { getExpenseOfMonthCategory, getExpenseOfMonth, monthNames } from './helper.js';
 import MonthPicker from './MonthPicker.js';
 
-export const SpendingCategories = ({ transactions, currentDate, redraw, size }) => {
+import { getExpenseOfMonthCategory, getExpenseOfMonth, monthNames } from './helper.js';
+import { isMobile } from 'react-device-detect';
+
+export const SpendingCategories = ({ transactions, currentDate, redraw }) => {
     const [isComponentLoading, setIsComponentLoading] = useState(true);
     const [chartDefinition, setChartDefinition] = useState({});
     const [monthExpense, setMonthExpense] = useState(0);
@@ -127,7 +128,7 @@ export const SpendingCategories = ({ transactions, currentDate, redraw, size }) 
                 <Col>
                     {chartDefinition.data && chartDefinition.options && (
                         <Doughnut
-                            style={{ height: size }}
+                            style={{ height: isMobile ? '42vh' : '50vh' }}
                             plugins={[ChartDataLabels, DoughnutLabel]}
                             data={chartDefinition.data}
                             options={chartDefinition.options}
