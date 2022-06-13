@@ -138,7 +138,7 @@ export const SpendingCategories = ({ transactions, currentDate, redraw }) => {
             </Row>
 
             <Row className="m-0 mt-4">
-                <Col className="text-center">
+                <Col className="text-center p-0">
                     <MonthPicker range={datePickerRange} setChartDate={(e) => setChartDateFromDatePicker(e)} defaultDate={chartDate} />
                 </Col>
             </Row>

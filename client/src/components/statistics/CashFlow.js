@@ -155,10 +155,10 @@ export const CashFlow = ({ transactions, currentDate, prevDate, redraw }) => {
             </Container>
 
             <Row className="m-0 mt-4">
-                <Col className="text-center">
+                <Col className="p-0">
                     <MonthPicker range={datePickerRange} setChartDate={(e) => setFirstChartDateFromDatePicker(e)} defaultDate={firstChartDate} />
                 </Col>
-                <Col className="text-center">
+                <Col className="p-0">
                     <MonthPicker range={datePickerRange} setChartDate={(e) => setSecondChartDateFromDatePicker(e)} defaultDate={secondChartDate} />
                 </Col>
             </Row>
