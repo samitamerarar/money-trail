@@ -9,7 +9,7 @@ export const Footer = (props) => {
     const [expanded, setExpanded] = useState(false);
 
     return (
-        <Container fluid className="bg-dark mt-5">
+        <Container fluid className="bg-dark">
             <Row>
                 <Col></Col>
                 <Col md={6}>

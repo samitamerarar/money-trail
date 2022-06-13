@@ -9,7 +9,7 @@ import DoughnutLabel from 'chartjs-plugin-doughnutlabel-rebourne';
 import { getExpenseOfMonthCategory, getExpenseOfMonth, monthNames } from './helper.js';
 import MonthPicker from './MonthPicker.js';
 
-export const SpendingCategories = ({ transactions, currentDate, redraw }) => {
+export const SpendingCategories = ({ transactions, currentDate, redraw, size }) => {
     const [isComponentLoading, setIsComponentLoading] = useState(true);
     const [chartDefinition, setChartDefinition] = useState({});
     const [monthExpense, setMonthExpense] = useState(0);
@@ -127,7 +127,7 @@ export const SpendingCategories = ({ transactions, currentDate, redraw }) => {
                 <Col>
                     {chartDefinition.data && chartDefinition.options && (
                         <Doughnut
-                            style={{ height: '50vh' }}
+                            style={{ height: size }}
                             plugins={[ChartDataLabels, DoughnutLabel]}
                             data={chartDefinition.data}
                             options={chartDefinition.options}

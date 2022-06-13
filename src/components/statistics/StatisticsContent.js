@@ -5,6 +5,8 @@ import { connect } from 'react-redux';
 import CashFlow from './CashFlow';
 import SpendingCategories from './SpendingCategories';
 
+import { isMobile } from 'react-device-detect';
+
 const currentMonth = new Date().getMonth() + 1;
 const currentYear = new Date().getFullYear();
 
@@ -15,6 +17,7 @@ const prevYear = prevMonthDate.getFullYear();
 
 export const StatisticsContent = (props) => {
     const [isComponentLoading, setIsComponentLoading] = useState(true);
+    const [chartSize, setChartSize] = useState(isMobile ? '35vh' : '50vh');
     const [refreshChart, setRefreshChart] = useState(true);
 
     return (
@@ -27,10 +30,11 @@ export const StatisticsContent = (props) => {
                                 currentDate={{ month: currentMonth, year: currentYear }}
                                 prevDate={{ month: prevMonth, year: prevYear }}
                                 redraw={refreshChart}
+                                size={chartSize}
                             />
                         </Tab>
                         <Tab eventKey="second" title="Spending Categories">
-                            <SpendingCategories currentDate={{ month: currentMonth, year: currentYear }} redraw={refreshChart} />
+                            <SpendingCategories currentDate={{ month: currentMonth, year: currentYear }} redraw={refreshChart} size={chartSize} />
                         </Tab>
                     </Tabs>
                 </Col>
