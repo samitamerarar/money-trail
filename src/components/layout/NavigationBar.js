@@ -33,7 +33,7 @@ export const NavigationBar = (props) => {
     return (
         <Navbar bg="dark" variant="dark" expand="lg" expanded={expanded}>
             <Container className="p-0">
-                <Navbar.Brand as={Link} to="/">
+                <Navbar.Brand as={Link} to="/" onClick={() => setExpanded(false)}>
                     Money Trail
                 </Navbar.Brand>
                 <Navbar.Toggle aria-controls="responsive-navbar-nav" onClick={() => setExpanded(!expanded)} />
