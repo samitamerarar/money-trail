@@ -16,14 +16,14 @@ import personalcare from '../assets/personalcare.png';
 
 const images = [all, amenities, automobile, clothing, electronics, food, fun, medical, other, personalcare];
 
-export const CategoryImage = (props) => {
-    const [categoryImage, setCategoryImage] = useState(images[0]);
+export const CategoryImage = ({ image }) => {
+    const [categoryImage, setCategoryImage] = useState(all);
 
     useEffect(() => {
-        props.image && setCategoryImage(images.filter((i) => i.indexOf(props.image) !== -1));
-    }, [props.image]);
+        image && setCategoryImage(images.filter((i) => i.indexOf(image) !== -1)[0]);
+    }, [image]);
 
-    return <Image style={{ opacity: '0.75' }} src={categoryImage.length > 0 ? categoryImage[0] : other} height="256px" className="p-5" />;
+    return <Image style={{ opacity: '0.75' }} src={categoryImage ? categoryImage : other} height="192px" className="p-4" />;
 };
 
 CategoryImage.propTypes = {
