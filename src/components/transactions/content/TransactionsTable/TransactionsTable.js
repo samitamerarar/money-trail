@@ -47,7 +47,7 @@ export const TransactionsTable = (props) => {
         expandableRowsHeader: false,
         elevation: 1,
         print: false,
-        download: false,
+        download: true,
         pagination: false,
         filter: false,
         viewColumns: false,
@@ -85,6 +85,7 @@ export const TransactionsTable = (props) => {
             label: 'wathever',
             name: 'wathever',
             options: {
+                download: false,
                 customHeadRender: () => null,
                 customBodyRender: (value, tableMeta, updateValue) => {
                     const merchant = tableMeta.rowData[2];
@@ -124,6 +125,7 @@ export const TransactionsTable = (props) => {
             label: 'id',
             name: '_id',
             options: {
+                download: false,
                 display: 'excluded'
             }
         },
