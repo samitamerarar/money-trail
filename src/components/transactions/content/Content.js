@@ -58,11 +58,11 @@ export const Content = (props) => {
                         <Row className="mt-3 align-items-center">
                             <Col className="pl-1">
                                 {showNetWorth ? (
-                                    <Button variant="light" size="sm" onClick={(e) => setShowNetWorth(!showNetWorth)}>
-                                        Hide net worth: {netWorth ? <>{netWorth}</> : <>0</>}$
+                                    <Button variant="light" size="sm" style={{ width: '120px' }} onClick={(e) => setShowNetWorth(!showNetWorth)}>
+                                        {netWorth ? <>{netWorth}</> : <>0</>}$
                                     </Button>
                                 ) : (
-                                    <Button variant="light" size="sm" onClick={(e) => setShowNetWorth(!showNetWorth)}>
+                                    <Button variant="light" size="sm" style={{ width: '120px' }} onClick={(e) => setShowNetWorth(!showNetWorth)}>
                                         Show net worth
                                     </Button>
                                 )}
