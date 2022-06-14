@@ -63,7 +63,7 @@ export const SpendingCategories = ({ transactions, currentDate, redraw }) => {
                     formatter: (value, context) => {
                         const category = context.chart.data.labels[context.dataIndex];
                         const percent = Math.round((value / monthExpense) * 100);
-                        return percent > 2 ? `${value}$ (${percent}%)\n ${category}` : '';
+                        return percent > 5 ? `${value}$ (${percent}%)\n ${category}` : '';
                     }
                 },
                 doughnutlabel: {
@@ -128,7 +128,7 @@ export const SpendingCategories = ({ transactions, currentDate, redraw }) => {
                 <Col>
                     {chartDefinition.data && chartDefinition.options && (
                         <Doughnut
-                            style={{ height: isMobile ? '42vh' : '50vh' }}
+                            style={{ height: isMobile ? '45vh' : '50vh' }}
                             plugins={[ChartDataLabels, DoughnutLabel]}
                             data={chartDefinition.data}
                             options={chartDefinition.options}
