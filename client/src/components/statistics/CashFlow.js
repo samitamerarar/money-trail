@@ -149,7 +149,7 @@ export const CashFlow = ({ transactions, currentDate, prevDate, redraw }) => {
                     </h4>
                 </Col>
             </Row>
-            <Container className="p-0">
+            <Container className="p-0 shadow-light">
                 {chartDefinition.data && chartDefinition.options && (
                     <Bar
                         style={{ height: isMobile ? '35vh' : '50vh' }}

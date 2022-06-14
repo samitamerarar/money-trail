@@ -56,3 +56,33 @@
 .flicking-viewport:not(.vertical) {
     height: auto;
 }
+
+/* For Category Images */
+.shadow-strong {
+    -webkit-filter: drop-shadow(5px 5px 5px #222);
+    filter:         drop-shadow(5px 5px 5px #222); 
+}
+
+/* For General Use */
+.shadow-medium {
+    -webkit-filter: drop-shadow(5px 5px 5px rgba(0,0,0,0.25));
+    filter:         drop-shadow(5px 5px 5px rgba(0,0,0,0.25)); 
+}
+
+/* For General Use */
+.shadow-light {
+    -webkit-filter: drop-shadow(5px 5px 5px rgba(0,0,0,0.1));
+    filter:         drop-shadow(5px 5px 5px rgba(0,0,0,0.1)); 
+}
+
+.button-no-outline:focus, .btn:active {
+    outline: none !important;
+    box-shadow: none !important;
+  }
+
+.category-button:hover, .category-button:active {
+    background-color: #f2a65e !important;
+    box-shadow: '1px 1px 3px rgba(46, 46, 46, 0.62)' !important;
+    border-color: #d99554 !important;
+    color: white !important;
+}

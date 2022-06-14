@@ -124,7 +124,7 @@ export const SpendingCategories = ({ transactions, currentDate, redraw }) => {
 
     return (
         <Container className="p-0 mt-3">
-            <Row className="m-0">
+            <Row className="m-0 shadow-medium">
                 <Col>
                     {chartDefinition.data && chartDefinition.options && (
                         <Doughnut

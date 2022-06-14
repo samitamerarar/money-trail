@@ -23,7 +23,7 @@ export const CategoryImage = ({ image }) => {
         image && setCategoryImage(images.filter((i) => i.indexOf(image) !== -1)[0]);
     }, [image]);
 
-    return <Image style={{ opacity: '0.75' }} src={categoryImage ? categoryImage : other} height="192px" className="p-4" />;
+    return <Image style={{ opacity: '0.75' }} src={categoryImage ? categoryImage : other} height="192px" className="p-4 shadow-strong" />;
 };
 
 CategoryImage.propTypes = {

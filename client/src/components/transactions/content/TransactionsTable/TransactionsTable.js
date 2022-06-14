@@ -175,7 +175,8 @@ export const TransactionsTable = (props) => {
             },
             MUIDataTable: {
                 responsiveScroll: {
-                    minHeight: '55vh'
+                    minHeight: '50vh',
+                    maxHeight: '50vh !important'
                 }
             },
             MuiTableCell: {
@@ -193,7 +194,7 @@ export const TransactionsTable = (props) => {
     return (
         <Row className="mt-3">
             <Col className="p-1">
-                <Container className="p-0">
+                <Container className="p-0 shadow-sm">
                     <MuiThemeProvider theme={theme}>
                         <MUIDataTable
                             title={
