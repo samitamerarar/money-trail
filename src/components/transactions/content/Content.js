@@ -57,18 +57,17 @@ export const Content = (props) => {
                     <Container>
                         <Row className="mt-3 align-items-center">
                             <Col className="pl-1">
-                                {showNetWorth ? (
-                                    <Button variant="light" size="sm" style={{ width: '120px' }} onClick={(e) => setShowNetWorth(!showNetWorth)}>
-                                        {netWorth ? <>{netWorth}</> : <>0</>}$
-                                    </Button>
-                                ) : (
-                                    <Button variant="light" size="sm" style={{ width: '120px' }} onClick={(e) => setShowNetWorth(!showNetWorth)}>
-                                        Show net worth
-                                    </Button>
-                                )}
+                                <Button
+                                    className="button-no-outline shadow-sm"
+                                    variant="outline-info"
+                                    size="sm"
+                                    style={{ width: '120px' }}
+                                    onClick={(e) => setShowNetWorth(!showNetWorth)}>
+                                    {showNetWorth ? <>{netWorth ? <>{netWorth}</> : <>0</>}$</> : <>Show net worth</>}
+                                </Button>
                             </Col>
                             <Col className="d-flex justify-content-end pr-1">
-                                <Button variant="primary" onClick={(e) => openModal()}>
+                                <Button className="shadow-sm" variant="primary" onClick={(e) => openModal()}>
                                     + Transaction
                                 </Button>
                             </Col>
@@ -82,7 +81,7 @@ export const Content = (props) => {
                                     <CategoryImage image={category} />
                                 </Row>
                             </Col>
-                            <Col md="9" className="p-0" style={{ minHeight: '85vh' }}>
+                            <Col md="9" className="p-0" style={{ minHeight: '80vh' }}>
                                 <Tables
                                     tableData={dataTable}
                                     category={category}

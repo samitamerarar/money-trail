@@ -142,19 +142,19 @@ export const Tables = (props) => {
                         key={e.value}
                         id={e.value}
                         onClick={handleClick}
-                        className="m-1"
+                        className="m-1 button-no-outline"
                         variant="info"
                         style={{
-                            background: '#F2A65E',
+                            background: '#f2a65e',
                             boxShadow: '1px 1px 3px rgba(46, 46, 46, 0.62)',
-                            borderColor: '#AD7743'
+                            borderColor: '#d99554'
                         }}>
                         {e.name}
                     </Button>
                 );
             } else {
                 categoriesJSX.push(
-                    <Button key={e.value} id={e.value} onClick={handleClick} className="m-1" variant="light">
+                    <Button key={e.value} id={e.value} onClick={handleClick} className="m-1 category-button button-no-outline" variant="light">
                         {e.name}
                     </Button>
                 );
@@ -173,7 +173,7 @@ export const Tables = (props) => {
         <>
             <div>
                 {flickingCategories.length > 0 && (
-                    <Flicking align="prev" bounce="2%">
+                    <Flicking align="prev" bounce="2%" className="shadow-light">
                         {flickingCategories}
                     </Flicking>
                 )}
