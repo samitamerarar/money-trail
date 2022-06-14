@@ -89,10 +89,10 @@ export const TransactionsTable = (props) => {
                 customBodyRender: (value, tableMeta, updateValue) => {
                     return (
                         <div>
-                            <Card className="border-0 p-2">
-                                <Card className="transaction" style={{ borderRadius: '24px 8px' }}>
-                                    <Card.Body className="p-3">
-                                        <Row className="mb-1" style={{ fontSize: '1em' }}>
+                            <Card className="border-0 pr-2 pl-2 pb-2">
+                                <Card className="transaction" style={{ borderRadius: '21px 7px' }}>
+                                    <Card.Body className="p-2 m-1">
+                                        <Row className="mb-1" style={{ fontSize: '1em', lineHeight: 'normal' }}>
                                             <Col>{tableMeta.rowData[2]}</Col>
                                             <Col sm={1} className="d-flex justify-content-end">
                                                 {tableMeta.rowData[6] === 'income' ? (
