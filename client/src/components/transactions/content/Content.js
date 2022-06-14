@@ -82,7 +82,7 @@ export const Content = (props) => {
                                     <CategoryImage image={category} />
                                 </Row>
                             </Col>
-                            <Col md="9" className="p-0">
+                            <Col md="9" className="p-0" style={{ minHeight: '50vh' }}>
                                 <Tables
                                     tableData={dataTable}
                                     category={category}
