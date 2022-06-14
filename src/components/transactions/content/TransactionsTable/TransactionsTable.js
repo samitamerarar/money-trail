@@ -87,40 +87,29 @@ export const TransactionsTable = (props) => {
             options: {
                 customHeadRender: () => null,
                 customBodyRender: (value, tableMeta, updateValue) => {
+                    const merchant = tableMeta.rowData[2];
+                    const type = tableMeta.rowData[6];
+                    const amount = tableMeta.rowData[4].toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+                    const category = tableMeta.rowData[3];
+                    const date = moment(tableMeta.rowData[5], 'DD/MM/YYYY').format('ddd Do MMM');
+
                     return (
                         <div>
                             <Card className="border-0 pr-2 pl-2 pb-2">
                                 <Card className="transaction" style={{ borderRadius: '21px 7px' }}>
                                     <Card.Body className="p-2 m-1">
                                         <Row className="mb-1" style={{ fontSize: '1em', lineHeight: 'normal' }}>
-                                            <Col>{tableMeta.rowData[2]}</Col>
+                                            <Col>{merchant}</Col>
                                             <Col sm={1} className="d-flex justify-content-end">
-                                                {tableMeta.rowData[6] === 'income' ? (
-                                                    <div style={{ color: 'green' }}>
-                                                        {tableMeta.rowData[4].toLocaleString('en-US', {
-                                                            minimumFractionDigits: 2,
-                                                            maximumFractionDigits: 2
-                                                        })}
-                                                        $
-                                                    </div>
-                                                ) : (
-                                                    <>
-                                                        -
-                                                        {tableMeta.rowData[4].toLocaleString('en-US', {
-                                                            minimumFractionDigits: 2,
-                                                            maximumFractionDigits: 2
-                                                        })}
-                                                        $
-                                                    </>
-                                                )}
+                                                {type === 'income' ? <div style={{ color: 'green' }}>{amount}$</div> : <div>-{amount}$</div>}
                                             </Col>
                                         </Row>
                                         <Row style={{ fontSize: '0.85em' }}>
                                             <Col>
-                                                <span className="text-muted">{tableMeta.rowData[3]}</span>
+                                                <span className="text-muted">{category}</span>
                                             </Col>
                                             <Col className="d-flex justify-content-end">
-                                                <span className="text-muted">{moment(tableMeta.rowData[5], 'DD/MM/YYYY').format('ddd Do MMM')}</span>
+                                                <span className="text-muted">{date}</span>
                                             </Col>
                                         </Row>
                                     </Card.Body>
@@ -184,7 +173,7 @@ export const TransactionsTable = (props) => {
             },
             MUIDataTable: {
                 responsiveScroll: {
-                    maxHeight: '52vh !important'
+                    minHeight: '55vh'
                 }
             },
             MuiTableCell: {
