@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Container, Row, Button } from 'react-bootstrap';
+import { Container, Row } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
@@ -28,7 +28,9 @@ export const Loading = (props) => {
                     </Row>
                 </Container>
             )}
-            {timeoutLoading ? <>It's broken?</> : <></>}
+            <Container className="p-0">
+                <Row className="justify-content-center m-0">{timeoutLoading ? <>It's broken?</> : <></>}</Row>
+            </Container>
         </>
     );
 };
