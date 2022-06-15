@@ -222,7 +222,7 @@ export const AssetsChart = (props) => {
     };
 
     return (
-        <Container className="p-0 mt-3">
+        <Container className="p-0 mt-3 mb-5">
             <Container className="p-0">
                 {chartDefinition.data && chartDefinition.options && (
                     <Scatter
