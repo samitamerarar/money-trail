@@ -24,7 +24,7 @@ export const Tables = (props) => {
     const [renderIsDone, setRenderIsDone] = useState(false);
 
     // Flicking pagination
-    const [plugins, setPlugins] = useState([new Pagination({ type: 'bullet' }), new Arrow()]);
+    const [plugins, setPlugins] = useState([new Pagination({ type: 'scroll' }), new Arrow()]);
 
     // Control UI Loading (called second)
     useEffect(() => {
@@ -194,9 +194,13 @@ export const Tables = (props) => {
                             {flickingTables}
                             <ViewportSlot>
                                 <div style={{ marginTop: '56px' }}>
-                                    <span className="flicking-pagination" style={{ paddingBottom: '16px' }}></span>
-                                    <span className="flicking-arrow-prev is-circle" style={{ transform: 'scale(0.75)', top: '90%', left: '48px' }}></span>
-                                    <span className="flicking-arrow-next is-circle" style={{ transform: 'scale(0.75)', top: '90%', right: '48px' }}></span>
+                                    <span className="flicking-pagination" style={{ paddingBottom: '20px' }}></span>
+                                    <span
+                                        className="flicking-arrow-prev is-circle"
+                                        style={{ transform: 'scale(0.75)', top: 'initial', bottom: '0', left: '1em' }}></span>
+                                    <span
+                                        className="flicking-arrow-next is-circle"
+                                        style={{ transform: 'scale(0.75)', top: 'initial', bottom: '0', right: '1em' }}></span>
                                 </div>
                             </ViewportSlot>
                         </Flicking>
