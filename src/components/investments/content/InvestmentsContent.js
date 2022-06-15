@@ -13,14 +13,18 @@ import InvestmentsTabs from './InvestmentsTabs';
 
 export const InvestmentsContent = (props) => {
     const [isOpenModal, setIsOpenModal] = useState(false);
-    const [isComponentLoading, setIsComponentLoading] = useState(false);
     const [APIFetchDone, setAPIFetchDone] = useState(false);
+    const [loadingAPIFetch, setLoadingAPIFetch] = useState(false);
+    const [loadingTable, setLoadingTable] = useState(false);
 
     const openModal = () => setIsOpenModal(true);
     const closeModal = () => setIsOpenModal(false);
 
     const [mergedData, setMergedData] = useState([]);
     const [needToMergeData, setNeedToMergeData] = useState(false);
+
+    const { investmentsList, investmentsLoading } = props.investments;
+    const { tickerData } = props.yahooFinance;
 
     // add investment to database
     const handleSubmit = (data) => {
@@ -33,8 +37,15 @@ export const InvestmentsContent = (props) => {
      * Control UI Loading.
      */
     useEffect(() => {
-        setIsComponentLoading(false);
+        setLoadingAPIFetch(false);
     }, [APIFetchDone]);
+
+    /**
+     * Control UI Loading.
+     */
+    useEffect(() => {
+        setLoadingTable(false);
+    }, [mergedData]);
 
     /**
      * Get User Investments.
@@ -47,11 +58,10 @@ export const InvestmentsContent = (props) => {
      * For each User Investment, fetch its live summary details from the API.
      */
     useEffect(() => {
-        const { investmentsList } = props.investments;
         investmentsList.forEach((e, i) => {
-            const found = props.yahooFinance.tickerData.some((s) => s.symbol === e.symbol);
+            const found = tickerData.some((s) => s.symbol === e.symbol);
             if (!found) {
-                setIsComponentLoading(true);
+                setLoadingAPIFetch(true);
                 props.getTickerData(e).then(() => setAPIFetchDone(!APIFetchDone));
                 props.getHistoricalData({ symbol: e.symbol, minDate: e.purchaseDate }).then(() => setAPIFetchDone(!APIFetchDone));
             }
@@ -61,52 +71,49 @@ export const InvestmentsContent = (props) => {
         investmentsList.forEach((e, i, obj) => e.justDeleted && obj.splice(i, 1));
 
         setNeedToMergeData(!needToMergeData);
-    }, [props.investments.investmentsList]);
+    }, [investmentsList]);
 
     /**
      * When we get new tickers new data, Merge tickers data with the user investments data.
-     */
-    useEffect(() => {
-        mergeAndCalculateUserInvestmentsWithRealTimeData();
-    }, [props.yahooFinance.tickerData]);
-
-    /**
      * When needToMergeData is Toggled, Merge live data with the user data.
      */
     useEffect(() => {
-        mergeAndCalculateUserInvestmentsWithRealTimeData();
-    }, [needToMergeData]);
+        setLoadingTable(true);
+        mergeUserInvestmentsWithRealTimeData();
+    }, [tickerData, needToMergeData]);
 
     /**
      * This function is used to merge 2 arrays (Yahoo Tickers Data with User Investments).
      */
-    const mergeAndCalculateUserInvestmentsWithRealTimeData = () => {
-        // Merge the 2 arrays on the field 'symbol'
-        const mergedArray = props.investments.investmentsList.map((e1) => ({
-            ...e1,
-            ...props.yahooFinance.tickerData.find((e2) => e2.symbol === e1.symbol)
-        }));
+    const mergeUserInvestmentsWithRealTimeData = () => {
+        if (investmentsList.length > 0 && tickerData.length > 0) {
+            // Merge the 2 arrays on the field 'symbol'
+            const mergedArray = investmentsList.map((e1) => ({
+                ...e1,
+                ...tickerData.find((e2) => e2.symbol === e1.symbol)
+            }));
 
-        // Calculate additionals fields
-        mergedArray.forEach((e) => {
-            e['changeFromPurchasePercent'] = (e.regularMarketPrice - e.priceOfShare) / e.priceOfShare;
-            e['sizeOfPosition'] = e.regularMarketPrice * e.numberOfShares;
-            e['positionProfitOrLoss'] = (e.regularMarketPrice - e.priceOfShare) * e.numberOfShares;
-        });
+            // Calculate additionals fields
+            mergedArray.forEach((e) => {
+                e['changeFromPurchasePercent'] = (e.regularMarketPrice - e.priceOfShare) / e.priceOfShare;
+                e['sizeOfPosition'] = e.regularMarketPrice * e.numberOfShares;
+                e['positionProfitOrLoss'] = (e.regularMarketPrice - e.priceOfShare) * e.numberOfShares;
+            });
 
-        // sum the size of position
-        const sumOfPosition = mergedArray.reduce((n, { sizeOfPosition }) => n + sizeOfPosition, 0);
+            // sum the size of position
+            const sumOfPosition = mergedArray.reduce((n, { sizeOfPosition }) => n + sizeOfPosition, 0);
 
-        mergedArray.forEach((e) => {
-            e['positionExposure'] = e.sizeOfPosition / sumOfPosition;
-        });
+            mergedArray.forEach((e) => {
+                e['positionExposure'] = e.sizeOfPosition / sumOfPosition;
+            });
 
-        setMergedData([...mergedArray]);
+            convertElementsInArray(mergedArray);
+            setMergedData([...mergedArray]);
+        }
     };
 
-    mergedData.forEach((e, i) => {
-        if (!e.hasOwnProperty('assetAlreadyConverted')) {
-            e['assetAlreadyConverted'] = true;
+    const convertElementsInArray = (array) => {
+        array.forEach((e, i) => {
             Object.keys(e).forEach((key, j) => {
                 if (
                     key &&
@@ -135,7 +142,7 @@ export const InvestmentsContent = (props) => {
                         key === 'beta' ||
                         key === 'trailingAnnualDividendRate')
                 ) {
-                    mergedData[i][key] = e[key].toLocaleString('en-US', {
+                    array[i][key] = e[key].toLocaleString('en-US', {
                         maximumFractionDigits: 2
                     });
                 }
@@ -169,8 +176,10 @@ export const InvestmentsContent = (props) => {
                     e[key] = new Date(e[key]).toDateString();
                 }
             });
-        }
-    });
+        });
+
+        return array;
+    };
 
     return (
         <Container fluid>
@@ -191,7 +200,7 @@ export const InvestmentsContent = (props) => {
                         </Row>
                     </Container>
 
-                    {props.investments.investmentsLoading || isComponentLoading ? (
+                    {investmentsLoading || loadingAPIFetch || loadingTable ? (
                         <Container className="mt-5">
                             <Row className="justify-content-center m-3">Loading assets...</Row>
                             <Row className="justify-content-center">
