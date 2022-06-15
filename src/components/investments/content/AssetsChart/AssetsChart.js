@@ -248,7 +248,7 @@ export const AssetsChart = (props) => {
                         disabled={stackAssets}
                         type="switch"
                         id="assets-quantity"
-                        label="Ignore Number of Shares"
+                        label="Ignore Shares"
                         onChange={handleIgnoreAssetsQuantity}
                         checked={ignoreUserAssetsCount}
                     />
