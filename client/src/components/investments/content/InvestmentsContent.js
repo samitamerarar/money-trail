@@ -3,7 +3,7 @@ import { Row, Col, Container, Button } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { getInvestments, addInvestment } from '../../../actions/investmentAction';
-import { getTickerData, getHistoricalData } from '../../../actions/yahooActions';
+import { getTickerData, getHistoricalData, clearSearchStockState } from '../../../actions/yahooActions';
 
 import AddAssetModal from './AddAsset/AddAsset';
 
@@ -18,7 +18,10 @@ export const InvestmentsContent = (props) => {
     const [loadingTable, setLoadingTable] = useState(false);
 
     const openModal = () => setIsOpenModal(true);
-    const closeModal = () => setIsOpenModal(false);
+    const closeModal = () => {
+        props.clearSearchStockState();
+        setIsOpenModal(false);
+    };
 
     const [mergedData, setMergedData] = useState([]);
     const [needToMergeData, setNeedToMergeData] = useState(false);
@@ -238,6 +241,7 @@ InvestmentsContent.propTypes = {
     auth: PropTypes.object.isRequired,
     investments: PropTypes.object.isRequired,
     yahooFinance: PropTypes.object.isRequired,
+    clearSearchStockState: PropTypes.func.isRequired,
     getTickerData: PropTypes.func.isRequired,
     getHistoricalData: PropTypes.func.isRequired,
     addInvestment: PropTypes.func.isRequired,
@@ -254,5 +258,6 @@ export default connect(mapStateToProps, {
     getTickerData,
     getHistoricalData,
     getInvestments,
-    addInvestment
+    addInvestment,
+    clearSearchStockState
 })(InvestmentsContent);

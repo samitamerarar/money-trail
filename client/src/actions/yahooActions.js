@@ -1,5 +1,13 @@
 import axios from 'axios';
-import { GET_TICKER_DATA, TICKER_DATA_LOADING, GET_SEARCH_DATA, SEARCH_DATA_LOADING, GET_HISTORICAL_DATA, HISTORICAL_DATA_LOADING } from './types';
+import {
+    GET_TICKER_DATA,
+    TICKER_DATA_LOADING,
+    GET_SEARCH_DATA,
+    CLEAR_SEARCH_DATA,
+    SEARCH_DATA_LOADING,
+    GET_HISTORICAL_DATA,
+    HISTORICAL_DATA_LOADING
+} from './types';
 
 export const searchStock = (symbol) => {
     return async (dispatch) => {
@@ -25,6 +33,12 @@ export const searchStock = (symbol) => {
             );
 
         return response;
+    };
+};
+
+export const clearSearchStockState = () => {
+    return {
+        type: CLEAR_SEARCH_DATA
     };
 };
 

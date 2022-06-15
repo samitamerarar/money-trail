@@ -66,6 +66,12 @@ const AddAssetForm = (props) => {
     const setSelectedSymbol = (selectedSymbol) => {
         if (selectedSymbol && selectedSymbol[0] && selectedSymbol[0].shortname && selectedSymbol[0].symbol) {
             setField('symbolNameObj', selectedSymbol[0]);
+        } else {
+            setPriceRendered();
+            setForm({});
+            setErrors({});
+            setShowSectorsDrivers(false);
+            setShowRisk(false);
         }
     };
 
