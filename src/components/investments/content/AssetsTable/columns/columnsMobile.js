@@ -86,14 +86,14 @@ export const columnsMobileExpandRow = [
         label: 'Price Change',
         name: 'regularMarketChangePercent',
         options: {
-            display: false,
+            display: true,
             viewColumns: false,
             sort: false,
             setCellProps: () => ({
                 align: 'right'
             }),
             customBodyRender: (value, tableMeta, updateValue) => {
-                let val = new String(value);
+                let val = new String(value.props.value);
                 if (val && parseFloat(val.replaceAll('%', '')) >= 0) {
                     return (
                         <div value={val} style={{ color: 'green' }}>
@@ -611,6 +611,7 @@ export const columnsMobileExpandRow = [
         label: 'Position Change',
         name: 'changeFromPurchasePercent',
         options: {
+            display: false,
             viewColumns: false,
             sort: false,
             setCellProps: () => ({
@@ -729,6 +730,7 @@ export const columnsMobile = [
         label: 'Price Change',
         name: 'regularMarketChangePercent',
         options: {
+            display: false,
             viewColumns: false,
             sort: false,
             setCellProps: () => ({
@@ -1028,8 +1030,28 @@ export const columnsMobile = [
         label: 'Position Change',
         name: 'changeFromPurchasePercent',
         options: {
-            display: false,
-            viewColumns: false
+            display: true,
+            viewColumns: false,
+            sort: false,
+            setCellProps: () => ({
+                align: 'right'
+            }),
+            customBodyRender: (value, tableMeta, updateValue) => {
+                let val = new String(value);
+                if (val && parseFloat(val.replaceAll('%', '')) >= 0) {
+                    return (
+                        <div value={val} style={{ color: 'green' }}>
+                            {val}
+                        </div>
+                    );
+                } else {
+                    return (
+                        <div value={val} style={{ color: 'darkred' }}>
+                            {val}
+                        </div>
+                    );
+                }
+            }
         }
     },
     {

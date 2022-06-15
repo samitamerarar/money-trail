@@ -192,7 +192,7 @@ class AssetsTable extends Component {
         };
 
         return (
-            <Row className="mt-3">
+            <Row className="mt-3 mb-5">
                 <Col className="p-1">
                     {isMobile ? (
                         // cant make it responsive with window width because of the theme
