@@ -166,18 +166,23 @@ export const Tables = (props) => {
 
     // set the category on the Parent Component
     const handleClick = (e) => {
-        props.setCategory(e.currentTarget.id);
+        if (props.category !== e.currentTarget.id) {
+            setFlickingCategories([]);
+            props.setCategory(e.currentTarget.id);
+        }
     };
 
     return (
         <>
-            <div>
-                {flickingCategories.length > 0 && (
+            <Row className="p-0 m-0 justify-content-center ">
+                {flickingCategories.length > 0 ? (
                     <Flicking align="prev" bounce="2%" className="shadow-light">
                         {flickingCategories}
                     </Flicking>
+                ) : (
+                    <Loading loadingwhat="categories" small={true} />
                 )}
-            </div>
+            </Row>
 
             {isComponentLoading ? (
                 <Loading loadingwhat="transactions" />
