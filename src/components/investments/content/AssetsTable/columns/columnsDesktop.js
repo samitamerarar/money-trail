@@ -21,7 +21,9 @@ export const columnsDesktop = [
         label: 'Symbol',
         name: 'symbol',
         options: {
+            display: true,
             viewColumns: false,
+            sort: true,
             setCellProps: () => ({
                 align: 'left'
             })
@@ -31,7 +33,9 @@ export const columnsDesktop = [
         label: 'Name',
         name: 'name',
         options: {
+            display: true,
             viewColumns: false,
+            sort: true,
             setCellProps: () => ({
                 align: 'left'
             })
@@ -41,7 +45,9 @@ export const columnsDesktop = [
         label: 'Currency',
         name: 'currency',
         options: {
+            display: true,
             viewColumns: false,
+            sort: true,
             setCellProps: () => ({
                 align: 'right'
             })
@@ -51,6 +57,7 @@ export const columnsDesktop = [
         label: 'Price',
         name: 'regularMarketPrice',
         options: {
+            display: true,
             viewColumns: false,
             sort: false,
             setCellProps: () => ({
@@ -62,6 +69,7 @@ export const columnsDesktop = [
         label: 'Price Change',
         name: 'regularMarketChange',
         options: {
+            display: true,
             viewColumns: false,
             sort: false,
             setCellProps: () => ({
@@ -89,6 +97,7 @@ export const columnsDesktop = [
         label: 'Price Change',
         name: 'regularMarketChangePercent',
         options: {
+            display: true,
             viewColumns: false,
             sort: false,
             setCellProps: () => ({
@@ -116,6 +125,7 @@ export const columnsDesktop = [
         label: "Day's High",
         name: 'regularMarketDayHigh',
         options: {
+            display: true,
             viewColumns: false,
             sort: false,
             setCellProps: () => ({
@@ -127,6 +137,7 @@ export const columnsDesktop = [
         label: "Day's Low",
         name: 'regularMarketDayLow',
         options: {
+            display: true,
             viewColumns: false,
             sort: false,
             setCellProps: () => ({
@@ -138,6 +149,7 @@ export const columnsDesktop = [
         label: 'Open Price',
         name: 'regularMarketOpen',
         options: {
+            display: true,
             viewColumns: false,
             sort: false,
             setCellProps: () => ({
@@ -149,6 +161,7 @@ export const columnsDesktop = [
         label: 'Prev. Close',
         name: 'regularMarketPreviousClose',
         options: {
+            display: true,
             viewColumns: false,
             sort: false,
             setCellProps: () => ({
@@ -160,6 +173,7 @@ export const columnsDesktop = [
         label: 'Volume',
         name: 'regularMarketVolume',
         options: {
+            display: true,
             viewColumns: false,
             sort: false,
             setCellProps: () => ({
@@ -172,6 +186,7 @@ export const columnsDesktop = [
         label: 'Avg. Vol.',
         name: 'averageDailyVolume3Month',
         options: {
+            display: true,
             viewColumns: false,
             sort: false,
             setCellProps: () => ({
@@ -184,6 +199,7 @@ export const columnsDesktop = [
         label: 'Market Cap',
         name: 'marketCap',
         options: {
+            display: true,
             viewColumns: false,
             sort: false,
             setCellProps: () => ({
@@ -196,6 +212,7 @@ export const columnsDesktop = [
         label: '52w - Low',
         name: 'fiftyTwoWeekLow',
         options: {
+            display: true,
             viewColumns: false,
             sort: false,
             setCellProps: () => ({
@@ -207,6 +224,7 @@ export const columnsDesktop = [
         label: '52w - High',
         name: 'fiftyTwoWeekHigh',
         options: {
+            display: true,
             viewColumns: false,
             sort: false,
             setCellProps: () => ({
@@ -219,6 +237,8 @@ export const columnsDesktop = [
         name: 'fiftyTwoWeekLowChange',
         options: {
             display: 'excluded',
+            viewColumns: false,
+            sort: false,
             setCellProps: () => ({
                 align: 'right'
             })
@@ -229,6 +249,7 @@ export const columnsDesktop = [
         name: 'fiftyTwoWeekHighChange',
         options: {
             display: 'excluded',
+            viewColumns: false,
             sort: false,
             setCellProps: () => ({
                 align: 'right'
@@ -239,6 +260,7 @@ export const columnsDesktop = [
         label: 'Float Shares',
         name: 'sharesOutstanding',
         options: {
+            display: true,
             viewColumns: false,
             sort: false,
             setCellProps: () => ({
@@ -252,6 +274,7 @@ export const columnsDesktop = [
         name: 'fiftyTwoWeekLowChangePercent',
         options: {
             display: 'excluded',
+            viewColumns: false,
             sort: false,
             setCellProps: () => ({
                 align: 'right'
@@ -263,6 +286,7 @@ export const columnsDesktop = [
         name: 'fiftyTwoWeekHighChangePercent',
         options: {
             display: 'excluded',
+            viewColumns: false,
             sort: false,
             setCellProps: () => ({
                 align: 'right'
@@ -273,6 +297,7 @@ export const columnsDesktop = [
         label: 'Dividend',
         name: 'trailingAnnualDividendRate',
         options: {
+            display: true,
             viewColumns: false,
             sort: false,
             setCellProps: () => ({
@@ -300,6 +325,7 @@ export const columnsDesktop = [
         label: 'Dividend Yield',
         name: 'trailingAnnualDividendYield',
         options: {
+            display: true,
             viewColumns: false,
             sort: false,
             setCellProps: () => ({
@@ -326,6 +352,7 @@ export const columnsDesktop = [
         label: 'Dividend Date',
         name: 'dividendDate',
         options: {
+            display: true,
             viewColumns: false,
             sort: false,
             setCellProps: () => ({
@@ -352,6 +379,7 @@ export const columnsDesktop = [
         label: 'Book Value',
         name: 'bookValue',
         options: {
+            display: true,
             viewColumns: false,
             sort: false,
             setCellProps: () => ({
@@ -368,6 +396,7 @@ export const columnsDesktop = [
         label: 'Forward P/E',
         name: 'forwardPE',
         options: {
+            display: true,
             viewColumns: false,
             sort: false,
             setCellProps: () => ({
@@ -383,6 +412,7 @@ export const columnsDesktop = [
         label: 'Trailing P/E',
         name: 'trailingPE',
         options: {
+            display: true,
             viewColumns: false,
             sort: false,
             setCellProps: () => ({
@@ -398,6 +428,7 @@ export const columnsDesktop = [
         label: 'PEG Ratio',
         name: 'pegRatio',
         options: {
+            display: true,
             viewColumns: false,
             sort: false,
             setCellProps: () => ({
@@ -413,6 +444,7 @@ export const columnsDesktop = [
         label: 'Price/Book',
         name: 'priceToBook',
         options: {
+            display: true,
             viewColumns: false,
             sort: false,
             setCellProps: () => ({
@@ -428,6 +460,7 @@ export const columnsDesktop = [
         label: 'Price/Sales',
         name: 'priceToSalesTrailing12Months',
         options: {
+            display: true,
             viewColumns: false,
             sort: false,
             setCellProps: () => ({
@@ -443,6 +476,7 @@ export const columnsDesktop = [
         label: 'Beta',
         name: 'beta',
         options: {
+            display: true,
             viewColumns: false,
             sort: false,
             setCellProps: () => ({
@@ -458,6 +492,7 @@ export const columnsDesktop = [
         label: 'Stock Market Sector',
         name: 'sector',
         options: {
+            display: true,
             viewColumns: false,
             sort: false,
             setCellProps: () => ({
@@ -473,8 +508,9 @@ export const columnsDesktop = [
         label: 'Sector Exposure',
         name: 'null',
         options: {
-            sort: false,
             display: 'excluded',
+            viewColumns: false,
+            sort: false,
             setCellProps: () => ({
                 align: 'right',
                 style: {
@@ -487,8 +523,9 @@ export const columnsDesktop = [
         label: 'Sector Driver',
         name: 'null',
         options: {
-            sort: false,
             display: 'excluded',
+            viewColumns: false,
+            sort: false,
             setCellProps: () => ({
                 align: 'right',
                 style: {
@@ -501,7 +538,9 @@ export const columnsDesktop = [
         label: 'Investment Risk',
         name: 'risk',
         options: {
+            display: true,
             viewColumns: false,
+            sort: false,
             setCellProps: () => ({
                 align: 'center',
                 style: {
@@ -514,6 +553,7 @@ export const columnsDesktop = [
         label: 'Position Exposure',
         name: 'positionExposure',
         options: {
+            display: true,
             viewColumns: false,
             sort: false,
             setCellProps: () => ({
@@ -529,6 +569,7 @@ export const columnsDesktop = [
         label: 'Purchase Date',
         name: 'purchaseDate',
         options: {
+            display: true,
             viewColumns: false,
             sort: false,
             setCellProps: () => ({
@@ -543,6 +584,7 @@ export const columnsDesktop = [
         label: 'Shares Owned',
         name: 'numberOfShares',
         options: {
+            display: true,
             viewColumns: false,
             sort: false,
             setCellProps: () => ({
@@ -557,6 +599,7 @@ export const columnsDesktop = [
         label: 'Purchase Price / share',
         name: 'priceOfShare',
         options: {
+            display: true,
             viewColumns: false,
             sort: false,
             setCellProps: () => ({
@@ -571,6 +614,7 @@ export const columnsDesktop = [
         label: 'Position Size',
         name: 'sizeOfPosition',
         options: {
+            display: true,
             viewColumns: false,
             sort: false,
             setCellProps: () => ({
@@ -586,6 +630,7 @@ export const columnsDesktop = [
         label: 'Position Change',
         name: 'positionProfitOrLoss',
         options: {
+            display: true,
             viewColumns: false,
             sort: false,
             setCellProps: () => ({
@@ -616,6 +661,7 @@ export const columnsDesktop = [
         label: 'Position Change',
         name: 'changeFromPurchasePercent',
         options: {
+            display: true,
             viewColumns: false,
             sort: false,
             setCellProps: () => ({
@@ -647,6 +693,8 @@ export const columnsDesktop = [
         name: 'comments',
         options: {
             display: true,
+            viewColumns: true,
+            sort: true,
             setCellProps: () => ({
                 align: 'left'
             })

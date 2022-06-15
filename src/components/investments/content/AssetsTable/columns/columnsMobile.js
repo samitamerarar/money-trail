@@ -19,6 +19,7 @@ export const columnsMobileExpandRow = [
         options: {
             display: false,
             viewColumns: false,
+            sort: true,
             setCellProps: () => ({
                 align: 'left'
             })
@@ -28,7 +29,9 @@ export const columnsMobileExpandRow = [
         label: 'Name',
         name: 'name',
         options: {
+            display: true,
             viewColumns: false,
+            sort: true,
             setCellProps: () => ({
                 align: 'right'
             })
@@ -38,7 +41,9 @@ export const columnsMobileExpandRow = [
         label: 'Currency',
         name: 'currency',
         options: {
+            display: true,
             viewColumns: false,
+            sort: true,
             setCellProps: () => ({
                 align: 'right'
             })
@@ -59,6 +64,7 @@ export const columnsMobileExpandRow = [
         label: 'Price Change',
         name: 'regularMarketChange',
         options: {
+            display: true,
             viewColumns: false,
             sort: false,
             setCellProps: () => ({
@@ -83,7 +89,7 @@ export const columnsMobileExpandRow = [
         }
     },
     {
-        label: 'Price Change',
+        label: 'Price Change (%)',
         name: 'regularMarketChangePercent',
         options: {
             display: true,
@@ -93,7 +99,7 @@ export const columnsMobileExpandRow = [
                 align: 'right'
             }),
             customBodyRender: (value, tableMeta, updateValue) => {
-                let val = new String(value.props.value);
+                let val = new String(value);
                 if (val && parseFloat(val.replaceAll('%', '')) >= 0) {
                     return (
                         <div value={val} style={{ color: 'green' }}>
@@ -114,6 +120,7 @@ export const columnsMobileExpandRow = [
         label: "Day's High",
         name: 'regularMarketDayHigh',
         options: {
+            display: true,
             viewColumns: false,
             sort: false,
             setCellProps: () => ({
@@ -125,6 +132,7 @@ export const columnsMobileExpandRow = [
         label: "Day's Low",
         name: 'regularMarketDayLow',
         options: {
+            display: true,
             viewColumns: false,
             sort: false,
             setCellProps: () => ({
@@ -136,6 +144,7 @@ export const columnsMobileExpandRow = [
         label: 'Open Price',
         name: 'regularMarketOpen',
         options: {
+            display: true,
             viewColumns: false,
             sort: false,
             setCellProps: () => ({
@@ -147,6 +156,7 @@ export const columnsMobileExpandRow = [
         label: 'Prev. Close',
         name: 'regularMarketPreviousClose',
         options: {
+            display: true,
             viewColumns: false,
             sort: false,
             setCellProps: () => ({
@@ -158,6 +168,7 @@ export const columnsMobileExpandRow = [
         label: 'Volume',
         name: 'regularMarketVolume',
         options: {
+            display: true,
             viewColumns: false,
             sort: false,
             setCellProps: () => ({
@@ -170,6 +181,7 @@ export const columnsMobileExpandRow = [
         label: 'Avg. Vol.',
         name: 'averageDailyVolume3Month',
         options: {
+            display: true,
             viewColumns: false,
             sort: false,
             setCellProps: () => ({
@@ -182,6 +194,7 @@ export const columnsMobileExpandRow = [
         label: 'Market Cap',
         name: 'marketCap',
         options: {
+            display: true,
             viewColumns: false,
             sort: false,
             setCellProps: () => ({
@@ -194,6 +207,7 @@ export const columnsMobileExpandRow = [
         label: '52w - Low',
         name: 'fiftyTwoWeekLow',
         options: {
+            display: true,
             viewColumns: false,
             sort: false,
             setCellProps: () => ({
@@ -205,6 +219,7 @@ export const columnsMobileExpandRow = [
         label: '52w - High',
         name: 'fiftyTwoWeekHigh',
         options: {
+            display: true,
             viewColumns: false,
             sort: false,
             setCellProps: () => ({
@@ -217,6 +232,8 @@ export const columnsMobileExpandRow = [
         name: 'fiftyTwoWeekLowChange',
         options: {
             display: 'excluded',
+            viewColumns: false,
+            sort: false,
             setCellProps: () => ({
                 align: 'right'
             })
@@ -227,6 +244,7 @@ export const columnsMobileExpandRow = [
         name: 'fiftyTwoWeekHighChange',
         options: {
             display: 'excluded',
+            viewColumns: false,
             sort: false,
             setCellProps: () => ({
                 align: 'right'
@@ -237,6 +255,7 @@ export const columnsMobileExpandRow = [
         label: 'Float Shares',
         name: 'sharesOutstanding',
         options: {
+            display: true,
             viewColumns: false,
             sort: false,
             setCellProps: () => ({
@@ -246,10 +265,11 @@ export const columnsMobileExpandRow = [
         }
     },
     {
-        label: '52⠀week Low⠀Change',
+        label: '52⠀week Low⠀Change (%)',
         name: 'fiftyTwoWeekLowChangePercent',
         options: {
             display: 'excluded',
+            viewColumns: false,
             sort: false,
             setCellProps: () => ({
                 align: 'right'
@@ -257,10 +277,11 @@ export const columnsMobileExpandRow = [
         }
     },
     {
-        label: '52⠀week High⠀Change',
+        label: '52⠀week High⠀Change (%)',
         name: 'fiftyTwoWeekHighChangePercent',
         options: {
             display: 'excluded',
+            viewColumns: false,
             sort: false,
             setCellProps: () => ({
                 align: 'right'
@@ -271,6 +292,7 @@ export const columnsMobileExpandRow = [
         label: 'Dividend',
         name: 'trailingAnnualDividendRate',
         options: {
+            display: true,
             viewColumns: false,
             sort: false,
             setCellProps: () => ({
@@ -297,6 +319,7 @@ export const columnsMobileExpandRow = [
         label: 'Dividend Yield',
         name: 'trailingAnnualDividendYield',
         options: {
+            display: true,
             viewColumns: false,
             sort: false,
             setCellProps: () => ({
@@ -323,6 +346,7 @@ export const columnsMobileExpandRow = [
         label: 'Dividend Date',
         name: 'dividendDate',
         options: {
+            display: true,
             viewColumns: false,
             sort: false,
             setCellProps: () => ({
@@ -349,6 +373,7 @@ export const columnsMobileExpandRow = [
         label: 'Book Value',
         name: 'bookValue',
         options: {
+            display: true,
             viewColumns: false,
             sort: false,
             setCellProps: () => ({
@@ -364,6 +389,7 @@ export const columnsMobileExpandRow = [
         label: 'Forward P/E',
         name: 'forwardPE',
         options: {
+            display: true,
             viewColumns: false,
             sort: false,
             setCellProps: () => ({
@@ -379,6 +405,7 @@ export const columnsMobileExpandRow = [
         label: 'Trailing P/E',
         name: 'trailingPE',
         options: {
+            display: true,
             viewColumns: false,
             sort: false,
             setCellProps: () => ({
@@ -394,6 +421,7 @@ export const columnsMobileExpandRow = [
         label: 'PEG Ratio',
         name: 'pegRatio',
         options: {
+            display: true,
             viewColumns: false,
             sort: false,
             setCellProps: () => ({
@@ -409,6 +437,7 @@ export const columnsMobileExpandRow = [
         label: 'Price/Book',
         name: 'priceToBook',
         options: {
+            display: true,
             viewColumns: false,
             sort: false,
             setCellProps: () => ({
@@ -424,6 +453,7 @@ export const columnsMobileExpandRow = [
         label: 'Price/Sales',
         name: 'priceToSalesTrailing12Months',
         options: {
+            display: true,
             viewColumns: false,
             sort: false,
             setCellProps: () => ({
@@ -439,6 +469,7 @@ export const columnsMobileExpandRow = [
         label: 'Beta',
         name: 'beta',
         options: {
+            display: true,
             viewColumns: false,
             sort: false,
             setCellProps: () => ({
@@ -454,6 +485,7 @@ export const columnsMobileExpandRow = [
         label: 'Stock Market Sector',
         name: 'sector',
         options: {
+            display: true,
             viewColumns: false,
             sort: false,
             setCellProps: () => ({
@@ -468,8 +500,9 @@ export const columnsMobileExpandRow = [
         label: 'Sector Exposure',
         name: 'null',
         options: {
-            sort: false,
             display: 'excluded',
+            viewColumns: false,
+            sort: false,
             setCellProps: () => ({
                 align: 'right',
                 style: {
@@ -482,8 +515,9 @@ export const columnsMobileExpandRow = [
         label: 'Sector Driver',
         name: 'null',
         options: {
-            sort: false,
             display: 'excluded',
+            viewColumns: false,
+            sort: false,
             setCellProps: () => ({
                 align: 'right',
                 style: {
@@ -496,7 +530,9 @@ export const columnsMobileExpandRow = [
         label: 'Investment Risk',
         name: 'risk',
         options: {
+            display: true,
             viewColumns: false,
+            sort: false,
             setCellProps: () => ({
                 align: 'right',
                 style: {
@@ -509,6 +545,7 @@ export const columnsMobileExpandRow = [
         label: 'Position Exposure',
         name: 'positionExposure',
         options: {
+            display: true,
             viewColumns: false,
             sort: false,
             setCellProps: () => ({
@@ -524,6 +561,7 @@ export const columnsMobileExpandRow = [
         label: 'Purchase Date',
         name: 'purchaseDate',
         options: {
+            display: true,
             viewColumns: false,
             sort: false,
             setCellProps: () => ({
@@ -538,6 +576,7 @@ export const columnsMobileExpandRow = [
         label: 'Shares Owned',
         name: 'numberOfShares',
         options: {
+            display: true,
             viewColumns: false,
             sort: false,
             setCellProps: () => ({
@@ -552,6 +591,7 @@ export const columnsMobileExpandRow = [
         label: 'Purchase Price / share',
         name: 'priceOfShare',
         options: {
+            display: true,
             viewColumns: false,
             sort: false,
             setCellProps: () => ({
@@ -566,6 +606,7 @@ export const columnsMobileExpandRow = [
         label: 'Position Size',
         name: 'sizeOfPosition',
         options: {
+            display: true,
             viewColumns: false,
             sort: false,
             setCellProps: () => ({
@@ -581,6 +622,7 @@ export const columnsMobileExpandRow = [
         label: 'Position Change',
         name: 'positionProfitOrLoss',
         options: {
+            display: true,
             viewColumns: false,
             sort: false,
             setCellProps: () => ({
@@ -608,34 +650,12 @@ export const columnsMobileExpandRow = [
         }
     },
     {
-        label: 'Position Change',
+        label: 'Position Change (%)',
         name: 'changeFromPurchasePercent',
         options: {
             display: false,
             viewColumns: false,
-            sort: false,
-            setCellProps: () => ({
-                align: 'right',
-                style: {
-                    backgroundColor: '#fffffa'
-                }
-            }),
-            customBodyRender: (value, tableMeta, updateValue) => {
-                let val = new String(value);
-                if (val && parseFloat(val.replaceAll('%', '')) >= 0) {
-                    return (
-                        <div value={val} style={{ color: 'green' }}>
-                            {val}
-                        </div>
-                    );
-                } else {
-                    return (
-                        <div value={val} style={{ color: 'darkred' }}>
-                            {val}
-                        </div>
-                    );
-                }
-            }
+            sort: false
         }
     },
     {
@@ -643,6 +663,8 @@ export const columnsMobileExpandRow = [
         name: 'comments',
         options: {
             display: true,
+            viewColumns: true,
+            sort: false,
             setCellProps: () => ({
                 align: 'right'
             })
@@ -653,6 +675,7 @@ export const columnsMobileExpandRow = [
         name: 'actions',
         options: {
             display: true,
+            viewColumns: true,
             sort: false,
             setCellProps: () => ({
                 align: 'right'
@@ -685,7 +708,9 @@ export const columnsMobile = [
         label: 'Symbol',
         name: 'symbol',
         options: {
+            display: true,
             viewColumns: false,
+            sort: true,
             setCellProps: () => ({
                 align: 'left'
             })
@@ -711,6 +736,7 @@ export const columnsMobile = [
         label: 'Price',
         name: 'regularMarketPrice',
         options: {
+            display: true,
             viewColumns: false,
             sort: false,
             setCellProps: () => ({
@@ -727,31 +753,11 @@ export const columnsMobile = [
         }
     },
     {
-        label: 'Price Change',
+        label: 'Price Change (%)',
         name: 'regularMarketChangePercent',
         options: {
             display: false,
-            viewColumns: false,
-            sort: false,
-            setCellProps: () => ({
-                align: 'right'
-            }),
-            customBodyRender: (value, tableMeta, updateValue) => {
-                let val = new String(value);
-                if (val && parseFloat(val.replaceAll('%', '')) >= 0) {
-                    return (
-                        <div value={val} style={{ color: 'green' }}>
-                            {val}
-                        </div>
-                    );
-                } else {
-                    return (
-                        <div value={val} style={{ color: 'darkred' }}>
-                            {val}
-                        </div>
-                    );
-                }
-            }
+            viewColumns: false
         }
     },
     {
@@ -1027,7 +1033,7 @@ export const columnsMobile = [
         }
     },
     {
-        label: 'Position Change',
+        label: 'Position Change (%)',
         name: 'changeFromPurchasePercent',
         options: {
             display: true,
