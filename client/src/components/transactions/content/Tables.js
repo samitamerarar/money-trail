@@ -5,8 +5,9 @@ import { connect } from 'react-redux';
 import TransactionsTable from './TransactionsTable/TransactionsTable';
 
 import Flicking, { ViewportSlot } from '@egjs/react-flicking';
-import { Pagination } from '@egjs/flicking-plugins';
+import { Pagination, Arrow } from '@egjs/flicking-plugins';
 import '@egjs/flicking-plugins/dist/pagination.css';
+import '@egjs/flicking-plugins/dist/arrow.css';
 
 import { CreditCard } from 'react-kawaii';
 
@@ -22,6 +23,9 @@ export const Tables = (props) => {
     const [isComponentLoading, setIsComponentLoading] = useState(true);
     const [renderIsDone, setRenderIsDone] = useState(false);
 
+    // Flicking pagination
+    const [plugins, setPlugins] = useState([new Pagination({ type: 'bullet' }), new Arrow()]);
+
     // Control UI Loading (called second)
     useEffect(() => {
         setIsComponentLoading(false);
@@ -31,9 +35,6 @@ export const Tables = (props) => {
     useEffect(() => {
         setRenderIsDone(!renderIsDone);
     }, [flickingTables]);
-
-    // Flicking pagination
-    const plugins = [new Pagination({ type: 'bullet' })];
 
     /*
      * Create a sorted Map of years of a sorted Map of months
@@ -189,11 +190,13 @@ export const Tables = (props) => {
             ) : (
                 <>
                     {flickingTables.length > 0 ? (
-                        <Flicking renderOnlyVisible={true} align="prev" horizontal="false" plugins={plugins}>
+                        <Flicking renderOnlyVisible={false} align="prev" horizontal="false" plugins={plugins}>
                             {flickingTables}
                             <ViewportSlot>
-                                <div className="m-5">
-                                    <div className="flicking-pagination"></div>
+                                <div style={{ marginTop: '56px' }}>
+                                    <span className="flicking-pagination" style={{ paddingBottom: '16px' }}></span>
+                                    <span className="flicking-arrow-prev is-circle" style={{ transform: 'scale(0.75)', top: '90%', left: '48px' }}></span>
+                                    <span className="flicking-arrow-next is-circle" style={{ transform: 'scale(0.75)', top: '90%', right: '48px' }}></span>
                                 </div>
                             </ViewportSlot>
                         </Flicking>
