@@ -91,27 +91,36 @@ export const InvestmentsContent = (props) => {
     const mergeUserInvestmentsWithRealTimeData = () => {
         if (investmentsList.length > 0) {
             // Merge the 2 arrays on the field 'symbol'
-            const mergedArray = investmentsList.map((e1) => ({
-                ...e1,
-                ...tickerData.find((e2) => e2.symbol === e1.symbol)
-            }));
-
-            // Calculate additionals fields
-            mergedArray.forEach((e) => {
-                e['changeFromPurchasePercent'] = (e.regularMarketPrice - e.priceOfShare) / e.priceOfShare;
-                e['sizeOfPosition'] = e.regularMarketPrice * e.numberOfShares;
-                e['positionProfitOrLoss'] = (e.regularMarketPrice - e.priceOfShare) * e.numberOfShares;
+            let mergedArray = investmentsList.map((e1) => {
+                if (tickerData.find((e2) => e2.symbol === e1.symbol)) {
+                    return {
+                        ...e1,
+                        ...tickerData.find((e2) => e2.symbol === e1.symbol)
+                    };
+                }
             });
 
-            // sum the size of position
-            const sumOfPosition = mergedArray.reduce((n, { sizeOfPosition }) => n + sizeOfPosition, 0);
+            // remove undefined objects
+            mergedArray = mergedArray.filter((e) => e !== undefined);
 
-            mergedArray.forEach((e) => {
-                e['positionExposure'] = e.sizeOfPosition / sumOfPosition;
-            });
+            if (mergedArray.length > 0) {
+                // Calculate additionals fields
+                mergedArray.forEach((e) => {
+                    e['changeFromPurchasePercent'] = (e.regularMarketPrice - e.priceOfShare) / e.priceOfShare;
+                    e['sizeOfPosition'] = e.regularMarketPrice * e.numberOfShares;
+                    e['positionProfitOrLoss'] = (e.regularMarketPrice - e.priceOfShare) * e.numberOfShares;
+                });
 
-            convertElementsInArray(mergedArray);
-            setMergedData([...mergedArray]);
+                // sum the size of position
+                const sumOfPosition = mergedArray.reduce((n, { sizeOfPosition }) => n + sizeOfPosition, 0);
+
+                mergedArray.forEach((e) => {
+                    e['positionExposure'] = e.sizeOfPosition / sumOfPosition;
+                });
+
+                convertElementsInArray(mergedArray);
+                setMergedData([...mergedArray]);
+            }
         }
     };
 
