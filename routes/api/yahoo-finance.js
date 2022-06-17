@@ -48,12 +48,11 @@ router.get('/', passport.authenticate('jwt', { session: false }), (req, res) => 
                     modules: ['summaryDetail', 'defaultKeyStatistics']
                 })
                 .then((tickerDataStats) => {
-                    if (tickerDataStats && tickerDataStats.defaultKeyStatistics && tickerDataStats.summaryDetail) {
-                        tickerData['pegRatio'] = tickerDataStats.defaultKeyStatistics.pegRatio;
-
-                        tickerData['beta'] = tickerDataStats.summaryDetail.beta;
-
-                        tickerData['priceToSalesTrailing12Months'] = tickerDataStats.summaryDetail.priceToSalesTrailing12Months;
+                    if (tickerData && tickerDataStats) {
+                        if (tickerDataStats.defaultKeyStatistics?.pegRatio) tickerData['pegRatio'] = tickerDataStats.defaultKeyStatistics.pegRatio;
+                        if (tickerDataStats.summaryDetail?.beta) tickerData['beta'] = tickerDataStats.summaryDetail.beta;
+                        if (tickerDataStats.summaryDetail?.priceToSalesTrailing12Months)
+                            tickerData['priceToSalesTrailing12Months'] = tickerDataStats.summaryDetail.priceToSalesTrailing12Months;
                     }
 
                     res.json(tickerData);

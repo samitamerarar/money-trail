@@ -15,7 +15,8 @@ const initialState = {
     tickerData: [],
     tickerDataLoading: false,
     historicalData: [],
-    historicalDataLoading: false
+    historicalDataLoading: false,
+    errors: []
 };
 
 export default function yahooReducer(state = initialState, action) {
