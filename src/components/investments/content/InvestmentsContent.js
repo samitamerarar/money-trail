@@ -5,9 +5,6 @@ import { connect } from 'react-redux';
 import { getInvestments, addInvestment } from '../../../actions/investmentAction';
 import { getTickerData, getHistoricalData, clearSearchStockState } from '../../../actions/yahooActions';
 
-import 'react-notifications/lib/notifications.css';
-import { NotificationContainer, NotificationManager } from 'react-notifications';
-
 import AddAssetModal from './AddAsset/AddAsset';
 
 import ScaleLoader from 'react-spinners/ScaleLoader';
@@ -19,7 +16,6 @@ export const InvestmentsContent = (props) => {
     const [APIFetchDone, setAPIFetchDone] = useState(false);
     const [loadingAPIFetch, setLoadingAPIFetch] = useState(false);
     const [loadingTable, setLoadingTable] = useState(false);
-    const [errorShown, setErrorShown] = useState(false);
 
     const openModal = () => setIsOpenModal(true);
     const closeModal = () => {
@@ -116,12 +112,6 @@ export const InvestmentsContent = (props) => {
 
             convertElementsInArray(mergedArray);
             setMergedData([...mergedArray]);
-        }
-
-        // Show error if ticker data count dont match investments count
-        if (investmentsList.length !== tickerData.length && !errorShown) {
-            NotificationManager.error('Error retrieving data from Yahoo Finance, verify your symbols', 'Error', 60000);
-            setErrorShown(true);
         }
     };
 
@@ -243,7 +233,6 @@ export const InvestmentsContent = (props) => {
                 </Col>
             </Row>
             <AddAssetModal show={isOpenModal} onHide={() => closeModal()} handleSubmit={(e) => handleSubmit(e)} />
-            <NotificationContainer />
         </Container>
     );
 };
