@@ -35,7 +35,7 @@ export const Content = (props) => {
      */
     useEffect(() => {
         const { transactions } = props.transactions;
-        if (transactions.length > 0) {
+        if (transactions && transactions.length > 0) {
             setNetWorth(
                 Number(
                     transactions.filter((e) => e.type === 'income').reduce((prev, cur) => cur.amount + prev, 0) +
