@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { addInvestment, deleteInvestment } from '../../../../../actions/investmentAction';
+import { deleteTicker } from '../../../../../actions/yahooActions';
 
 import { Button, Col, Container, Row, Modal, Tab, Tabs } from 'react-bootstrap';
 import EditStockForm from './EditStockForm';
@@ -40,6 +41,7 @@ export const EditStock = (props) => {
     // delete existing investment in database
     const deleteInvestment = () => {
         if (data) {
+            props.deleteTicker(data);
             props.deleteInvestment(data);
             handleCloseDelete();
         }
@@ -109,11 +111,12 @@ EditStock.propTypes = {
     auth: PropTypes.object.isRequired,
     investments: PropTypes.object.isRequired,
     addInvestment: PropTypes.func.isRequired,
-    deleteInvestment: PropTypes.func.isRequired
+    deleteInvestment: PropTypes.func.isRequired,
+    deleteTicker: PropTypes.func.isRequired
 };
 
 const mapStateToProps = (state) => ({
     auth: state.auth
 });
 
-export default connect(mapStateToProps, { addInvestment, deleteInvestment })(EditStock);
+export default connect(mapStateToProps, { addInvestment, deleteInvestment, deleteTicker })(EditStock);

@@ -6,7 +6,8 @@ import {
     CLEAR_SEARCH_DATA,
     SEARCH_DATA_LOADING,
     GET_HISTORICAL_DATA,
-    HISTORICAL_DATA_LOADING
+    HISTORICAL_DATA_LOADING,
+    DELETE_TICKER
 } from './types';
 
 export const searchStock = (symbol) => {
@@ -95,6 +96,14 @@ export const getHistoricalData = (data) => {
             );
 
         return response;
+    };
+};
+
+// Delete ticker info
+export const deleteTicker = (data) => {
+    return {
+        type: DELETE_TICKER,
+        payload: data.symbol
     };
 };
 

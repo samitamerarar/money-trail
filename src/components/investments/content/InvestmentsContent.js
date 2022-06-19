@@ -13,8 +13,9 @@ import InvestmentsTabs from './InvestmentsTabs';
 
 export const InvestmentsContent = (props) => {
     const [isOpenModal, setIsOpenModal] = useState(false);
-    const [APIFetchDone, setAPIFetchDone] = useState(false);
-    const [loadingAPIFetch, setLoadingAPIFetch] = useState(false);
+    const [investmentsFetchDone, setInvestmentsFetchDone] = useState(false);
+    const [tickerFetchDone, setTickerFetchDone] = useState(false);
+    const [loadingTickerFetch, setLoadingTickerFetch] = useState(false);
     const [loadingTable, setLoadingTable] = useState(false);
 
     const openModal = () => setIsOpenModal(true);
@@ -37,52 +38,52 @@ export const InvestmentsContent = (props) => {
     };
 
     /**
-     * Control UI Loading.
-     */
-    useEffect(() => {
-        setLoadingAPIFetch(false);
-    }, [APIFetchDone]);
-
-    /**
-     * Control UI Loading.
-     */
-    useEffect(() => {
-        setLoadingTable(false);
-    }, [mergedData]);
-
-    /**
      * Get User Investments.
      */
     useEffect(() => {
-        props.getInvestments();
+        setLoadingTable(true);
+        props.getInvestments().then(() => setInvestmentsFetchDone(true));
     }, []); // run this once
 
     /**
      * For each User Investment, fetch its live summary details from the API.
      */
     useEffect(() => {
-        investmentsList.forEach((e, i) => {
-            const found = tickerData.some((s) => s.symbol === e.symbol);
-            if (!found) {
-                setLoadingAPIFetch(true);
-                props.getTickerData(e).then(() => setAPIFetchDone(!APIFetchDone));
-                props.getHistoricalData({ symbol: e.symbol, minDate: e.purchaseDate }).then(() => setAPIFetchDone(!APIFetchDone));
+        if (investmentsFetchDone) {
+            if (investmentsList.length > 0) {
+                investmentsList.forEach((e, i) => {
+                    if (e.justModified) setNeedToMergeData(!needToMergeData);
+                    const found = tickerData.some((s) => s.symbol === e.symbol);
+                    if (!found) {
+                        setLoadingTickerFetch(true);
+                        props.getTickerData(e).then(() => setTickerFetchDone(!tickerFetchDone));
+                        props.getHistoricalData({ symbol: e.symbol, minDate: e.purchaseDate }).then(() => setTickerFetchDone(!tickerFetchDone));
+                    }
+                });
+            } else {
+                setMergedData([]);
+                setLoadingTable(false);
             }
-        });
+        }
+    }, [investmentsList, investmentsFetchDone]);
 
-        // Delete asset if marked as "justDeleted"
-        investmentsList.forEach((e, i, obj) => e.justDeleted && obj.splice(i, 1));
-
+    /**
+     * Control UI Loading.
+     */
+    useEffect(() => {
+        setLoadingTickerFetch(false);
         setNeedToMergeData(!needToMergeData);
-    }, [investmentsList]);
+    }, [tickerFetchDone]);
 
     /**
      * When we get new tickers new data, Merge tickers data with the user investments data.
      * When needToMergeData is Toggled, Merge live data with the user data.
      */
     useEffect(() => {
-        setLoadingTable(true);
-        mergeUserInvestmentsWithRealTimeData();
+        if (tickerData.length > 0) {
+            setLoadingTable(true);
+            mergeUserInvestmentsWithRealTimeData();
+        }
     }, [tickerData, needToMergeData]);
 
     /**
@@ -122,6 +123,8 @@ export const InvestmentsContent = (props) => {
                 setMergedData([...mergedArray]);
             }
         }
+
+        setLoadingTable(false);
     };
 
     const convertElementsInArray = (array) => {
@@ -212,7 +215,7 @@ export const InvestmentsContent = (props) => {
                         </Row>
                     </Container>
 
-                    {investmentsLoading || loadingAPIFetch || loadingTable ? (
+                    {investmentsLoading || loadingTickerFetch || loadingTable ? (
                         <Container className="mt-5">
                             <Row className="justify-content-center m-3">Loading assets...</Row>
                             <Row className="justify-content-center">
