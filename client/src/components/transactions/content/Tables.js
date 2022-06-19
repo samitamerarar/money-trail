@@ -43,19 +43,20 @@ export const Tables = (props) => {
         const mapYear = new Map();
 
         // insert transactions year
-        props.tableData.forEach((e) => {
-            const month = e.date.split('/')[1];
-            const year = e.date.split('/')[2];
-            if (!mapYear.has(year)) {
-                mapYear.set(year, new Map([[month, []]]));
-            }
+        props.tableData &&
+            props.tableData.forEach((e) => {
+                const month = e.date.split('/')[1];
+                const year = e.date.split('/')[2];
+                if (!mapYear.has(year)) {
+                    mapYear.set(year, new Map([[month, []]]));
+                }
 
-            if (!mapYear.get(year).has(month)) {
-                mapYear.get(year).set(month, []);
-            }
+                if (!mapYear.get(year).has(month)) {
+                    mapYear.get(year).set(month, []);
+                }
 
-            mapYear.get(year).get(month).push(e);
-        });
+                mapYear.get(year).get(month).push(e);
+            });
 
         // sort year map, month map and transactions array
         mapYear.forEach((val, key) => {
