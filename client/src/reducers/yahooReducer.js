@@ -5,7 +5,8 @@ import {
     CLEAR_SEARCH_DATA,
     SEARCH_DATA_LOADING,
     GET_HISTORICAL_DATA,
-    HISTORICAL_DATA_LOADING
+    HISTORICAL_DATA_LOADING,
+    DELETE_TICKER
 } from '../actions/types';
 
 const isEmpty = require('is-empty');
@@ -73,6 +74,12 @@ export default function yahooReducer(state = initialState, action) {
                 }
             }
         }
+        case DELETE_TICKER:
+            return {
+                ...state,
+                tickerData: state.tickerData.filter((e) => e.symbol !== action.payload),
+                historicalData: state.historicalData.filter((e) => e.symbol !== action.payload)
+            };
 
         default:
             return state;
