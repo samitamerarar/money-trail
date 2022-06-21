@@ -2,7 +2,7 @@
     "name": "client",
     "version": "0.1.0",
     "private": true,
-    "homepage": "https://samitamerarar.github.io/",
+    "homepage": "https://samitamerarar.github.io/money-trail/",
     "dependencies": {
         "@egjs/flicking-plugins": "^4.2.1",
         "@egjs/react-flicking": "^4.3.0",
