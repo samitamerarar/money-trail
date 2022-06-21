@@ -57,3 +57,5 @@ Steps:
     ```
     npm run deploy
     ```
+#### One liner deploy (Command Prompt)
+> git push origin --delete gh-pages & git subtree push --prefix client/ origin gh-pages && git checkout gh-pages && npm install && npm run deploy && git checkout main && git branch -d gh-pages
