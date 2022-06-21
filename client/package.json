@@ -53,7 +53,11 @@
         "test": "react-scripts test",
         "eject": "react-scripts eject",
         "predeploy": "npm run build",
-        "deploy": "gh-pages -d build"
+        "deploy": "gh-pages -d build",
+        "delete-gh-pages-branches": "git branch -d gh-pages && git push origin --delete gh-pages",
+        "push-client-to-gh-pages-branch": "git subtree push --prefix client/ origin gh-pages",
+        "build-client-on-gh-pages-branch": "git checkout gh-pages && npm install && npm run deploy",
+        "custom-deploy": "npm run delete-gh-pages-branches && npm run push-client-to-gh-pages-branch && npm run build-client-on-gh-pages-branch"
     },
     "proxy": "http://localhost:8080",
     "eslintConfig": {
