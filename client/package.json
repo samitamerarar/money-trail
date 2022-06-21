@@ -2,6 +2,7 @@
     "name": "client",
     "version": "0.1.0",
     "private": true,
+    "homepage": "https://samitamerarar.github.io/",
     "dependencies": {
         "@egjs/flicking-plugins": "^4.2.1",
         "@egjs/react-flicking": "^4.3.0",
@@ -19,6 +20,7 @@
         "chartjs-plugin-zoom": "^1.2.1",
         "classnames": "^2.3.1",
         "hammerjs": "^2.0.8",
+        "is-empty": "^1.2.0",
         "jwt-decode": "^3.1.2",
         "moment": "^2.29.3",
         "mui-datatables": "^3.8.2",
@@ -49,7 +51,9 @@
         "start": "react-scripts start",
         "build": "react-scripts build",
         "test": "react-scripts test",
-        "eject": "react-scripts eject"
+        "eject": "react-scripts eject",
+        "predeploy": "npm run build",
+        "deploy": "gh-pages -d build"
     },
     "proxy": "http://localhost:8080",
     "eslintConfig": {
@@ -69,5 +73,8 @@
             "last 1 firefox version",
             "last 1 safari version"
         ]
+    },
+    "devDependencies": {
+        "gh-pages": "^4.0.0"
     }
 }

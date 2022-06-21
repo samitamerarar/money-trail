@@ -19,6 +19,9 @@ import InvestmentsContainer from './components/investments/InvestmentsContainer'
 import StatisticsContainer from './components/statistics/StatisticsContainer';
 import Placeholder from './components/Placeholder';
 
+import axios from 'axios';
+axios.defaults.baseURL = 'https://my-money-trail.herokuapp.com/';
+
 // Check for token to keep user logged in
 if (localStorage.jwtToken) {
     // Set auth token header auth
@@ -40,7 +43,7 @@ class App extends Component {
     render() {
         return (
             <Provider store={store}>
-                <Router>
+                <Router basename={process.env.PUBLIC_URL}>
                     <div className="App">
                         <div className="minimum-height">
                             <NavigationBar />
