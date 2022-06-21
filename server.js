@@ -11,7 +11,7 @@ const investments = require('./routes/api/investments');
 const yahooFinance = require('./routes/api/yahoo-finance');
 
 // ** MIDDLEWARE ** //
-const whitelist = ['http://localhost:3000', 'http://localhost:8080', 'https://my-money-trail.herokuapp.com'];
+const whitelist = ['http://localhost:3000', 'http://localhost:8080', 'https://my-money-trail.herokuapp.com', 'https://moneytrail.pro'];
 const corsOptions = {
     origin: function (origin, callback) {
         console.log('** Origin of request ' + origin);
