@@ -11,11 +11,11 @@ const investments = require('./routes/api/investments');
 const yahooFinance = require('./routes/api/yahoo-finance');
 
 // ** MIDDLEWARE ** //
-const whitelist = ['http://localhost:3000', 'http://localhost:8080', 'https://my-money-trail.herokuapp.com', 'https://moneytrail.pro'];
+const welcomelist = ['http://localhost:3000', 'http://localhost:8080', 'https://my-money-trail.herokuapp.com', 'https://moneytrail.pro', 'https://samitamerarar.github.io'];
 const corsOptions = {
     origin: function (origin, callback) {
         console.log('** Origin of request ' + origin);
-        if (whitelist.indexOf(origin) !== -1 || !origin) {
+        if (welcomelist.indexOf(origin) !== -1 || !origin) {
             console.log('Origin acceptable');
             callback(null, true);
         } else {
@@ -27,7 +27,7 @@ const corsOptions = {
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-//app.use(cors(corsOptions));
+app.use(cors(corsOptions));
 
 // DB Config
 const db = require('./config/keys').mongoURI;
