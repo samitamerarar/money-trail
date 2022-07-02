@@ -19,21 +19,15 @@ export const StatisticsContainer = (props) => {
     }, []);
 
     return (
-        <>
-            {isComponentLoading ? (
-                <Loading loadingwhat="statistics" />
-            ) : (
-                <Container fluid>
-                    <Container>
-                        <Row className="mt-3">
-                            <h4>Statistics</h4>
-                        </Row>
-                    </Container>
+        <Container fluid>
+            <Container>
+                <Row className="mt-3">
+                    <h4>Statistics</h4>
+                </Row>
+            </Container>
 
-                    <StatisticsContent />
-                </Container>
-            )}
-        </>
+            {isComponentLoading ? <Loading loadingwhat="statistics" /> : <StatisticsContent />}
+        </Container>
     );
 };
 

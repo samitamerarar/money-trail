@@ -10,6 +10,7 @@ import AddAssetModal from './AddAsset/AddAsset';
 import ScaleLoader from 'react-spinners/ScaleLoader';
 import ClimbingBoxLoader from 'react-spinners/ClimbingBoxLoader';
 import InvestmentsTabs from './InvestmentsTabs';
+import Loading from '../../layout/Loading';
 
 export const InvestmentsContent = (props) => {
     const [isOpenModal, setIsOpenModal] = useState(false);
@@ -198,31 +199,25 @@ export const InvestmentsContent = (props) => {
 
     return (
         <Container fluid>
-            <Row>
-                <Col className="p-0">
-                    <Container>
-                        <Row className="mt-3">
-                            <Col className="pl-1">
-                                <p className="grey-text text-darken-1">
-                                    You have <b>{mergedData.length}</b> assets.
-                                </p>
-                            </Col>
-                            <Col className="d-flex justify-content-end pr-1">
-                                <Button variant="primary" onClick={(e) => openModal()}>
-                                    + Asset
-                                </Button>
-                            </Col>
-                        </Row>
-                    </Container>
-
-                    {investmentsLoading || loadingTickerFetch || loadingTable ? (
-                        <Container className="mt-5">
-                            <Row className="justify-content-center m-3">Loading assets...</Row>
-                            <Row className="justify-content-center">
-                                <ScaleLoader color={'#007bff'} speedMultiplier={1} />
+            {investmentsLoading || loadingTickerFetch || loadingTable ? (
+                <Loading loadingwhat="assets" />
+            ) : (
+                <Row>
+                    <Col className="p-0">
+                        <Container>
+                            <Row className="mt-3">
+                                <Col className="pl-1">
+                                    <p className="grey-text text-darken-1">
+                                        You have <b>{mergedData.length}</b> assets.
+                                    </p>
+                                </Col>
+                                <Col className="d-flex justify-content-end pr-1">
+                                    <Button variant="primary" onClick={(e) => openModal()}>
+                                        + Asset
+                                    </Button>
+                                </Col>
                             </Row>
                         </Container>
-                    ) : (
                         <>
                             {mergedData.length > 0 ? (
                                 <Container className="p-0">
@@ -241,9 +236,10 @@ export const InvestmentsContent = (props) => {
                                 </Container>
                             )}
                         </>
-                    )}
-                </Col>
-            </Row>
+                    </Col>
+                </Row>
+            )}
+
             <AddAssetModal show={isOpenModal} onHide={() => closeModal()} handleSubmit={(e) => handleSubmit(e)} />
         </Container>
     );
