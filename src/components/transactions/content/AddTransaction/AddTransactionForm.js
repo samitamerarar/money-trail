@@ -114,7 +114,7 @@ const AddTransactionForm = (props) => {
                         type="date"
                         name="date"
                         isInvalid={!!errors.date}
-                        onChange={(e) => setField('date', moment(e.target.value).format('DD/MM/YYYY'))}
+                        onChange={(e) => setField('date', moment.utc(e.target.value).format('DD/MM/YYYY'))}
                     />
                     <Form.Control.Feedback type="invalid">{errors.date}</Form.Control.Feedback>
                 </Form.Group>

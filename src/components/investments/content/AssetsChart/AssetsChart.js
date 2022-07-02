@@ -54,7 +54,7 @@ export const AssetsChart = (props) => {
                 }
             });
 
-            const sortedArray = data.sort((a, b) => new moment(a.x) - new moment(b.x));
+            const sortedArray = data.sort((a, b) => new moment.utc(a.x) - new moment.utc(b.x));
             const arrayNoWeekend = sortedArray.filter((f) => !isWeekend(f.x));
 
             // sum up when values are on the same day
@@ -82,10 +82,10 @@ export const AssetsChart = (props) => {
 
     const buildData = (asset, stockHistoricalData) => {
         const sharesBought = ignoreUserAssetsCount ? 1 : asset.numberOfShares;
-        const data = [{ x: moment(asset.purchaseDate), y: Number(asset.priceOfShare * sharesBought) }];
+        const data = [{ x: moment.utc(asset.purchaseDate), y: Number(asset.priceOfShare * sharesBought) }];
 
         stockHistoricalData.forEach((xy, index) => {
-            if (index > 0) data.push({ x: moment(xy.date), y: Number(xy.high * sharesBought) });
+            if (index > 0) data.push({ x: moment.utc(xy.date), y: Number(xy.high * sharesBought) });
         });
 
         return data;
@@ -145,7 +145,7 @@ export const AssetsChart = (props) => {
                 tooltip: {
                     callbacks: {
                         title: (context) => {
-                            return moment(context[0].raw.x).format('MMMM Do, YYYY');
+                            return moment.utc(context[0].raw.x).format('MMMM Do, YYYY');
                         },
                         label: function (context) {
                             let label = context.dataset.label || '';

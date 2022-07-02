@@ -92,7 +92,7 @@ export const TransactionsTable = (props) => {
                     const type = tableMeta.rowData[6];
                     const amount = tableMeta.rowData[4].toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
                     const category = tableMeta.rowData[3];
-                    const date = moment(tableMeta.rowData[5], 'DD/MM/YYYY').format('ddd Do MMM');
+                    const date = moment.utc(tableMeta.rowData[5], 'DD/MM/YYYY').format('ddd Do MMM');
 
                     return (
                         <div>

@@ -1,5 +1,6 @@
 import React, { useState, useRef } from 'react';
 import { Form, Button, Container, Row, Col, Overlay, Tooltip } from 'react-bootstrap';
+import moment from 'moment';
 
 const EditStockForm = (props) => {
     const [priceRendered, setPriceRendered] = useState();
@@ -114,7 +115,7 @@ const EditStockForm = (props) => {
                     <Form.Control
                         type="date"
                         name="date"
-                        defaultValue={props.previousData.date}
+                        defaultValue={moment.utc(props.previousData.date, 'YYYY-MM-DD').format('YYYY-MM-DD')}
                         isInvalid={!!errors.date}
                         onChange={(e) => setField('date', e.target.value)}
                     />
