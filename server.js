@@ -11,7 +11,13 @@ const investments = require('./routes/api/investments');
 const yahooFinance = require('./routes/api/yahoo-finance');
 
 // ** MIDDLEWARE ** //
-const welcomelist = ['http://localhost:3000', 'http://localhost:8080', 'https://my-money-trail.herokuapp.com', 'https://moneytrail.pro', 'https://samitamerarar.github.io'];
+const welcomelist = [
+    'http://localhost:3000/',
+    'http://localhost:8080/',
+    'https://my-money-trail.herokuapp.com',
+    'https://moneytrail.pro',
+    'https://samitamerarar.github.io'
+];
 const corsOptions = {
     origin: function (origin, callback) {
         console.log('** Origin of request ' + origin);
