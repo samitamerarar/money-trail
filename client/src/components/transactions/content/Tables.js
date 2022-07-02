@@ -117,7 +117,7 @@ export const Tables = (props) => {
         }
 
         setFlickingTables([...tables]);
-    }, [dataTablesByDate, props.year]);
+    }, [dataTablesByDate, props.year, flickingCategories]);
 
     /*
      * Create Category Buttons filters
