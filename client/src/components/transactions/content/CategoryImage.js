@@ -29,7 +29,7 @@ export const CategoryImage = ({ image }) => {
         <Container className="mb-3">
             <Row>
                 <Col className="text-center">
-                    {imageLoaded ? null : <Loading loadingwhat="image" />}
+                    {imageLoaded ? null : <Loading loadingwhat="images" />}
                     <Image
                         style={imageLoaded ? { opacity: '0.75' } : { display: 'none' }}
                         src={categoryImage ? categoryImage : other}
