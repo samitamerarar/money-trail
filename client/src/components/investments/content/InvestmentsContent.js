@@ -189,7 +189,8 @@ export const InvestmentsContent = (props) => {
                 }
 
                 if (key && (key === 'dividendDate' || key === 'purchaseDate')) {
-                    e[key] = new Date(e[key]).toDateString();
+                    let theDate = new Date(e[key]);
+                    e[key] = new Date(theDate.getTime() - theDate.getTimezoneOffset() * -60000).toDateString();
                 }
             });
         });

@@ -62,7 +62,7 @@ export const Tables = (props) => {
         mapYear.forEach((val, key) => {
             // sort each transactions array
             mapYear.get(key).forEach((val, key) => {
-                val.sort((e1, e2) => moment(e2.date, 'DD/MM/YYYY').valueOf() - moment(e1.date, 'DD/MM/YYYY').valueOf());
+                val.sort((e1, e2) => moment.utc(e2.date, 'DD/MM/YYYY').valueOf() - moment.utc(e1.date, 'DD/MM/YYYY').valueOf());
             });
 
             // sort each month map

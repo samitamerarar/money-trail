@@ -132,10 +132,10 @@ const EditTransactionForm = (props) => {
                     <Form.Control
                         type="date"
                         name="date"
-                        defaultValue={moment(props.previousData.date, 'DD/MM/YYYY').format('YYYY-MM-DD')}
+                        defaultValue={moment.utc(props.previousData.date, 'DD/MM/YYYY').format('YYYY-MM-DD')}
                         isInvalid={!!errors.date}
                         onChange={(e) => {
-                            setField('date', moment(e.target.value).format('DD/MM/YYYY'));
+                            setField('date', moment.utc(e.target.value).format('DD/MM/YYYY'));
                         }}
                     />
                     <Form.Control.Feedback type="invalid">{errors.date}</Form.Control.Feedback>
@@ -147,8 +147,7 @@ const EditTransactionForm = (props) => {
                         as="select"
                         defaultValue={props.previousData.category}
                         onChange={(e) => setField('category', e.target.value)}
-                        isInvalid={!!errors.category}
-                    >
+                        isInvalid={!!errors.category}>
                         <option value="">Select a category...</option>
                         <option value="automobile">Automobile</option>
                         <option value="clothing">Clothing</option>
