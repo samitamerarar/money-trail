@@ -6,6 +6,10 @@ import Content from './content/Content';
 import DropdownItem from 'react-bootstrap/esm/DropdownItem';
 import { addTransaction, getTransactions } from '../../actions/transactionActions';
 import Loading from '../layout/Loading';
+import Background from '../layout/assets/undraw_amusement_park_17oe.svg';
+import UnDraw from '../layout/UnDraw';
+
+const isEmpty = require('is-empty');
 
 export const TransactionsContainer = (props) => {
     const [yearFilter, setYearFilter] = useState(new Date().getFullYear());
@@ -54,9 +58,15 @@ export const TransactionsContainer = (props) => {
     };
 
     return (
-        <Container fluid>
+        <Container
+            fluid
+            className="minimum-height-content"
+            style={{
+                background: `linear-gradient(rgba(255,255,255,.95), rgba(255,255,255,.95)), url(${Background}) no-repeat bottom center`,
+                backgroundSize: 'contain'
+            }}>
             <Container>
-                <Row className="mt-3">
+                <Row className="pt-3">
                     <h4>Transactions</h4>
                     {yearsAvailable.length > 0 && (
                         <Col className="d-flex justify-content-end pr-1">
@@ -68,7 +78,23 @@ export const TransactionsContainer = (props) => {
                 </Row>
             </Container>
 
-            {isComponentLoading ? <Loading loadingwhat="transactions" /> : <Content selectedYear={yearFilter} setYears={(e) => setYears(e)} state={props} />}
+            {!isEmpty(props.errors) ? (
+                <UnDraw
+                    image={'undraw_bug_fixing_oc-7-a'}
+                    size="45vh"
+                    title="There is a problem with the server"
+                    subtitle="Try to refresh the page?"
+                    refresh={true}
+                />
+            ) : (
+                <>
+                    {isComponentLoading ? (
+                        <Loading loadingwhat="transactions" />
+                    ) : (
+                        <Content selectedYear={yearFilter} setYears={(e) => setYears(e)} state={props} />
+                    )}
+                </>
+            )}
         </Container>
     );
 };

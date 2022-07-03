@@ -13,7 +13,7 @@ class Placeholder extends Component {
     render() {
         return (
             <Container>
-                <Row className="mt-3">
+                <Row className="pt-3">
                     <h5>Title</h5>
                 </Row>
                 <Row className="mt-3">

@@ -12,7 +12,7 @@ export const InvestmentsTabs = ({ tableData }) => {
     return (
         <Container className="p-0 m-0 mt-3">
             <Row className="m-0">
-                <Col className="p-0">
+                <Col className="p-0 mb-5">
                     <Tabs defaultActiveKey="first" onSelect={() => setRefreshChart(!refreshChart)}>
                         <Tab eventKey="first" title="Portfolio">
                             <AssetsTable tableData={tableData} />

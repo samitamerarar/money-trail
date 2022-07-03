@@ -9,11 +9,10 @@ import { Pagination, Arrow } from '@egjs/flicking-plugins';
 import '@egjs/flicking-plugins/dist/pagination.css';
 import '@egjs/flicking-plugins/dist/arrow.css';
 
-import { CreditCard } from 'react-kawaii';
-
 import moment from 'moment';
 
 import Loading from '../../layout/Loading';
+import UnDraw from '../../layout/UnDraw';
 
 export const Tables = (props) => {
     const [dataTablesByDate, setDataTablesByDate] = useState(new Map());
@@ -206,10 +205,9 @@ export const Tables = (props) => {
                             </ViewportSlot>
                         </Flicking>
                     ) : (
-                        <Container key="00" className="mt-5">
-                            <Row className="justify-content-center text-center m-3">You don't have any transactions here.</Row>
+                        <Container key="00">
                             <Row className="justify-content-center">
-                                <CreditCard size={75} mood="happy" color="#83D1FB" />
+                                <UnDraw image={'undraw_credit_card_payments_re_qboh'} size="18vh" subtitle="You don't have any transactions here." />
                             </Row>
                         </Container>
                     )}
