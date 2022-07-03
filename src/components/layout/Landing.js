@@ -1,33 +1,36 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { Container, Row, Col, Card, Button } from 'react-bootstrap';
+import UnDraw from './UnDraw';
+import Background from '../layout/assets/undraw_under_construction_-46-pa.svg';
 
 class Landing extends Component {
     render() {
         return (
-            <Container>
+            <Container
+                className="minimum-height-content"
+                style={{
+                    background: `linear-gradient(rgba(255,255,255,.90), rgba(255,255,255,.90)), url(${Background}) no-repeat bottom center`,
+                    backgroundSize: 'contain'
+                }}>
                 <Row>
                     <Col>
-                        <Card className="text-center">
-                            <Card.Body>
-                                <Card.Title className="p-1">Track your expenses</Card.Title>
-                                <Card.Text className="p-1">Secure login below (with passport and JWTs).</Card.Text>
-                                <Row className="p-1">
-                                    <Col md={{ span: 6, offset: 3 }}>
-                                        <Link to="/login">
-                                            <Button variant="primary">Login</Button>
-                                        </Link>
-                                    </Col>
-                                </Row>
-                                <Row className="p-1">
-                                    <Col md={{ span: 6, offset: 3 }}>
-                                        <Link to="/register">
-                                            <Button variant="primary">Register</Button>
-                                        </Link>
-                                    </Col>
-                                </Row>
-                            </Card.Body>
-                        </Card>
+                        <UnDraw image={'undraw_make_it_rain_iwk4'} size="22vh" title="Track your money" subtitle="Your assets and expenses." />
+                    </Col>
+                </Row>
+
+                <Row className="justify-content-center">
+                    <Col className="text-center p-2">
+                        <Link to="/login">
+                            <Button variant="primary">Login</Button>
+                        </Link>
+                    </Col>
+                </Row>
+                <Row>
+                    <Col className="text-center p-2">
+                        <Link to="/register">
+                            <Button variant="primary">Register</Button>
+                        </Link>
                     </Col>
                 </Row>
             </Container>
