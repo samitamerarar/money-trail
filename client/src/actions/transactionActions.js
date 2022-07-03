@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { ADD_TRANSACTION, DELETE_TRANSACTION, GET_TRANSACTIONS, TRANSACTIONS_LOADING } from './types';
+import { ADD_TRANSACTION, DELETE_TRANSACTION, GET_TRANSACTIONS, TRANSACTIONS_LOADING, GET_ERRORS } from './types';
 
 // Add transaction
 export const addTransaction = (data) => (dispatch) => {
@@ -54,8 +54,8 @@ export const getTransactions = () => (dispatch) => {
         )
         .catch((err) =>
             dispatch({
-                type: GET_TRANSACTIONS,
-                payload: null
+                type: GET_ERRORS,
+                payload: err.response.data
             })
         );
 };
