@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Container, Row, Col, Card, Button } from 'react-bootstrap';
 import UnDraw from './UnDraw';
@@ -26,16 +28,27 @@ class Landing extends Component {
                         </Link>
                     </Col>
                 </Row>
-                <Row>
-                    <Col className="text-center p-2">
-                        <Link to="/register">
-                            <Button variant="primary">Register</Button>
-                        </Link>
-                    </Col>
-                </Row>
+
+                {!this.props.auth.isAuthenticated && (
+                    <Row>
+                        <Col className="text-center p-2">
+                            <Link to="/register">
+                                <Button variant="primary">Register</Button>
+                            </Link>
+                        </Col>
+                    </Row>
+                )}
             </Container>
         );
     }
 }
 
-export default Landing;
+Landing.propTypes = {
+    auth: PropTypes.object.isRequired
+};
+
+const mapStateToProps = (state) => ({
+    auth: state.auth
+});
+
+export default connect(mapStateToProps, {})(Landing);
