@@ -5,6 +5,7 @@ import { GET_ERRORS, SET_CURRENT_USER, USER_LOADING } from './types';
 
 // Register User
 export const registerUser = (userData, history) => (dispatch) => {
+    dispatch({ type: GET_ERRORS, payload: [] }); // remove old errors before trying to register
     axios
         .post('api/users/register', userData)
         .then((res) => history.push('/login')) // re-direct to login on successful register
@@ -18,6 +19,7 @@ export const registerUser = (userData, history) => (dispatch) => {
 
 // Login - get user token
 export const loginUser = (userData) => (dispatch) => {
+    dispatch({ type: GET_ERRORS, payload: [] }); // remove old errors before trying to login
     axios
         .post('api/users/login', userData)
         .then((res) => {
