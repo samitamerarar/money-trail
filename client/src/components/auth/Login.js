@@ -79,9 +79,9 @@ class Login extends Component {
                     <Loading loadingwhat="server" />
                 ) : (
                     <>
-                        <UnDraw image={'undraw_access_account_re_8spm'} size="20vh" subtitle="Secure login below (with passport and JWTs)." />
+                        <UnDraw image={'undraw_access_account_re_8spm'} size="20vh" subtitle="Secure login (with passport and JWTs)." />
 
-                        <Row className="justify-content-center">
+                        <Row className="justify-content-center mb-5">
                             <Card style={{ width: '20rem' }}>
                                 <Card.Body>
                                     <form noValidate onSubmit={this.onSubmit}>
