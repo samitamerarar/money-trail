@@ -7,6 +7,7 @@ import { connect } from 'react-redux';
 import { loginUser } from '../../actions/authActions';
 import classnames from 'classnames';
 import UnDraw from '../layout/UnDraw';
+import Loading from '../layout/Loading';
 
 class Login extends Component {
     constructor() {
@@ -66,77 +67,83 @@ class Login extends Component {
                     </Col>
                 </Row>
 
-                <UnDraw image={'undraw_access_account_re_8spm'} size="20vh" subtitle="Secure login below (with passport and JWTs)." />
+                {this.props.auth.loading ? (
+                    <Loading loadingwhat="server" />
+                ) : (
+                    <>
+                        <UnDraw image={'undraw_access_account_re_8spm'} size="20vh" subtitle="Secure login below (with passport and JWTs)." />
 
-                <Row className="justify-content-center">
-                    <Card style={{ width: '20rem' }}>
-                        <Card.Body>
-                            <form noValidate onSubmit={this.onSubmit}>
-                                <Row className="pb-1">
-                                    <Col>Email</Col>
-                                </Row>
-                                <Row className="pb-2">
-                                    <Col className="text-center">
-                                        <input
-                                            onChange={this.onChange}
-                                            value={this.state.email}
-                                            error={errors.email}
-                                            id="email"
-                                            type="email"
-                                            className={classnames('w-100', {
-                                                invalid: errors.email || errors.emailnotfound
-                                            })}
-                                        />
-                                        <Col className="text-left p-0">
-                                            <small className="text-danger">
-                                                {errors.email}
-                                                {errors.emailnotfound}
-                                            </small>
-                                        </Col>
-                                    </Col>
-                                </Row>
+                        <Row className="justify-content-center">
+                            <Card style={{ width: '20rem' }}>
+                                <Card.Body>
+                                    <form noValidate onSubmit={this.onSubmit}>
+                                        <Row className="pb-1">
+                                            <Col>Email</Col>
+                                        </Row>
+                                        <Row className="pb-2">
+                                            <Col className="text-center">
+                                                <input
+                                                    onChange={this.onChange}
+                                                    value={this.state.email}
+                                                    error={errors.email}
+                                                    id="email"
+                                                    type="email"
+                                                    className={classnames('w-100', {
+                                                        invalid: errors.email || errors.emailnotfound
+                                                    })}
+                                                />
+                                                <Col className="text-left p-0">
+                                                    <small className="text-danger">
+                                                        {errors.email}
+                                                        {errors.emailnotfound}
+                                                    </small>
+                                                </Col>
+                                            </Col>
+                                        </Row>
 
-                                <Row className="pb-1">
-                                    <Col>Password</Col>
-                                </Row>
-                                <Row className="pb-3">
-                                    <Col className="text-center">
-                                        <input
-                                            onChange={this.onChange}
-                                            value={this.state.password}
-                                            error={errors.password}
-                                            id="password"
-                                            type="password"
-                                            className={classnames('w-100', {
-                                                invalid: errors.password || errors.passwordincorrect
-                                            })}
-                                        />
-                                        <Col className="text-left p-0">
-                                            <small className="text-danger">
-                                                {errors.password}
-                                                {errors.passwordincorrect}
-                                            </small>
-                                        </Col>
-                                    </Col>
-                                </Row>
+                                        <Row className="pb-1">
+                                            <Col>Password</Col>
+                                        </Row>
+                                        <Row className="pb-3">
+                                            <Col className="text-center">
+                                                <input
+                                                    onChange={this.onChange}
+                                                    value={this.state.password}
+                                                    error={errors.password}
+                                                    id="password"
+                                                    type="password"
+                                                    className={classnames('w-100', {
+                                                        invalid: errors.password || errors.passwordincorrect
+                                                    })}
+                                                />
+                                                <Col className="text-left p-0">
+                                                    <small className="text-danger">
+                                                        {errors.password}
+                                                        {errors.passwordincorrect}
+                                                    </small>
+                                                </Col>
+                                            </Col>
+                                        </Row>
 
-                                <Row className="pb-3">
-                                    <Col className="text-center">
-                                        <Button className="w-100" type="submit" variant="primary">
-                                            Login
-                                        </Button>
-                                    </Col>
-                                </Row>
+                                        <Row className="pb-3">
+                                            <Col className="text-center">
+                                                <Button className="w-100" type="submit" variant="primary">
+                                                    Login
+                                                </Button>
+                                            </Col>
+                                        </Row>
 
-                                <Row>
-                                    <Col className="text-center">
-                                        Don't have an account? <Link to="/register">Register</Link>
-                                    </Col>
-                                </Row>
-                            </form>
-                        </Card.Body>
-                    </Card>
-                </Row>
+                                        <Row>
+                                            <Col className="text-center">
+                                                Don't have an account? <Link to="/register">Register</Link>
+                                            </Col>
+                                        </Row>
+                                    </form>
+                                </Card.Body>
+                            </Card>
+                        </Row>
+                    </>
+                )}
             </Container>
         );
     }
