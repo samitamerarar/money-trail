@@ -9,6 +9,8 @@ import classnames from 'classnames';
 import UnDraw from '../layout/UnDraw';
 import Loading from '../layout/Loading';
 
+const isEmpty = require('is-empty');
+
 class Login extends Component {
     constructor() {
         super();
@@ -55,7 +57,7 @@ class Login extends Component {
 
     render() {
         const { errors } = this.state;
-
+        console.log(this.props.errors);
         return (
             <Container>
                 <Link to="/" className="btn-flat waves-effect">
@@ -66,6 +68,12 @@ class Login extends Component {
                         <h4>Login below</h4>
                     </Col>
                 </Row>
+
+                {!isEmpty(this.props.errors) && (
+                    <Row>
+                        <Col className="text-center text-danger">Errors were returned by the server.</Col>
+                    </Row>
+                )}
 
                 {this.props.auth.loading ? (
                     <Loading loadingwhat="server" />

@@ -9,6 +9,8 @@ import classnames from 'classnames';
 import UnDraw from '../layout/UnDraw';
 import Loading from '../layout/Loading';
 
+const isEmpty = require('is-empty');
+
 class Register extends Component {
     constructor() {
         super();
@@ -66,6 +68,12 @@ class Register extends Component {
                         <h4>Register below</h4>
                     </Col>
                 </Row>
+
+                {!isEmpty(this.props.errors) && (
+                    <Row>
+                        <Col className="text-center text-danger">Errors were returned by the server.</Col>
+                    </Row>
+                )}
 
                 {this.props.auth.loading ? (
                     <Loading loadingwhat="server" />
