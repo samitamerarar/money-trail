@@ -20,6 +20,7 @@ import StatisticsContainer from './components/statistics/StatisticsContainer';
 import Placeholder from './components/Placeholder';
 
 import axios from 'axios';
+// Comment next line when working on localhost
 axios.defaults.baseURL = 'https://my-money-trail.herokuapp.com/';
 
 // Check for token to keep user logged in
