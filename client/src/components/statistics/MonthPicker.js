@@ -47,7 +47,7 @@ const MonthPicker = ({ range, setChartDate, defaultDate }) => {
             </Row>
 
             <Row className="m-0 mt-1 justify-content-center w-100 h-100">
-                <Button variant="outline-dark" size="sm" onClick={showMonthPicker}>
+                <Button variant="secondary" size="sm" onClick={showMonthPicker}>
                     {getMonthValue()}
                 </Button>
             </Row>
