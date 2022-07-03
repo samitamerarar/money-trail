@@ -84,7 +84,7 @@ export const CashFlow = ({ transactions, currentDate, prevDate, redraw }) => {
                 {
                     label: 'Expense',
                     data: getExpenseData(),
-                    backgroundColor: '#df584d',
+                    backgroundColor: '#A33327',
                     datalabels: {
                         // align: 'right',
                         // offset: '-150',
@@ -107,7 +107,7 @@ export const CashFlow = ({ transactions, currentDate, prevDate, redraw }) => {
                 {
                     label: 'Income',
                     data: getIncomeData(),
-                    backgroundColor: '#50c878',
+                    backgroundColor: '#689775',
                     datalabels: {
                         // align: 'left',
                         // offset: '-150',
