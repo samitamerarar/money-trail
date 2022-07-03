@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import { Link, withRouter } from 'react-router-dom';
-import { Container, Button, Row, Col } from 'react-bootstrap';
+import { Container, Button, Row, Col, Card } from 'react-bootstrap';
 
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { registerUser } from '../../actions/authActions';
 import classnames from 'classnames';
+import UnDraw from '../layout/UnDraw';
 
 class Register extends Component {
     constructor() {
@@ -61,99 +62,115 @@ class Register extends Component {
                 </Link>
                 <Row className="p-1">
                     <Col>
-                        <h2>Register below</h2>
-                    </Col>
-                </Row>
-                <Row className="p-1">
-                    <Col>
-                        Already have an account? <Link to="/login">Log in</Link>
+                        <h4>Register below</h4>
                     </Col>
                 </Row>
 
-                <form noValidate onSubmit={this.onSubmit}>
-                    <Row className="p-1">
-                        <Col>Name</Col>
-                    </Row>
-                    <Row className="p-1">
-                        <Col>
-                            <input
-                                onChange={this.onChange}
-                                value={this.state.name}
-                                error={errors.name}
-                                id="name"
-                                type="text"
-                                className={classnames('', {
-                                    invalid: errors.name
-                                })}
-                            />
-                            <Col>
-                                <span className="text-danger">{errors.name}</span>
-                            </Col>
-                        </Col>
-                    </Row>
+                <UnDraw image={'undraw_join_re_w1lh'} size="18vh" subtitle="The password is encrypted." />
 
-                    <Row className="p-1">
-                        <Col>Email</Col>
-                    </Row>
-                    <Row className="p-1">
-                        <Col>
-                            <input
-                                onChange={this.onChange}
-                                value={this.state.email}
-                                error={errors.email}
-                                id="email"
-                                type="email"
-                                className={classnames('', {
-                                    invalid: errors.email
-                                })}
-                            />
-                            <Col>
-                                <span className="text-danger">{errors.email}</span>
-                            </Col>
-                        </Col>
-                    </Row>
+                <Row className="justify-content-center mb-5">
+                    <Card style={{ width: '20rem' }}>
+                        <Card.Body>
+                            <form noValidate onSubmit={this.onSubmit}>
+                                <Row className="pb-1">
+                                    <Col>Name</Col>
+                                </Row>
+                                <Row className="pb-2">
+                                    <Col className="text-center">
+                                        <input
+                                            onChange={this.onChange}
+                                            value={this.state.name}
+                                            error={errors.name}
+                                            id="name"
+                                            type="text"
+                                            className={classnames('w-100', {
+                                                invalid: errors.name
+                                            })}
+                                        />
+                                        <Col className="text-left p-0">
+                                            <small className="text-danger">{errors.name}</small>
+                                        </Col>
+                                    </Col>
+                                </Row>
 
-                    <Row className="p-1">
-                        <Col>Password</Col>
-                    </Row>
-                    <Row className="p-1">
-                        <Col>
-                            <input
-                                onChange={this.onChange}
-                                value={this.state.password}
-                                error={errors.password}
-                                id="password"
-                                type="password"
-                                className={classnames('', {
-                                    invalid: errors.password2
-                                })}
-                            />
-                            <Col>
-                                <span className="text-danger">{errors.password}</span>
-                            </Col>
-                        </Col>
-                    </Row>
+                                <Row className="pb-1">
+                                    <Col>Email</Col>
+                                </Row>
+                                <Row className="pb-2">
+                                    <Col className="text-center">
+                                        <input
+                                            onChange={this.onChange}
+                                            value={this.state.email}
+                                            error={errors.email}
+                                            id="email"
+                                            type="email"
+                                            className={classnames('w-100', {
+                                                invalid: errors.email
+                                            })}
+                                        />
+                                        <Col className="text-left p-0">
+                                            <small className="text-danger">{errors.email}</small>
+                                        </Col>
+                                    </Col>
+                                </Row>
 
-                    <Row className="p-1">
-                        <Col>Confirm Password</Col>
-                    </Row>
-                    <Row className="p-1">
-                        <Col>
-                            <input onChange={this.onChange} value={this.state.password2} error={errors.password2} id="password2" type="password" />
-                            <Col>
-                                <span className="text-danger">{errors.password2}</span>
-                            </Col>
-                        </Col>
-                    </Row>
+                                <Row className="pb-1">
+                                    <Col>Password</Col>
+                                </Row>
+                                <Row className="pb-2">
+                                    <Col className="text-center">
+                                        <input
+                                            onChange={this.onChange}
+                                            value={this.state.password}
+                                            error={errors.password}
+                                            id="password"
+                                            type="password"
+                                            className={classnames('w-100', {
+                                                invalid: errors.password2
+                                            })}
+                                        />
+                                        <Col className="text-left p-0">
+                                            <small className="text-danger">{errors.password}</small>
+                                        </Col>
+                                    </Col>
+                                </Row>
 
-                    <Row className="p-1">
-                        <Col>
-                            <Button type="submit" variant="primary">
-                                Sign Up
-                            </Button>
-                        </Col>
-                    </Row>
-                </form>
+                                <Row className="pb-1">
+                                    <Col>Confirm Password</Col>
+                                </Row>
+                                <Row className="pb-3">
+                                    <Col className="text-center">
+                                        <input
+                                            onChange={this.onChange}
+                                            value={this.state.password2}
+                                            error={errors.password2}
+                                            id="password2"
+                                            type="password"
+                                            className="w-100"
+                                        />
+                                        <Col className="text-left p-0">
+                                            <small className="text-danger">{errors.password2}</small>
+                                        </Col>
+                                    </Col>
+                                </Row>
+
+                                <Row className="pb-3">
+                                    <Col className="text-center">
+                                        <Button className="w-100" type="submit" variant="primary">
+                                            Sign Up
+                                        </Button>
+                                    </Col>
+                                </Row>
+
+                                <Row>
+                                    <Col className="text-center">
+                                        Already have an account? <Link to="/login">Log in</Link>
+                                    </Col>
+                                </Row>
+                            </form>
+                        </Card.Body>
+                    </Card>
+                </Row>
             </Container>
         );
     }
