@@ -52,6 +52,11 @@
     min-height: calc(100vh - 104px)
 }
 
+/* Fill the page with 100vh at least, 104px is the size of the footer, 56px the size of the navbar */
+.minimum-height-content {
+    min-height: calc(100vh - 104px - 56px)
+}
+
 /* For Transactions Tables pagination on the bottom */
 .flicking-viewport:not(.vertical) {
     height: auto;

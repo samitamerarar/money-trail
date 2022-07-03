@@ -6,6 +6,11 @@ import { getTransactions } from '../../actions/transactionActions';
 import Loading from '../layout/Loading';
 import StatisticsContent from './StatisticsContent';
 
+import Background from '../layout/assets/undraw_ordinary_day_re_v5hy.svg';
+import UnDraw from '../layout/UnDraw';
+
+const isEmpty = require('is-empty');
+
 export const StatisticsContainer = (props) => {
     const [isComponentLoading, setIsComponentLoading] = useState(true);
 
@@ -19,14 +24,30 @@ export const StatisticsContainer = (props) => {
     }, []);
 
     return (
-        <Container fluid>
+        <Container
+            fluid
+            className="minimum-height-content"
+            style={{
+                background: `linear-gradient(rgba(255,255,255,.92), rgba(255,255,255,.92)), url(${Background}) no-repeat bottom center`,
+                backgroundSize: 'contain'
+            }}>
             <Container>
-                <Row className="mt-3">
+                <Row className="pt-3">
                     <h4>Statistics</h4>
                 </Row>
             </Container>
 
-            {isComponentLoading ? <Loading loadingwhat="statistics" /> : <StatisticsContent />}
+            {!isEmpty(props.errors) ? (
+                <UnDraw
+                    image={'undraw_bug_fixing_oc-7-a'}
+                    size="45vh"
+                    title="There is a problem with the server"
+                    subtitle="Try to refresh the page?"
+                    refresh={true}
+                />
+            ) : (
+                <>{isComponentLoading ? <Loading loadingwhat="statistics" /> : <StatisticsContent />}</>
+            )}
         </Container>
     );
 };
