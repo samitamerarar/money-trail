@@ -6,20 +6,23 @@ import { GET_ERRORS, SET_CURRENT_USER, USER_LOADING } from './types';
 // Register User
 export const registerUser = (userData, history) => (dispatch) => {
     dispatch({ type: GET_ERRORS, payload: [] }); // remove old errors before trying to register
+    dispatch(setUserLoading(true));
     axios
         .post('api/users/register', userData)
         .then((res) => history.push('/login')) // re-direct to login on successful register
-        .catch((err) =>
+        .catch((err) => {
             dispatch({
                 type: GET_ERRORS,
                 payload: err.response.data
-            })
-        );
+            });
+            dispatch(setUserLoading(false));
+        });
 };
 
 // Login - get user token
 export const loginUser = (userData) => (dispatch) => {
     dispatch({ type: GET_ERRORS, payload: [] }); // remove old errors before trying to login
+    dispatch(setUserLoading(true));
     axios
         .post('api/users/login', userData)
         .then((res) => {
@@ -33,12 +36,13 @@ export const loginUser = (userData) => (dispatch) => {
             // Set current user
             dispatch(setCurrentUser(decoded));
         })
-        .catch((err) =>
+        .catch((err) => {
             dispatch({
                 type: GET_ERRORS,
                 payload: err.response.data
-            })
-        );
+            });
+            dispatch(setUserLoading(false));
+        });
 };
 
 // Set logged in user
@@ -50,9 +54,10 @@ export const setCurrentUser = (decoded) => {
 };
 
 // User loading
-export const setUserLoading = () => {
+export const setUserLoading = (isLoading) => {
     return {
-        type: USER_LOADING
+        type: USER_LOADING,
+        payload: isLoading
     };
 };
 
