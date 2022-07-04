@@ -58,6 +58,21 @@ export const Tables = (props) => {
                 mapYear.get(year).get(month).push(e);
             });
 
+        const today = new Date();
+        mapYear.forEach((months, year) => {
+            const mostRecentMonth = year < today.getFullYear() ? 12 : today.getUTCMonth() + 1;
+            const missingMonths = new Map();
+            mapYear.get(year).forEach((transactions, key) => {
+                for (let month = 1; month <= mostRecentMonth; month++) {
+                    if (!months.has(('0' + month).slice(-2))) {
+                        missingMonths.set(('0' + month).slice(-2), []);
+                    }
+                }
+            });
+
+            mapYear.set(year, new Map([...months.entries(), ...missingMonths]));
+        });
+
         // sort year map, month map and transactions array
         mapYear.forEach((val, key) => {
             // sort each transactions array
@@ -97,9 +112,12 @@ export const Tables = (props) => {
         setIsComponentLoading(true);
         let tables = [];
         let index = 0;
+
         if (dataTablesByDate.size > 0 && dataTablesByDate.has(props.year)) {
-            dataTablesByDate.get(props.year).forEach((dataTable, key) => {
-                if (dataTable.length > 0) {
+            const dataTablesByMonth = dataTablesByDate.get(props.year);
+
+            dataTablesByMonth.forEach((dataTable, key) => {
+                if (dataTable) {
                     tables.push(
                         <div key={index} style={{ width: '98%' }}>
                             <Container>
