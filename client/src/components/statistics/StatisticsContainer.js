@@ -12,6 +12,7 @@ import UnDraw from '../layout/UnDraw';
 const isEmpty = require('is-empty');
 
 export const StatisticsContainer = (props) => {
+    const { transactions } = props.transactions;
     const [isComponentLoading, setIsComponentLoading] = useState(true);
 
     useEffect(() => {
@@ -46,7 +47,21 @@ export const StatisticsContainer = (props) => {
                     refresh={true}
                 />
             ) : (
-                <>{isComponentLoading ? <Loading loadingwhat="statistics" /> : <StatisticsContent />}</>
+                <>
+                    {isComponentLoading ? (
+                        <Loading loadingwhat="statistics" />
+                    ) : (
+                        <>
+                            {transactions.length > 0 ? (
+                                <StatisticsContent />
+                            ) : (
+                                <>
+                                    <UnDraw image={'undraw_empty_re_opql'} size="45vh" title="No Statistics yet!" subtitle="Start by adding a Transaction." />
+                                </>
+                            )}
+                        </>
+                    )}
+                </>
             )}
         </Container>
     );
