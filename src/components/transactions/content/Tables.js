@@ -18,6 +18,7 @@ export const Tables = (props) => {
     const [dataTablesByDate, setDataTablesByDate] = useState(new Map());
     const [flickingTables, setFlickingTables] = useState([]);
     const [flickingCategories, setFlickingCategories] = useState([]);
+    const [flickingCategoriesIndex, setFlickingCategoriesIndex] = useState(0);
 
     const [isComponentLoading, setIsComponentLoading] = useState(true);
     const [renderIsDone, setRenderIsDone] = useState(false);
@@ -118,6 +119,14 @@ export const Tables = (props) => {
         setFlickingTables([...tables]);
     }, [dataTablesByDate, props.year, flickingCategories]);
 
+    // set the category on the Parent Component
+    const handleCategoryClick = (e) => {
+        if (props.category !== e.currentTarget.id) {
+            setFlickingCategories([]);
+            props.setCategory(e.currentTarget.id);
+        }
+    };
+
     /*
      * Create Category Buttons filters
      */
@@ -138,11 +147,12 @@ export const Tables = (props) => {
 
         categories.forEach((e) => {
             if (e.value === props.category) {
+                // Unselected Categories
                 categoriesJSX.push(
                     <Button
                         key={e.value}
                         id={e.value}
-                        onClick={handleClick}
+                        onClick={handleCategoryClick}
                         className="m-1 button-no-outline"
                         variant="info"
                         style={{
@@ -154,30 +164,25 @@ export const Tables = (props) => {
                     </Button>
                 );
             } else {
+                // Selected Category
                 categoriesJSX.push(
-                    <Button key={e.value} id={e.value} onClick={handleClick} className="m-1 category-button button-no-outline" variant="light">
+                    <Button key={e.value} id={e.value} onClick={handleCategoryClick} className="m-1 category-button button-no-outline" variant="light">
                         {e.name}
                     </Button>
                 );
             }
         });
 
+        // set flicking camera to focus on the selected button
+        setFlickingCategoriesIndex(categories.findIndex((obj) => obj.value === props.category) - 2);
         setFlickingCategories(categoriesJSX);
     }, [props.category]);
-
-    // set the category on the Parent Component
-    const handleClick = (e) => {
-        if (props.category !== e.currentTarget.id) {
-            setFlickingCategories([]);
-            props.setCategory(e.currentTarget.id);
-        }
-    };
 
     return (
         <>
             <Row className="p-0 m-0 justify-content-center ">
                 {flickingCategories.length > 0 ? (
-                    <Flicking align="prev" bounce="2%" className="shadow-light">
+                    <Flicking align="prev" bounce="2%" className="shadow-light" defaultIndex={flickingCategoriesIndex}>
                         {flickingCategories}
                     </Flicking>
                 ) : (
