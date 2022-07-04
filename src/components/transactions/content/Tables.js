@@ -212,7 +212,7 @@ export const Tables = (props) => {
                     ) : (
                         <Container key="00">
                             <Row className="justify-content-center">
-                                <UnDraw image={'undraw_credit_card_payments_re_qboh'} size="18vh" subtitle="You don't have any transactions here." />
+                                <UnDraw image={'undraw_no_data_re_kwbl'} size="10vh" subtitle="You don't have any transactions." />
                             </Row>
                         </Container>
                     )}

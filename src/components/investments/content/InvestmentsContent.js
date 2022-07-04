@@ -227,7 +227,7 @@ export const InvestmentsContent = (props) => {
                             ) : (
                                 <Container className="mt-5">
                                     <Row className="justify-content-center text-center m-3">
-                                        You don't have any Asset.
+                                        You don't have any Assets.
                                         <br />
                                         Time to invest!
                                     </Row>
