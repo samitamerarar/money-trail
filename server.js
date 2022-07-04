@@ -12,6 +12,8 @@ const yahooFinance = require('./routes/api/yahoo-finance');
 
 // ** MIDDLEWARE ** //
 const welcomelist = [
+    'http://localhost:3000',
+    'http://localhost:8080',
     'http://localhost:3000/',
     'http://localhost:8080/',
     'https://my-money-trail.herokuapp.com',
