@@ -18,12 +18,12 @@ export const UnDraw = ({ image, size, title, subtitle, refresh }) => {
                     <Card.Img
                         style={imageLoaded ? { opacity: '0.85', height: size } : { display: 'none' }}
                         src={require(`./assets/${image}.svg`)}
-                        className="shadow-strong pt-4"
+                        className="shadow-medium pt-4"
                         onLoad={() => setImageLoaded(true)}
                     />
                 </Container>
 
-                <Row className="justify-content-center"> {imageLoaded ? null : <Loading loadingwhat="image" small={true} />}</Row>
+                {/* <Row className="justify-content-center"> {imageLoaded ? null : <Loading loadingwhat="image" small={true} />}</Row> */}
                 <Card.Body className="p-0 mt-3">
                     <Card.Title style={{ fontSize: '1.2rem' }}>{title}</Card.Title>
                     <Card.Text>{subtitle}</Card.Text>
