@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { HashRouter as Router, Route, Switch } from 'react-router-dom';
+import { HashRouter as Router, Route, Routes } from 'react-router-dom';
 import './App.css';
 import jwt_decode from 'jwt-decode';
 import setAuthToken from './utils/setAuthToken';
@@ -21,7 +21,7 @@ import Placeholder from './components/Placeholder';
 
 import axios from 'axios';
 // Comment next line when working on localhost
-axios.defaults.baseURL = 'https://my-money-trail.herokuapp.com/';
+//axios.defaults.baseURL = 'https://my-money-trail.herokuapp.com/';
 
 // Check for token to keep user logged in
 if (localStorage.jwtToken) {
@@ -48,16 +48,29 @@ class App extends Component {
                     <div className="App">
                         <div className="minimum-height">
                             <NavigationBar />
-                            <Route exact path="/" component={Landing} />
-                            <Route exact path="/register" component={Register} />
-                            <Route exact path="/login" component={Login} />
-                            <Switch>
-                                <PrivateRoute exact path="/investments" component={InvestmentsContainer} />
-                                <PrivateRoute exact path="/transactions" component={TransactionsContainer} />
-                                <PrivateRoute exact path="/statistics" component={StatisticsContainer} />
-                                <PrivateRoute exact path="/settings-categories" component={Placeholder} />
-                                <PrivateRoute exact path="/manage" component={Placeholder} />
-                            </Switch>
+                            <Routes>
+                                <Route exact path="/" element={<Landing />} />
+                                <Route exact path="/register" element={<Register />} />
+                                <Route exact path="/login" element={<Login />} />
+
+                                {/* private routes below */}
+
+                                <Route exact path="/investments" element={<PrivateRoute />}>
+                                    <Route exact path="/investments" element={<InvestmentsContainer />} />
+                                </Route>
+                                <Route exact path="/transactions" element={<PrivateRoute />}>
+                                    <Route exact path="/transactions" element={<TransactionsContainer />} />
+                                </Route>
+                                <Route exact path="/statistics" element={<PrivateRoute />}>
+                                    <Route exact path="/statistics" element={<StatisticsContainer />} />
+                                </Route>
+                                <Route exact path="/settings-categories" element={<PrivateRoute />}>
+                                    <Route exact path="/settings-categories" element={<Placeholder />} />
+                                </Route>
+                                <Route exact path="/manage" element={<PrivateRoute />}>
+                                    <Route exact path="/manage" element={<Placeholder />} />
+                                </Route>
+                            </Routes>
                         </div>
                         <Footer />
                     </div>
