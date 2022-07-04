@@ -2,9 +2,10 @@ import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Row, Container, Col } from 'react-bootstrap';
+import { Chart } from 'chart.js/auto';
 import { Bar } from 'react-chartjs-2';
 import ChartDataLabels from 'chartjs-plugin-datalabels';
-import MonthPicker from './MonthPicker.js';
+import CustomMonthPicker from './CustomMonthPicker.js';
 
 import { getExpenseOfMonth, getIncomeOfMonth, getCashFlowOfMonth, monthNames } from './helper.js';
 import { isMobile } from 'react-device-detect';
@@ -163,10 +164,10 @@ export const CashFlow = ({ transactions, currentDate, prevDate, redraw }) => {
 
             <Row className="m-0 mt-4">
                 <Col className="p-0">
-                    <MonthPicker range={datePickerRange} setChartDate={(e) => setFirstChartDateFromDatePicker(e)} defaultDate={firstChartDate} />
+                    <CustomMonthPicker range={datePickerRange} setChartDate={(e) => setFirstChartDateFromDatePicker(e)} defaultDate={firstChartDate} />
                 </Col>
                 <Col className="p-0">
-                    <MonthPicker range={datePickerRange} setChartDate={(e) => setSecondChartDateFromDatePicker(e)} defaultDate={secondChartDate} />
+                    <CustomMonthPicker range={datePickerRange} setChartDate={(e) => setSecondChartDateFromDatePicker(e)} defaultDate={secondChartDate} />
                 </Col>
             </Row>
         </Container>

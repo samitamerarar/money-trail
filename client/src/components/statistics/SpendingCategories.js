@@ -3,9 +3,10 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Row, Container, Col } from 'react-bootstrap';
 import { Doughnut } from 'react-chartjs-2';
+import { Chart } from 'chart.js/auto';
 import ChartDataLabels from 'chartjs-plugin-datalabels';
 import DoughnutLabel from 'chartjs-plugin-doughnutlabel-rebourne';
-import MonthPicker from './MonthPicker.js';
+import CustomMonthPicker from './CustomMonthPicker.js';
 
 import { getExpenseOfMonthCategory, getExpenseOfMonth, monthNames } from './helper.js';
 import { isMobile } from 'react-device-detect';
@@ -140,7 +141,7 @@ export const SpendingCategories = ({ transactions, currentDate, redraw }) => {
 
             <Row className="m-0 mt-4">
                 <Col className="text-center p-0">
-                    <MonthPicker range={datePickerRange} setChartDate={(e) => setChartDateFromDatePicker(e)} defaultDate={chartDate} />
+                    <CustomMonthPicker range={datePickerRange} setChartDate={(e) => setChartDateFromDatePicker(e)} defaultDate={chartDate} />
                 </Col>
             </Row>
         </Container>
