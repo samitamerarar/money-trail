@@ -13,7 +13,7 @@ export const UnDraw = ({ image, size, title, subtitle, refresh }) => {
 
     return (
         <Container className="p-0">
-            <Card className="text-center p-0 mb-4 border-0 align-self-end">
+            <Card className="text-center p-0 pb-4 border-0 align-self-end">
                 <Container>
                     <Card.Img
                         style={imageLoaded ? { opacity: '0.85', height: size } : { display: 'none' }}

@@ -11,6 +11,7 @@ import EditTransaction from './EditTransaction/EditTransaction';
 import { deleteTransaction, editTransaction } from '../../../../actions/transactionActions';
 
 import moment from 'moment';
+import UnDraw from '../../../layout/UnDraw';
 
 export const TransactionsTable = (props) => {
     const [isOpenModal, setIsOpenModal] = useState(false);
@@ -63,6 +64,11 @@ export const TransactionsTable = (props) => {
                 date: rowData[5],
                 type: rowData[6]
             });
+        },
+        textLabels: {
+            body: {
+                noMatch: <UnDraw image={'undraw_handcrafts_balloon'} size="10vh" subtitle="No Transactions" />
+            }
         },
         // Search ALL columns, including hidden fields that use display:false, viewColumns:false...
         customSearch: (searchQuery, currentRow, columns) => {
