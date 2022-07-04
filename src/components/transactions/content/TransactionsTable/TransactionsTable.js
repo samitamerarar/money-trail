@@ -67,7 +67,7 @@ export const TransactionsTable = (props) => {
         },
         textLabels: {
             body: {
-                noMatch: <UnDraw image={'undraw_handcrafts_balloon'} size="10vh" subtitle="No Transactions" />
+                noMatch: <UnDraw image={'undraw_handcrafts_balloon'} size="110px" subtitle="No Transactions" />
             }
         },
         // Search ALL columns, including hidden fields that use display:false, viewColumns:false...
