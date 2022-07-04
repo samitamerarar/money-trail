@@ -3,38 +3,36 @@ import { Image, Container, Col, Row } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import all from '../assets/all.png';
-import amenities from '../assets/amenities.png';
-import automobile from '../assets/automobile.png';
-import clothing from '../assets/clothing.png';
-import electronics from '../assets/electronics.png';
-import food from '../assets/food.png';
-import fun from '../assets/fun.png';
-import medical from '../assets/medical.png';
-import other from '../assets/other.png';
-import personalcare from '../assets/personalcare.png';
-import Loading from '../../layout/Loading';
-
-const images = [all, amenities, automobile, clothing, electronics, food, fun, medical, other, personalcare];
+var imagesMap = new Map([
+    ['all', 'undraw_mobile_payments_re_7udl-green'],
+    ['automobile', 'undraw_electric_car_b-7-hl'],
+    ['clothing', 'undraw_career_progress_ivdb'],
+    ['food', 'undraw_shopping_app_flsj'],
+    ['fun', 'undraw_happy_music_g6wc'],
+    ['electronics', 'undraw_real_time_sync_re_nky7'],
+    ['amenities', 'undraw_remotely_-2-j6y'],
+    ['personal', 'undraw_personal_trainer_re_cnua'],
+    ['medical', 'undraw_doctors_hwty'],
+    ['other', 'undraw_payments_re_77x0']
+]);
 
 export const CategoryImage = ({ image }) => {
-    const [categoryImage, setCategoryImage] = useState(all);
+    const [categoryImage, setCategoryImage] = useState('undraw_vault_re_s4my');
     const [imageLoaded, setImageLoaded] = useState(false);
 
     useEffect(() => {
-        image && setCategoryImage(images.filter((i) => i.indexOf(image) !== -1)[0]);
+        image && setCategoryImage(imagesMap.get(image));
     }, [image]);
 
     return (
         <Container className="mb-3">
             <Row>
                 <Col className="text-center">
-                    {imageLoaded ? null : <Loading loadingwhat="images" />}
                     <Image
-                        style={imageLoaded ? { opacity: '0.75' } : { display: 'none' }}
-                        src={categoryImage ? categoryImage : other}
+                        style={imageLoaded ? { opacity: '0.90' } : { display: 'none' }}
+                        src={require(`../assets/${categoryImage}.svg`)}
                         height="192px"
-                        className="p-3 shadow-strong"
+                        className="p-3 shadow-light w-100"
                         onLoad={() => setImageLoaded(true)}
                     />
                 </Col>
