@@ -58,6 +58,7 @@ export const Tables = (props) => {
                 mapYear.get(year).get(month).push(e);
             });
 
+        // add missing months that have no transactions
         const today = new Date();
         mapYear.forEach((months, year) => {
             const mostRecentMonth = year < today.getFullYear() ? 12 : today.getUTCMonth() + 1;
