@@ -7,7 +7,7 @@ import Loading from './Loading';
 // blue #6da8fd
 // light blue #b6d3fe
 
-export const UnDraw = ({ image, size, title, subtitle, refresh }) => {
+export const UnDraw = ({ image, size, title, subtitle, subtitleSmall, refresh }) => {
     const [categoryImage, setCategoryImage] = useState();
     const [imageLoaded, setImageLoaded] = useState(false);
 
@@ -27,6 +27,7 @@ export const UnDraw = ({ image, size, title, subtitle, refresh }) => {
                 <Card.Body className="p-0 mt-3">
                     <Card.Title style={{ fontSize: '1.2rem' }}>{title}</Card.Title>
                     <Card.Text>{subtitle}</Card.Text>
+                    <small>{subtitleSmall}</small>
                     {refresh && (
                         <Button onClick={() => window.location.reload(false)} variant="primary">
                             Refresh

@@ -48,11 +48,11 @@ export const TransactionsTable = (props) => {
         expandableRowsHeader: false,
         elevation: 1,
         print: false,
-        download: true,
+        download: dataTable.length > 0 ? true : false,
         pagination: false,
         filter: false,
         viewColumns: false,
-        search: true,
+        search: dataTable.length > 0 ? true : false,
         rowsPerPage: 5,
         rowsPerPageOptions: [],
         onRowClick: (rowData, rowMeta) => {
@@ -67,7 +67,11 @@ export const TransactionsTable = (props) => {
         },
         textLabels: {
             body: {
-                noMatch: <UnDraw image={'undraw_handcrafts_balloon'} size="110px" subtitle="No Transactions" />
+                noMatch: (
+                    <div className="pt-4 bg-white">
+                        <UnDraw image={'undraw_handcrafts_balloon'} size="110px" subtitleSmall="No Transactions" />
+                    </div>
+                )
             }
         },
         // Search ALL columns, including hidden fields that use display:false, viewColumns:false...
