@@ -18,7 +18,8 @@ const welcomelist = [
     'http://localhost:8080/',
     'https://my-money-trail.herokuapp.com',
     'https://moneytrail.pro',
-    'https://samitamerarar.github.io'
+    'https://samitamerarar.github.io',
+    'https://money-trail.onrender.com'
 ];
 const corsOptions = {
     origin: function (origin, callback) {
