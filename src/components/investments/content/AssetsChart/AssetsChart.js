@@ -4,13 +4,13 @@ import { connect } from 'react-redux';
 import { Row, Container, Col, Form } from 'react-bootstrap';
 import moment from 'moment';
 import 'chartjs-adapter-moment';
-import { Chart as ChartJS, LinearScale, PointElement, LineElement, Tooltip, Legend } from 'chart.js';
+import { Chart as ChartJS, LinearScale, PointElement, LineElement, Tooltip, Legend, TimeScale } from 'chart.js';
 import { Scatter } from 'react-chartjs-2';
 import zoomPlugin from 'chartjs-plugin-zoom';
 
 import { getHistoricalData } from '../../../../actions/yahooActions';
 
-ChartJS.register(LinearScale, PointElement, LineElement, Tooltip, Legend, zoomPlugin);
+ChartJS.register(LinearScale, PointElement, LineElement, Tooltip, Legend, TimeScale, zoomPlugin);
 
 export const AssetsChart = (props) => {
     const [chartDefinition, setChartDefinition] = useState({});

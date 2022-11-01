@@ -24,7 +24,7 @@ export const Tables = (props) => {
     const [renderIsDone, setRenderIsDone] = useState(false);
 
     // Flicking pagination
-    const [plugins, setPlugins] = useState([new Pagination({ type: 'scroll' }), new Arrow()]);
+    const [plugins, setPlugins] = useState([new Pagination({ type: 'scroll' }), new Arrow()]); //eslint-disable-line
 
     // Control UI Loading (called second)
     useEffect(() => {
@@ -136,7 +136,7 @@ export const Tables = (props) => {
         }
 
         setFlickingTables([...tables]);
-    }, [dataTablesByDate, props.year, flickingCategories]);
+    }, [dataTablesByDate, props.year, flickingCategories]); // eslint-disable-line
 
     // set the category on the Parent Component
     const handleCategoryClick = (e) => {
@@ -195,7 +195,7 @@ export const Tables = (props) => {
         // set flicking camera to focus on the selected button
         setFlickingCategoriesIndex(categories.findIndex((obj) => obj.value === props.category) - 2);
         setFlickingCategories(categoriesJSX);
-    }, [props.category]);
+    }, [props.category]); // eslint-disable-line
 
     return (
         <>

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Row, Col, Container, Card } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -42,7 +42,7 @@ export const TransactionsTable = (props) => {
     const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
     const options = {
-        filter: true,
+        filter: false,
         responsive: 'scroll',
         selectableRows: 'none',
         expandableRowsHeader: false,
@@ -50,7 +50,6 @@ export const TransactionsTable = (props) => {
         print: false,
         download: dataTable.length > 0 ? true : false,
         pagination: false,
-        filter: false,
         viewColumns: false,
         search: dataTable.length > 0 ? true : false,
         rowsPerPage: 5,
