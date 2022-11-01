@@ -4,10 +4,6 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 class Placeholder extends Component {
-    constructor(props) {
-        super(props);
-    }
-
     componentDidMount() {}
 
     render() {

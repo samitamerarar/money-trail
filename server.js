@@ -22,9 +22,9 @@ const welcomelist = [
 ];
 const corsOptions = {
     origin: function (origin, callback) {
-        console.log('** Origin of request ' + origin);
+        console.log('** Origin of request: ' + origin);
         if (welcomelist.indexOf(origin) !== -1 || !origin) {
-            console.log('Origin acceptable');
+            console.log('Origin accepted');
             callback(null, true);
         } else {
             console.log('Origin rejected');

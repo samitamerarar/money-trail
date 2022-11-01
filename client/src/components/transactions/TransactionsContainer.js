@@ -24,7 +24,7 @@ export const TransactionsContainer = (props) => {
     useEffect(() => {
         setIsComponentLoading(true);
         props.getTransactions();
-    }, []);
+    }, []); // eslint-disable-line
 
     useEffect(() => {
         if (yearsAvailable.length > 0) setYearFilter(yearsAvailable[0]);

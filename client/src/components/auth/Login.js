@@ -22,7 +22,7 @@ export const Login = (props) => {
         if (props.auth.isAuthenticated) {
             navigate('/transactions');
         }
-    }, []);
+    }, []); // eslint-disable-line
 
     useEffect(() => {
         if (props.auth.isAuthenticated) {
@@ -31,7 +31,7 @@ export const Login = (props) => {
         if (props.errors) {
             setErrors(props.errors);
         }
-    }, [props.errors, props.auth.isAuthenticated]);
+    }, [props.errors, props.auth.isAuthenticated]); // eslint-disable-line
 
     const onSubmit = (e) => {
         e.preventDefault();

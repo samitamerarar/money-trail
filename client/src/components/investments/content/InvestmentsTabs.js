@@ -1,12 +1,11 @@
-import React, { useEffect, useState } from 'react';
-import { Row, Container, Col, Tab, Nav, Tabs } from 'react-bootstrap';
+import React, { useState } from 'react';
+import { Row, Container, Col, Tab, Tabs } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import AssetsTable from './AssetsTable/AssetsTable';
 import AssetsChart from './AssetsChart/AssetsChart';
 
 export const InvestmentsTabs = ({ tableData }) => {
-    const [isComponentLoading, setIsComponentLoading] = useState(true);
     const [refreshChart, setRefreshChart] = useState(true);
 
     return (

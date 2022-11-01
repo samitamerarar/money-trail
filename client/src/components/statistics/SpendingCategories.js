@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Row, Container, Col } from 'react-bootstrap';
 import { Doughnut } from 'react-chartjs-2';
-import { Chart } from 'chart.js/auto';
 import ChartDataLabels from 'chartjs-plugin-datalabels';
 import DoughnutLabel from 'chartjs-plugin-doughnutlabel-rebourne';
 import CustomMonthPicker from './CustomMonthPicker.js';
@@ -12,7 +11,6 @@ import { getExpenseOfMonthCategory, getExpenseOfMonth, monthNames } from './help
 import { isMobile } from 'react-device-detect';
 
 export const SpendingCategories = ({ transactions, currentDate, redraw }) => {
-    const [isComponentLoading, setIsComponentLoading] = useState(true);
     const [chartDefinition, setChartDefinition] = useState({});
     const [monthExpense, setMonthExpense] = useState(0);
     const [chartDate, setChartDate] = useState({ year: currentDate.year, month: currentDate.month });
@@ -20,11 +18,11 @@ export const SpendingCategories = ({ transactions, currentDate, redraw }) => {
 
     useEffect(() => {
         setMonthExpense(getExpenseOfMonth(chartDate.month, chartDate.year, transactions.transactions));
-    }, [chartDate]);
+    }, [chartDate]); // eslint-disable-line
 
     useEffect(() => {
         setChartDefinition(createChartDefinition());
-    }, [monthExpense, redraw]);
+    }, [monthExpense, redraw]); // eslint-disable-line
 
     const setChartDateFromDatePicker = ({ year, month }) => {
         setChartDate({ year, month });
