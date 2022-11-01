@@ -8,7 +8,7 @@ export const getExpenseOfMonth = (month, year, transactions) => {
         month = ('0' + month).slice(-2);
         year = year.toString();
         const monthTransactionsExpense = transactions.filter((tx) => {
-            const [txDay, txMonth, txYear] = tx.date.split('/');
+            const [txDay, txMonth, txYear] = tx.date.split('/'); // eslint-disable-line
             return txMonth === month && txYear === year && tx.type === 'expense';
         });
 
@@ -23,7 +23,7 @@ export const getIncomeOfMonth = (month, year, transactions) => {
         month = ('0' + month).slice(-2);
         year = year.toString();
         const monthTransactionsIncome = transactions.filter((tx) => {
-            const [txDay, txMonth, txYear] = tx.date.split('/');
+            const [txDay, txMonth, txYear] = tx.date.split('/'); // eslint-disable-line
             return txMonth === month && txYear === year && tx.type === 'income';
         });
 
@@ -43,7 +43,7 @@ export const getExpenseOfMonthCategory = (month, year, category, transactions) =
         month = ('0' + month).slice(-2);
         year = year.toString();
         const monthTransactionsExpense = transactions.filter((tx) => {
-            const [txDay, txMonth, txYear] = tx.date.split('/');
+            const [txDay, txMonth, txYear] = tx.date.split('/'); // eslint-disable-line
             return txMonth === month && txYear === year && tx.type === 'expense' && tx.category === category;
         });
 

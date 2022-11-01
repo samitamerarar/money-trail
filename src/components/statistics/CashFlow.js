@@ -13,7 +13,7 @@ export const CashFlow = ({ transactions, currentDate, prevDate, redraw }) => {
     const [chartDefinition, setChartDefinition] = useState({});
     const [firstChartDate, setFirstChartDate] = useState({ year: currentDate.year, month: currentDate.month });
     const [secondChartDate, setSecondChartDate] = useState({ year: prevDate.year, month: prevDate.month });
-    const [datePickerRange, setDatePickerRange] = useState({ min: { year: 2000, month: 1 }, max: { year: currentDate.year, month: currentDate.month } });
+    const [datePickerRange, setDatePickerRange] = useState({ min: { year: 2000, month: 1 }, max: { year: currentDate.year, month: currentDate.month } }); // eslint-disable-line
 
     useEffect(() => {
         setChartDefinition(createChartDefinition());

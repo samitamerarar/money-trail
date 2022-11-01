@@ -36,7 +36,7 @@ const AddTransactionForm = (props) => {
     };
 
     const findFormErrors = () => {
-        const { amount, category, date, merchant, type } = form;
+        const { amount, category, date, merchant, type } = form; // eslint-disable-line
         const newErrors = {};
         // amount errors
         if (!amount || amount > 999999 || amount <= 0) newErrors.amount = 'must be a valid number!';

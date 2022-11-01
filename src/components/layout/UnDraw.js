@@ -1,14 +1,12 @@
 import React, { useState } from 'react';
-import { Container, Row, Card, Button } from 'react-bootstrap';
+import { Container, Card, Button } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import Loading from './Loading';
 
 // blue #6da8fd
 // light blue #b6d3fe
 
 export const UnDraw = ({ image, size, title, subtitle, subtitleSmall, refresh }) => {
-    const [categoryImage, setCategoryImage] = useState();
     const [imageLoaded, setImageLoaded] = useState(false);
 
     return (

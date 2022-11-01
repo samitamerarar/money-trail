@@ -39,7 +39,7 @@ export const SearchTicker = (props) => {
         } else {
             setResults();
         }
-    }, [searchData]);
+    }, [searchData]); // eslint-disable-line
 
     useEffect(() => {
         setIsLoading(true);

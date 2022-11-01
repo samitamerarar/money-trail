@@ -35,6 +35,7 @@ export default function yahooReducer(state = initialState, action) {
                     tickerDataLoading: false
                 };
             }
+            break;
         }
         case SEARCH_DATA_LOADING:
             return {
@@ -43,14 +44,13 @@ export default function yahooReducer(state = initialState, action) {
             };
         case GET_SEARCH_DATA: {
             if (!isEmpty(action.payload)) {
-                {
-                    return {
-                        ...state,
-                        searchData: [action.payload],
-                        searchDataLoading: false
-                    };
-                }
+                return {
+                    ...state,
+                    searchData: [action.payload],
+                    searchDataLoading: false
+                };
             }
+            break;
         }
         case CLEAR_SEARCH_DATA: {
             return {
@@ -65,14 +65,13 @@ export default function yahooReducer(state = initialState, action) {
             };
         case GET_HISTORICAL_DATA: {
             if (!isEmpty(action.payload)) {
-                {
-                    return {
-                        ...state,
-                        historicalData: [action.payload, ...state.historicalData],
-                        historicalDataLoading: false
-                    };
-                }
+                return {
+                    ...state,
+                    historicalData: [action.payload, ...state.historicalData],
+                    historicalDataLoading: false
+                };
             }
+            break;
         }
         case DELETE_TICKER:
             return {
