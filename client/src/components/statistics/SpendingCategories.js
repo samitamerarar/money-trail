@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Row, Container, Col } from 'react-bootstrap';
 import { Doughnut } from 'react-chartjs-2';
+import { Chart } from 'chart.js/auto'; // eslint-disable-line
 import ChartDataLabels from 'chartjs-plugin-datalabels';
 import DoughnutLabel from 'chartjs-plugin-doughnutlabel-rebourne';
 import CustomMonthPicker from './CustomMonthPicker.js';
