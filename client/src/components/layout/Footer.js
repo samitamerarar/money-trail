@@ -1,13 +1,11 @@
-import React, { useEffect, useState } from 'react';
-import { Container, Col, Row, Nav, Button } from 'react-bootstrap';
+import React from 'react';
+import { Container, Col, Row, Nav } from 'react-bootstrap';
 
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { logoutUser } from '../../actions/authActions';
 
 export const Footer = (props) => {
-    const [expanded, setExpanded] = useState(false);
-
     return (
         <Container fluid className="bg-dark">
             <Row>

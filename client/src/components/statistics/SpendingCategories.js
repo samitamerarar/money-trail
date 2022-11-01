@@ -14,7 +14,7 @@ export const SpendingCategories = ({ transactions, currentDate, redraw }) => {
     const [chartDefinition, setChartDefinition] = useState({});
     const [monthExpense, setMonthExpense] = useState(0);
     const [chartDate, setChartDate] = useState({ year: currentDate.year, month: currentDate.month });
-    const [datePickerRange, setDatePickerRange] = useState({ min: { year: 2000, month: 1 }, max: { year: currentDate.year, month: currentDate.month } });
+    const [datePickerRange, setDatePickerRange] = useState({ min: { year: 2000, month: 1 }, max: { year: currentDate.year, month: currentDate.month } }); // eslint-disable-line
 
     useEffect(() => {
         setMonthExpense(getExpenseOfMonth(chartDate.month, chartDate.year, transactions.transactions));
