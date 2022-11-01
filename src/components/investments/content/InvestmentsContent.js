@@ -7,7 +7,6 @@ import { getTickerData, getHistoricalData, clearSearchStockState } from '../../.
 
 import AddAssetModal from './AddAsset/AddAsset';
 
-import ScaleLoader from 'react-spinners/ScaleLoader';
 import ClimbingBoxLoader from 'react-spinners/ClimbingBoxLoader';
 import InvestmentsTabs from './InvestmentsTabs';
 import Loading from '../../layout/Loading';
@@ -40,11 +39,12 @@ export const InvestmentsContent = (props) => {
 
     /**
      * Get User Investments.
+     * run this once.
      */
     useEffect(() => {
         setLoadingTable(true);
         props.getInvestments().then(() => setInvestmentsFetchDone(true));
-    }, []); // run this once
+    }, []); // eslint-disable-line
 
     /**
      * For each User Investment, fetch its live summary details from the API.
@@ -66,7 +66,7 @@ export const InvestmentsContent = (props) => {
                 setLoadingTable(false);
             }
         }
-    }, [investmentsList, investmentsFetchDone]);
+    }, [investmentsList, investmentsFetchDone]); // eslint-disable-line
 
     /**
      * Control UI Loading.
@@ -74,7 +74,7 @@ export const InvestmentsContent = (props) => {
     useEffect(() => {
         setLoadingTickerFetch(false);
         setNeedToMergeData(!needToMergeData);
-    }, [tickerFetchDone]);
+    }, [tickerFetchDone]); // eslint-disable-line
 
     /**
      * When we get new tickers new data, Merge tickers data with the user investments data.
@@ -85,7 +85,7 @@ export const InvestmentsContent = (props) => {
             setLoadingTable(true);
             mergeUserInvestmentsWithRealTimeData();
         }
-    }, [tickerData, needToMergeData]);
+    }, [tickerData, needToMergeData]); // eslint-disable-line
 
     /**
      * This function is used to merge 2 arrays (Yahoo Tickers Data with User Investments).
@@ -100,6 +100,7 @@ export const InvestmentsContent = (props) => {
                         ...tickerData.find((e2) => e2.symbol === e1.symbol)
                     };
                 }
+                return {};
             });
 
             // remove undefined objects

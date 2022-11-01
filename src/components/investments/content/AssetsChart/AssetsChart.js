@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Row, Container, Col, Checkbox, FormCheck, Form } from 'react-bootstrap';
+import { Row, Container, Col, Form } from 'react-bootstrap';
 import moment from 'moment';
 import 'chartjs-adapter-moment';
 import { Chart as ChartJS, LinearScale, PointElement, LineElement, Tooltip, Legend } from 'chart.js';
@@ -20,7 +20,7 @@ export const AssetsChart = (props) => {
 
     useEffect(() => {
         setChartDefinition(createChartDefinition());
-    }, [props.yahooFinance.historicalData, props.investments.investmentsList, ignoreUserAssetsCount, stackAssets, props.redraw]);
+    }, [props.yahooFinance.historicalData, props.investments.investmentsList, ignoreUserAssetsCount, stackAssets, props.redraw]); // eslint-disable-line
 
     const buildDatasets = () => {
         const datasets = [];
@@ -65,7 +65,7 @@ export const AssetsChart = (props) => {
                     return r;
                 }, {})
             );
-            arrayWithSummedValues.map((j) => {
+            arrayWithSummedValues.forEach((j) => {
                 j['y'] = j['ytotal'];
                 delete j['ytotal'];
             });

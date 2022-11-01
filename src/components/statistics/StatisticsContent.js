@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { Row, Container, Col, Tab, Nav, Tabs } from 'react-bootstrap';
+import React, { useState } from 'react';
+import { Row, Container, Col, Tab, Tabs } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import CashFlow from './CashFlow';
@@ -14,7 +14,6 @@ const prevMonth = prevMonthDate.getMonth() + 1;
 const prevYear = prevMonthDate.getFullYear();
 
 export const StatisticsContent = (props) => {
-    const [isComponentLoading, setIsComponentLoading] = useState(true);
     const [refreshChart, setRefreshChart] = useState(true);
 
     return (

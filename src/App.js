@@ -21,7 +21,7 @@ import Placeholder from './components/Placeholder';
 
 import axios from 'axios';
 // Comment next line when working on localhost
-axios.defaults.baseURL = 'https://my-money-trail.herokuapp.com/';
+//axios.defaults.baseURL = 'https://my-money-trail.herokuapp.com/';
 
 // Check for token to keep user logged in
 if (localStorage.jwtToken) {

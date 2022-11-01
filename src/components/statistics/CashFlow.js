@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Row, Container, Col } from 'react-bootstrap';
-import { Chart } from 'chart.js/auto';
 import { Bar } from 'react-chartjs-2';
 import ChartDataLabels from 'chartjs-plugin-datalabels';
 import CustomMonthPicker from './CustomMonthPicker.js';
@@ -11,7 +10,6 @@ import { getExpenseOfMonth, getIncomeOfMonth, getCashFlowOfMonth, monthNames } f
 import { isMobile } from 'react-device-detect';
 
 export const CashFlow = ({ transactions, currentDate, prevDate, redraw }) => {
-    const [isComponentLoading, setIsComponentLoading] = useState(true);
     const [chartDefinition, setChartDefinition] = useState({});
     const [firstChartDate, setFirstChartDate] = useState({ year: currentDate.year, month: currentDate.month });
     const [secondChartDate, setSecondChartDate] = useState({ year: prevDate.year, month: prevDate.month });
@@ -19,7 +17,7 @@ export const CashFlow = ({ transactions, currentDate, prevDate, redraw }) => {
 
     useEffect(() => {
         setChartDefinition(createChartDefinition());
-    }, [firstChartDate, secondChartDate, redraw]);
+    }, [firstChartDate, secondChartDate, redraw]); // eslint-disable-line
 
     const setFirstChartDateFromDatePicker = ({ year, month }) => {
         setFirstChartDate({ year, month });

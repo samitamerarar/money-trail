@@ -15,16 +15,12 @@ import { columnsDesktop } from './columns/columnsDesktop';
 import { isMobile } from 'react-device-detect';
 
 class AssetsTable extends Component {
-    constructor(props) {
-        super(props);
-    }
-
     render() {
         const { tableData } = this.props;
 
         // DESKTOP VIEW SETTINGS
         const options = {
-            filter: true,
+            filter: false,
             filterType: 'dropdown',
             responsive: 'vertical',
             selectableRows: 'none',
@@ -33,7 +29,6 @@ class AssetsTable extends Component {
             print: false,
             download: false,
             pagination: false,
-            filter: false,
             viewColumns: true,
             search: false
         };
@@ -77,7 +72,7 @@ class AssetsTable extends Component {
 
         // MOBILE VIEW SETTINGS
         const optionsMobile = {
-            filter: true,
+            filter: false,
             filterType: 'dropdown',
             responsive: 'standard',
             selectableRows: 'none',
@@ -111,7 +106,6 @@ class AssetsTable extends Component {
             print: false,
             download: false,
             pagination: false,
-            filter: false,
             viewColumns: false,
             search: false
         };

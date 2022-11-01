@@ -71,7 +71,7 @@ export const columnsMobileExpandRow = [
                 align: 'right'
             }),
             customBodyRender: (value, tableMeta, updateValue) => {
-                let val = new String(value);
+                let val = String(value);
                 if (val && parseFloat(val.replaceAll('%', '')) >= 0) {
                     return (
                         <div value={val} style={{ color: 'green' }}>
@@ -99,7 +99,7 @@ export const columnsMobileExpandRow = [
                 align: 'right'
             }),
             customBodyRender: (value, tableMeta, updateValue) => {
-                let val = new String(value);
+                let val = String(value);
                 if (val && parseFloat(val.replaceAll('%', '')) >= 0) {
                     return (
                         <div value={val} style={{ color: 'green' }}>
@@ -632,7 +632,7 @@ export const columnsMobileExpandRow = [
                 }
             }),
             customBodyRender: (value, tableMeta, updateValue) => {
-                let val = new String(value);
+                let val = String(value);
                 if (val && parseFloat(val.replaceAll('$', '')) >= 0) {
                     return (
                         <div value={val} style={{ color: 'green' }}>
@@ -1043,7 +1043,7 @@ export const columnsMobile = [
                 align: 'right'
             }),
             customBodyRender: (value, tableMeta, updateValue) => {
-                let val = new String(value);
+                let val = String(value);
                 if (val && parseFloat(val.replaceAll('%', '')) >= 0) {
                     return (
                         <div value={val} style={{ color: 'green' }}>

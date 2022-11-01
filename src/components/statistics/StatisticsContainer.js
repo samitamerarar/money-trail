@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Row, Container, Col, DropdownButton } from 'react-bootstrap';
+import { Row, Container } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { getTransactions } from '../../actions/transactionActions';
@@ -22,7 +22,7 @@ export const StatisticsContainer = (props) => {
     useEffect(() => {
         setIsComponentLoading(true);
         props.getTransactions();
-    }, []);
+    }, []); // eslint-disable-line
 
     return (
         <Container

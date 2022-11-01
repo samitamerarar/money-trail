@@ -10,7 +10,7 @@ export const Loading = (props) => {
     const [timeoutLoading, setTimeoutLoading] = useState(false);
 
     useEffect(() => {
-        setTimeout(() => setTimeoutLoading(true), 3000);
+        setTimeout(() => setTimeoutLoading(true), 5000);
     }, []);
 
     return (
@@ -29,7 +29,7 @@ export const Loading = (props) => {
                 </Container>
             )}
             <Container className="p-0">
-                <Row className="justify-content-center m-0">{timeoutLoading ? <>It's broken?</> : <></>}</Row>
+                <Row className="justify-content-center m-0">{timeoutLoading ? <>Hold Tight, Still Loading...</> : <></>}</Row>
             </Container>
         </>
     );

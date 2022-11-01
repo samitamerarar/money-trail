@@ -34,7 +34,7 @@ export const Tables = (props) => {
     // Control UI Loading (called first)
     useEffect(() => {
         setRenderIsDone(!renderIsDone);
-    }, [flickingTables]);
+    }, [flickingTables]); // eslint-disable-line
 
     /*
      * Create a sorted Map of years of a sorted Map of months
@@ -104,7 +104,7 @@ export const Tables = (props) => {
 
         // populate the year dropdown filter
         props.setYears([...sortedByYear.keys()]);
-    }, [props.tableData, props.category]);
+    }, [props.tableData, props.category]); // eslint-disable-line
 
     /*
      * Create a Table for each month based on the only selected year
