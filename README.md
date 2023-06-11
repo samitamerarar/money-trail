@@ -27,7 +27,7 @@ npm install gh-pages --save-dev
 Then, In ./client/package.json, I've added:
 ```
 ...
-"homepage": "https://samitamerarar.github.io/money-trail/",
+"homepage": "https://samitamerarar.github.io/money-trail",
 ...
 "scripts": {
     "predeploy": "npm run build",
