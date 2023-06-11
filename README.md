@@ -27,6 +27,7 @@ npm install gh-pages --save-dev
 Then, In ./client/package.json, I've added:
 ```
 ...
+"private": false, (true if using custom domain)
 "homepage": "https://samitamerarar.github.io/money-trail",
 ...
 "scripts": {
