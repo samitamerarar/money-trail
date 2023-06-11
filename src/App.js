@@ -21,7 +21,7 @@ import Placeholder from './components/Placeholder';
 
 import axios from 'axios';
 // Comment next line when working on localhost
-axios.defaults.baseURL = 'https://money-trail.onrender.com/';
+axios.defaults.baseURL = 'https://money-trail-api.samiarar.com/';
 
 // Check for token to keep user logged in
 if (localStorage.jwtToken) {
