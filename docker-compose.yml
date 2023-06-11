@@ -1,0 +1,16 @@
+version: '3.9'
+
+services:
+  server:
+    ports:
+      - 5336:8080
+      - 5337:3000
+    container_name: moneytrail
+    networks:
+      - nginxproxymanager_default
+    restart: always
+    build: .
+
+networks:
+  nginxproxymanager_default:
+    external: true
