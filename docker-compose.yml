@@ -4,8 +4,7 @@ services:
   server:
     ports:
       - 5336:8080
-      - 5337:3000
-    container_name: moneytrail
+    container_name: moneytrail-api
     networks:
       - nginxproxymanager_default
     restart: always

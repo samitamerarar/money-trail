@@ -6,12 +6,8 @@ WORKDIR /usr/src/app
 COPY ./package.json ./
 COPY ./package-lock.json ./
 
-RUN yarn install 
+RUN npm install 
 
 COPY ./ .
 
-RUN yarn --cwd client install && yarn --cwd client run build
-
-COPY ./ .
-
-ENTRYPOINT yarn run dev
+ENTRYPOINT npm run start

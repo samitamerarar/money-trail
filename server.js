@@ -14,7 +14,8 @@ const yahooFinance = require('./routes/api/yahoo-finance');
 const welcomelist = [
     'http://localhost:3000',
     'http://localhost:8080',
-    'https://money-trail.samiarar.com'
+    'https://moneytrail.pro',
+    'https://samitamerarar.github.io',
 ];
 const corsOptions = {
     origin: function (origin, callback) {
