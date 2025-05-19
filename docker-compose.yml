@@ -6,10 +6,10 @@ services:
       - 5336:8080
     container_name: moneytrail-api
     networks:
-      - nginxproxymanager_default
+      - nginx-proxy-manager_default
     restart: always
     build: .
 
 networks:
-  nginxproxymanager_default:
+  nginx-proxy-manager_default:
     external: true
